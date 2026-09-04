@@ -246,6 +246,135 @@ async enable2FA(@CurrentUser() user: AuthUser) {
 }
 ```
 
+## Firma digital también en autenticación (login/registro)
+
+> **Decisión (actualización):** Los mismos métodos de firma digital validados para liquidaciones (**PIN, contraseña, biometría dactilar, biometría facial**) se usan **también** para autenticarse en la app y para re-confirmar acciones sensibles.
+
+### Por qué
+
+- Los usuarios rurales ya validaron que **sí saben usar PIN, contraseña, huella y cara**.
+- Evita mantener dos sistemas de auth separados (uno con DNI/password para entrar, otro con PIN/huella para firmar liquidaciones).
+- El usuario **elige** el método que su dispositivo soporte.
+- Reduce fricción: si el usuario ya configuró su PIN/huella una vez, lo reutiliza en todo.
+
+### Uso de la firma digital
+
+| Momento | Método | Frecuencia |
+|---|---|---|
+| **Login (después del DNI)** | PIN, huella o cara | Cada vez que abre la app (si pasó el timeout) |
+| **Confirmar litros** (vendedor) | PIN, huella o cara | Diario (al confirmar la cantidad que el lechero recogió) |
+| **Confirmar adelanto recibido** | PIN, huella o cara | Cuando el lechero le da efectivo en mano |
+| **Confirmar encargo recibido** | PIN, huella o cara | Cuando el lechero le entrega algo de la ciudad |
+| **Firmar liquidación** | PIN, huella o cara | Una vez por quincena (la pantalla crítica) |
+| **Re-autenticación para acciones sensibles** | PIN, huella o cara | Al cambiar precio, cerrar contrato, generar boleta |
+
+> El **lechero NO firma al marcar "recogido"** (esto es solo un tap en la app). Solo el **vendedor firma al confirmar**. Esto evita fricción en la moto.
+
+### Stack técnico (Flutter)
+
+- `local_auth` package: PIN, huella dactilar, biometría facial.
+- `flutter_secure_storage`: almacena el PIN/secret de firma.
+- Fallback automático: si no hay biometría disponible → PIN.
+
+```dart
+// Ejemplo: pedir firma al confirmar litros
+Future<bool> pedirFirma() async {
+  // 1. Intentar biometría primero
+  final soportaBio = await LocalAuthentication().isDeviceSupported();
+  if (soportaBio) {
+    final ok = await LocalAuthentication().authenticate(
+      localizedReason: 'Confirma tu identidad',
+      options: AuthenticationOptions(biometricOnly: false),
+    );
+    if (ok) return true;
+  }
+  // 2. Fallback a PIN
+  return await pedirPin();
+}
+
+Future<bool> pedirPin() async {
+  final pinIngresado = await mostrarDialogoPin();
+  final pinGuardado = await SecureStorage.read('pin_firma');
+  return pinIngresado == pinGuardado;
+}
+```
+
+### Configuración inicial del método de firma
+
+Después del registro (DNI + OTP), el usuario configura su método preferido:
+
+```
+┌────────────────────────────────────────┐
+│  Configura tu firma                    │
+│                                        │
+│  Elige cómo vas a confirmar:           │
+│                                        │
+│  [🔒 PIN de 4-6 dígitos]              │
+│  [👆 Huella dactilar] (si disponible) │
+│  [😊 Cara] (si disponible)             │
+│  [🔑 Contraseña]                       │
+│                                        │
+│  Si tu dispositivo lo soporta,         │
+│  te recomendamos huella o cara.        │
+│  Si no, usa PIN (siempre funciona).    │
+│                                        │
+│  [Continuar]                           │
+└────────────────────────────────────────┘
+```
+
+El PIN/secret se guarda **encriptado** en `flutter_secure_storage` (Keychain en iOS, Keystore en Android). **Nunca** se envía al backend.
+
+### Login con firma digital
+
+```
+┌────────────────────────────────────────┐
+│  Ingresar                              │
+│                                        │
+│  DNI: [________]                       │
+│                                        │
+│  [ Continuar ]                         │
+│                                        │
+│  ↓ (verifica DNI, devuelve temp_token)│
+│                                        │
+│  ┌────────────────────────────────────┐ │
+│  │  Confirma tu identidad            │ │
+│  │                                   │ │
+│  │  [👆 Usar huella]                 │ │
+│  │  [😊 Usar cara]                   │ │
+│  │  [🔒 Ingresar PIN]                │ │
+│  │  [🔑 Usar contraseña]            │ │
+│  └────────────────────────────────────┘ │
+│                                        │
+│  ¿Nuevo aquí? Registrarme →            │
+└────────────────────────────────────────┘
+```
+
+**Flujo de login con dos pasos:**
+
+1. DNI → backend valida con RENIEC y emite un `temp_token` (corta duración, 5 min).
+2. Con el `temp_token`, el cliente elige método de firma:
+   - **Biometría:** el device valida localmente (huella/cara) → la app pide al backend canjear el `temp_token` por `access_token`.
+   - **PIN/contraseña:** la app envía el PIN hasheado (o la contraseña) al backend → backend valida y emite tokens.
+
+> **Seguridad:** la biometría **nunca viaja al backend**. Solo el OK/FAIL del device. El backend confía en que si el device dice "huella válida", es porque el device validó al usuario real. Si el PIN/contraseña, sí viaja hasheado (bcrypt con salt por usuario).
+
+### Re-autenticación (timeout)
+
+- Después de **15 minutos de inactividad** en la app, se cierra la sesión.
+- Al volver, **se re-pide la firma** (PIN o biometría), **sin volver a pedir el DNI**.
+- Esto evita que otra persona con el celular abierto haga acciones sensibles.
+
+### Edge cases
+
+| Caso | Comportamiento |
+|---|---|
+| Dispositivo sin biometría | Solo PIN/contraseña |
+| Biometría falla 3 veces | Fallback automático a PIN |
+| PIN olvidado | Reset por OTP al celular (flujo `forgot-password` ya existente) |
+| Huella no reconocida | Reintentar; si falla 5 veces → fallback a PIN |
+| Carlos cambia de celular | Reconfigurar firma en el nuevo device (el PIN se re-registra) |
+| Usuario quiere cambiar método de firma | Configuración → Seguridad → Cambiar método |
+
 ## Rate Limiting
 
 ```typescript

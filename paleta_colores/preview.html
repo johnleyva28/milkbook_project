@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milkbook — Vista Previa de 20 Paletas de Colores</title>
+<style>
+  :root {
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #212529;
+    --text-soft: #6c757d;
+    --border: #dee2e6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 1400px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 3rem; }
+  header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: #1976D2; }
+  header p { color: var(--text-soft); max-width: 700px; margin: 0 auto; font-size: 1.05rem; }
+  .top-pick { 
+    display: inline-block; 
+    background: linear-gradient(135deg, #C0392B, #1ABC9C);
+    color: white; 
+    padding: 0.5rem 1rem; 
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  .palettes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .palette-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .palette-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  }
+  .palette-header {
+    padding: 1.25rem 1.25rem 1rem;
+  }
+  .palette-num {
+    display: inline-block;
+    background: #e3f2fd;
+    color: #1565C0;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .palette-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .palette-personality {
+    font-size: 0.875rem;
+    color: var(--text-soft);
+    margin-bottom: 0.5rem;
+  }
+  .palette-best {
+    font-size: 0.8rem;
+    background: #f0fdf4;
+    color: #166534;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+  .swatches { display: flex; height: 90px; }
+  .swatch {
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+    transition: flex 0.2s;
+  }
+  .swatch:hover { flex: 2; }
+  .swatch-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    font-family: monospace;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .swatch:hover .swatch-label { opacity: 1; }
+  .palette-detail {
+    padding: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .color-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+  }
+  .color-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.1);
+    flex-shrink: 0;
+  }
+  .color-name { font-weight: 500; min-width: 90px; }
+  .color-hex { 
+    font-family: monospace; 
+    color: var(--text-soft);
+    font-size: 0.8rem;
+  }
+  .badge-top {
+    background: linear-gradient(135deg, #1ABC9C, #16a085);
+    color: white;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+  }
+  .section-title {
+    margin: 3rem 0 1rem;
+    font-size: 1.75rem;
+    border-bottom: 3px solid #1976D2;
+    padding-bottom: 0.5rem;
+  }
+  .recommendation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .rec-card {
+    background: var(--card-bg);
+    border-left: 4px solid #1976D2;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .rec-card h3 {
+    color: #1976D2;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .rec-card .palette-ref {
+    font-weight: 600;
+    color: #C0392B;
+  }
+  .rec-card p {
+    font-size: 0.875rem;
+    color: var(--text-soft);
+    margin-top: 0.25rem;
+  }
+  footer {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-soft);
+    font-size: 0.9rem;
+  }
+  .filters {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  .filter-btn {
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--card-bg);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: #1976D2;
+    color: white;
+    border-color: #1976D2;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>🧀 Milkbook — 20 Paletas de Colores</h1>
+    <p>Vista previa de todas las paletas investigadas para la plataforma lechera rural de Cajamarca. Cada paleta está optimizada considerando sol fuerte, baja alfabetización, contexto cultural andino y validación WCAG.</p>
+    <div class="top-pick">⭐ Top Pick Mobile: #02 Andina Tradicional · Top Pick Admin: #13 Monocromo</div>
+  </header>
+
+  <h2 class="section-title">🎯 Recomendaciones por Contexto</h2>
+  <div class="recommendation-grid">
+    <div class="rec-card">
+      <h3>📱 App Móvil (Cliente + Lechero)</h3>
+      <div class="palette-ref">#02 Andina Tradicional</div>
+      <p>Conexión cultural andina, WCAG AAA, diferencia Milkbook de apps genéricas.</p>
+    </div>
+    <div class="rec-card">
+      <h3>💻 Web Admin (CRM, Soporte)</h3>
+      <div class="palette-ref">#13 Monocromo Profesional</div>
+      <p>Reduce fatiga visual en jornadas largas. Combina con cualquier paleta móvil.</p>
+    </div>
+    <div class="rec-card">
+      <h3>🌙 Modo Oscuro</h3>
+      <div class="palette-ref">#12 Modo Noche Rural</div>
+      <p>Diseñada para uso nocturno en zonas rurales sin energía.</p>
+    </div>
+    <div class="rec-card">
+      <h3>☀️ Máxima Legibilidad al Sol</h3>
+      <div class="palette-ref">#11 WCAG AAA Solar</div>
+      <p>Contraste 7:1+ en todos los pares. Cumple AAA.</p>
+    </div>
+    <div class="rec-card">
+      <h3>♿ Accesibilidad Universal</h3>
+      <div class="palette-ref">#19 Color-Blind Safe (Wong)</div>
+      <p>Distinguible por personas con cualquier tipo de daltonismo.</p>
+    </div>
+    <div class="rec-card">
+      <h3>📄 Boletas PDF</h3>
+      <div class="palette-ref">#14 Queso Andino</div>
+      <p>Conecta visualmente con el producto. Armoniza con impresión.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">🎨 Las 20 Paletas</h2>
+  
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterAll()">Todas (20)</button>
+    <button class="filter-btn" onclick="filterByTag('TOP-PICK-MOBILE')">⭐ Top Mobile</button>
+    <button class="filter-btn" onclick="filterByTag('TOP-PICK-ADMIN')">📊 Top Admin</button>
+    <button class="filter-btn" onclick="filterByTag('andina')">🏔️ Andinas</button>
+    <button class="filter-btn" onclick="filterByTag('WCAG-AAA')">♿ Accesibles</button>
+    <button class="filter-btn" onclick="filterByTag('moderna')">✨ Modernas</button>
+  </div>
+
+  <div class="palettes">
+
+    <!-- 01 Material Design Dairy -->
+    <div class="palette-card" data-tags="clasica MVP azul">
+      <div class="palette-header">
+        <span class="palette-num">#01</span>
+        <div class="palette-name">Material Design Dairy</div>
+        <div class="palette-personality">Clásica, conservadora, universal</div>
+        <div class="palette-best">✅ Mejor para: MVP rápido sin riesgos</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #1565C0"><div class="swatch-label">Primary #1565C0</div></div>
+        <div class="swatch" style="background: #2E7D32"><div class="swatch-label">Secondary #2E7D32</div></div>
+        <div class="swatch" style="background: #F9A825"><div class="swatch-label">Tertiary #F9A825</div></div>
+        <div class="swatch" style="background: #C62828"><div class="swatch-label">Error #C62828</div></div>
+        <div class="swatch" style="background: #FAF8F1"><div class="swatch-label">BG #FAF8F1</div></div>
+        <div class="swatch" style="background: #212121"><div class="swatch-label">Text #212121</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#1565C0"></span><span class="color-name">Azul Leche</span><span class="color-hex">#1565C0</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#2E7D32"></span><span class="color-name">Verde OK</span><span class="color-hex">#2E7D32</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#F9A825"></span><span class="color-name">Amarillo</span><span class="color-hex">#F9A825</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#C62828"></span><span class="color-name">Rojo Error</span><span class="color-hex">#C62828</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#FAF8F1;border:1px solid #ddd"></span><span class="color-name">Crema</span><span class="color-hex">#FAF8F1</span></div>
+      </div>
+    </div>
+
+    <!-- 02 Andina Tradicional -->
+    <div class="palette-card" data-tags="andina cultural vibrante TOP-PICK-MOBILE">
+      <div class="palette-header">
+        <span class="palette-num">#02</span>
+        <div class="palette-name">Andina Tradicional<span class="badge-top">⭐ TOP MOBILE</span></div>
+        <div class="palette-personality">Cultural, vibrante, identitaria</div>
+        <div class="palette-best">✅ Mejor para: Diferenciación con identidad andina</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #C0392B"><div class="swatch-label">Primary #C0392B</div></div>
+        <div class="swatch" style="background: #1ABC9C"><div class="swatch-label">Secondary #1ABC9C</div></div>
+        <div class="swatch" style="background: #F1C40F"><div class="swatch-label">Tertiary #F1C40F</div></div>
+        <div class="swatch" style="background: #2C3E50"><div class="swatch-label">Deep #2C3E50</div></div>
+        <div class="swatch" style="background: #F5E6D3"><div class="swatch-label">Llama #F5E6D3</div></div>
+        <div class="swatch" style="background: #8B4513"><div class="swatch-label">Tierra #8B4513</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#C0392B"></span><span class="color-name">Cochinilla</span><span class="color-hex">#C0392B</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#1ABC9C"></span><span class="color-name">Turquesa</span><span class="color-hex">#1ABC9C</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#F1C40F"></span><span class="color-name">Amarillo Sol</span><span class="color-hex">#F1C40F</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#2C3E50"></span><span class="color-name">Inkarri</span><span class="color-hex">#2C3E50</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#FDF6E3;border:1px solid #ddd"></span><span class="color-name">Crema</span><span class="color-hex">#FDF6E3</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#7D8C2C"></span><span class="color-name">Musgo</span><span class="color-hex">#7D8C2C</span></div>
+      </div>
+    </div>
+
+    <!-- 03 Café con Leche -->
+    <div class="palette-card" data-tags="calida cafetera">
+      <div class="palette-header">
+        <span class="palette-num">#03</span>
+        <div class="palette-name">Café con Leche</div>
+        <div class="palette-personality">Cálida, hogareña, acogedora</div>
+        <div class="palette-best">✅ Mejor para: Onboarding acogedor</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #6F4E37"><div class="swatch-label">Primary #6F4E37</div></div>
+        <div class="swatch" style="background: #3F704D"><div class="swatch-label">Secondary #3F704D</div></div>
+        <div class="swatch" style="background: #F4D03F"><div class="swatch-label">Accent #F4D03F</div></div>
+        <div class="swatch" style="background: #A93226"><div class="swatch-label">Error #A93226</div></div>
+        <div class="swatch" style="background: #FAF3E0"><div class="swatch-label">BG #FAF3E0</div></div>
+        <div class="swatch" style="background: #2C1810"><div class="swatch-label">Text #2C1810</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#6F4E37"></span><span class="color-name">Caramelo</span><span class="color-hex">#6F4E37</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#3F704D"></span><span class="color-name">Menta</span><span class="color-hex">#3F704D</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#F4D03F"></span><span class="color-name">Mantequilla</span><span class="color-hex">#F4D03F</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#FAF3E0;border:1px solid #ddd"></span><span class="color-name">Crema</span><span class="color-hex">#FAF3E0</span></div>
+      </div>
+    </div>
+
+    <!-- 04 Gloria-Inspired -->
+    <div class="palette-card" data-tags="corporativa Gloria B2B">
+      <div class="palette-header">
+        <span class="palette-num">#04</span>
+        <div class="palette-name">Gloria-Inspired</div>
+        <div class="palette-personality">Corporativa, seria, tradicional</div>
+        <div class="palette-best">✅ Mejor para: Reuniones SUNAT/bancos</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #0D47A1"><div class="swatch-label">Primary #0D47A1</div></div>
+        <div class="swatch" style="background: #D32F2F"><div class="swatch-label">Secondary #D32F2F</div></div>
+        <div class="swatch" style="background: #FFA000"><div class="swatch-label">Warning #FFA000</div></div>
+        <div class="swatch" style="background: #388E3C"><div class="swatch-label">Success #388E3C</div></div>
+        <div class="swatch" style="background: #FFF8E1"><div class="swatch-label">Warm #FFF8E1</div></div>
+        <div class="swatch" style="background: #1A237E"><div class="swatch-label">Text #1A237E</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#0D47A1"></span><span class="color-name">Azul Gloria</span><span class="color-hex">#0D47A1</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#D32F2F"></span><span class="color-name">Rojo Etiqueta</span><span class="color-hex">#D32F2F</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#388E3C"></span><span class="color-name">Verde</span><span class="color-hex">#388E3C</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#FFF8E1;border:1px solid #ddd"></span><span class="color-name">Crema Premium</span><span class="color-hex">#FFF8E1</span></div>
+      </div>
+    </div>
+
+    <!-- 05 Sol de los Andes -->
+    <div class="palette-card" data-tags="dorado cosecha andina">
+      <div class="palette-header">
+        <span class="palette-num">#05</span>
+        <div class="palette-name">Sol de los Andes</div>
+        <div class="palette-personality">Cosecha, abundancia, dorada</div>
+        <div class="palette-best">✅ Mejor para: Temporada alta de leche</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #D4A017"><div class="swatch-label">Primary #D4A017</div></div>
+        <div class="swatch" style="background: #E8C547"><div class="swatch-label">Light #E8C547</div></div>
+        <div class="swatch" style="background: #8B6914"><div class="swatch-label">Dark #8B6914</div></div>
+        <div class="swatch" style="background: #5B7C3A"><div class="swatch-label">Secondary #5B7C3A</div></div>
+        <div class="swatch" style="background: #D87C3A"><div class="swatch-label">Accent #D87C3A</div></div>
+        <div class="swatch" style="background: #B33A1F"><div class="swatch-label">Error #B33A1F</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#D4A017"></span><span class="color-name">Oro Cosecha</span><span class="color-hex">#D4A017</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#8B6914"></span><span class="color-name">Bronce Andino</span><span class="color-hex">#8B6914</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#5B7C3A"></span><span class="color-name">Verde Puna</span><span class="color-hex">#5B7C3A</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#FFF8E7;border:1px solid #ddd"></span><span class="color-name">Fondo</span><span class="color-hex">#FFF8E7</span></div>
+      </div>
+    </div>
+
+    <!-- 06 Pastizal Verde -->
+    <div class="palette-card" data-tags="verde ecologica">
+      <div class="palette-header">
+        <span class="palette-num">#06</span>
+        <div class="palette-name">Pastizal Verde</div>
+        <div class="palette-personality">Ecológica, orgánica, sostenible</div>
+        <div class="palette-best">✅ Mejor para: Módulos de sostenibilidad</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #4A7C2A"><div class="swatch-label">Primary #4A7C2A</div></div>
+        <div class="swatch" style="background: #7CB342"><div class="swatch-label">Light #7CB342</div></div>
+        <div class="swatch" style="background: #2D5016"><div class="swatch-label">Dark #2D5016</div></div>
+        <div class="swatch" style="background: #FBC02D"><div class="swatch-label">Accent #FBC02D</div></div>
+        <div class="swatch" style="background: #F57C00"><div class="swatch-label">Warning #F57C00</div></div>
+        <div class="swatch" style="background: #C62828"><div class="swatch-label">Error #C62828</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#4A7C2A"></span><span class="color-name">Verde Pasto</span><span class="color-hex">#4A7C2A</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#7CB342"></span><span class="color-name">Verde Hoja</span><span class="color-hex">#7CB342</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#2D5016"></span><span class="color-name">Verde Bosque</span><span class="color-hex">#2D5016</span></div>
+      </div>
+    </div>
+
+    <!-- 07 Tierra Fértil -->
+    <div class="palette-card" data-tags="tierra marron solida agricola">
+      <div class="palette-header">
+        <span class="palette-num">#07</span>
+        <div class="palette-name">Tierra Fértil</div>
+        <div class="palette-personality">Sólida, tradicional, campestre</div>
+        <div class="palette-best">✅ Mejor para: Branding "del campo"</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #6B4423"><div class="swatch-label">Primary #6B4423</div></div>
+        <div class="swatch" style="background: #A0764D"><div class="swatch-label">Light #A0764D</div></div>
+        <div class="swatch" style="background: #3E2723"><div class="swatch-label">Dark #3E2723</div></div>
+        <div class="swatch" style="background: #558B2F"><div class="swatch-label">Secondary #558B2F</div></div>
+        <div class="swatch" style="background: #E6A817"><div class="swatch-label">Accent #E6A817</div></div>
+        <div class="swatch" style="background: #A02418"><div class="swatch-label">Error #A02418</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#6B4423"></span><span class="color-name">Barro Húmedo</span><span class="color-hex">#6B4423</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#558B2F"></span><span class="color-name">Verde Cultivo</span><span class="color-hex">#558B2F</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#D84315"></span><span class="color-name">Naranja Arcilla</span><span class="color-hex">#D84315</span></div>
+      </div>
+    </div>
+
+    <!-- 08 Cielo Lechero -->
+    <div class="palette-card" data-tags="azul leche confianza universal TOP-PICK-MOBILE">
+      <div class="palette-header">
+        <span class="palette-num">#08</span>
+        <div class="palette-name">Cielo Lechero<span class="badge-top">⭐ TOP MOBILE</span></div>
+        <div class="palette-personality">Universal, confianza, global</div>
+        <div class="palette-best">✅ Mejor para: Convenciones globales</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #0277BD"><div class="swatch-label">Primary #0277BD</div></div>
+        <div class="swatch" style="background: #4FC3F7"><div class="swatch-label">Light #4FC3F7</div></div>
+        <div class="swatch" style="background: #01579B"><div class="swatch-label">Dark #01579B</div></div>
+        <div class="swatch" style="background: #7CB342"><div class="swatch-label">Secondary #7CB342</div></div>
+        <div class="swatch" style="background: #FFB300"><div class="swatch-label">Accent #FFB300</div></div>
+        <div class="swatch" style="background: #D32F2F"><div class="swatch-label">Error #D32F2F</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#0277BD"></span><span class="color-name">Azul Cielo Profundo</span><span class="color-hex">#0277BD</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#7CB342"></span><span class="color-name">Verde Pradera</span><span class="color-hex">#7CB342</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#D32F2F"></span><span class="color-name">Rojo Fresa</span><span class="color-hex">#D32F2F</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#F8FBFF;border:1px solid #ddd"></span><span class="color-name">Blanco Nube</span><span class="color-hex">#F8FBFF</span></div>
+      </div>
+    </div>
+
+    <!-- 09 Sunset Cajamarquino -->
+    <div class="palette-card" data-tags="moderna vibrante joven sunset">
+      <div class="palette-header">
+        <span class="palette-num">#09</span>
+        <div class="palette-name">Sunset Cajamarquino</div>
+        <div class="palette-personality">Moderna, vibrante, romántica</div>
+        <div class="palette-best">✅ Mejor para: Atraer productores jóvenes</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #E85D04"><div class="swatch-label">Primary #E85D04</div></div>
+        <div class="swatch" style="background: #F48C06"><div class="swatch-label">Light #F48C06</div></div>
+        <div class="swatch" style="background: #9D0208"><div class="swatch-label">Dark #9D0208</div></div>
+        <div class="swatch" style="background: #FFB703"><div class="swatch-label">Amarillo Inti</span></div>
+        <div class="swatch" style="background: #FF6B9D"><div class="swatch-label">Rosa Cielo</div></div>
+        <div class="swatch" style="background: #5A189A"><div class="swatch-label">Púrpura Andino</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#E85D04"></span><span class="color-name">Naranja Atardecer</span><span class="color-hex">#E85D04</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#FFB703"></span><span class="color-name">Amarillo Inti</span><span class="color-hex">#FFB703</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#FF6B9D"></span><span class="color-name">Rosa Cielo</span><span class="color-hex">#FF6B9D</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#5A189A"></span><span class="color-name">Púrpura Andino</span><span class="color-hex">#5A189A</span></div>
+      </div>
+    </div>
+
+    <!-- 10 Madera y Lana -->
+    <div class="palette-card" data-tags="artesanal madera cajamarquina">
+      <div class="palette-header">
+        <span class="palette-num">#10</span>
+        <div class="palette-name">Madera y Lana</div>
+        <div class="palette-personality">Artesanal, cálida, hecha a mano</div>
+        <div class="palette-best">✅ Mejor para: Boletas físicas, PDFs</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #8B4513"><div class="swatch-label">Primary #8B4513</div></div>
+        <div class="swatch" style="background: #C68B5E"><div class="swatch-label">Light #C68B5E</div></div>
+        <div class="swatch" style="background: #5D2F0A"><div class="swatch-label">Dark #5D2F0A</div></div>
+        <div class="swatch" style="background: #7C8B5C"><div class="swatch-label">Secondary #7C8B5C</div></div>
+        <div class="swatch" style="background: #C77B4B"><div class="swatch-label">Terracota</div></div>
+        <div class="swatch" style="background: #7B2D12"><div class="swatch-label">Error #7B2D12</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#8B4513"></span><span class="color-name">Cedro Caoba</span><span class="color-hex">#8B4513</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#C77B4B"></span><span class="color-name">Terracota</span><span class="color-hex">#C77B4B</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#F5EFE0;border:1px solid #ddd"></span><span class="color-name">Beige Lana</span><span class="color-hex">#F5EFE0</span></div>
+      </div>
+    </div>
+
+    <!-- 11 WCAG AAA Solar -->
+    <div class="palette-card" data-tags="WCAG-AAA solar accesible TOP-PICK-LEGIBILITY">
+      <div class="palette-header">
+        <span class="palette-num">#11</span>
+        <div class="palette-name">WCAG AAA Solar<span class="badge-top">⭐ TOP LEGIBILITY</span></div>
+        <div class="palette-personality">Máxima legibilidad al sol</div>
+        <div class="palette-best">✅ Mejor para: Uso bajo sol directo</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #003C8F"><div class="swatch-label">Primary #003C8F</div></div>
+        <div class="swatch" style="background: #001E5F"><div class="swatch-label">Dark #001E5F</div></div>
+        <div class="swatch" style="background: #1B5E20"><div class="swatch-label">Secondary #1B5E20</div></div>
+        <div class="swatch" style="background: #B8860B"><div class="swatch-label">Warning #B8860B</div></div>
+        <div class="swatch" style="background: #B30000"><div class="swatch-label">Error #B30000</div></div>
+        <div class="swatch" style="background: #F5F5F0"><div class="swatch-label">BG #F5F5F0</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#003C8F"></span><span class="color-name">Azul Profundo</span><span class="color-hex">#003C8F</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#1B5E20"></span><span class="color-name">Verde Bosque</span><span class="color-hex">#1B5E20</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#B30000"></span><span class="color-name">Carmesí</span><span class="color-hex">#B30000</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#000000"></span><span class="color-name">Negro Tinta</span><span class="color-hex">#000000</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#F5F5F0;border:1px solid #ddd"></span><span class="color-name">Crema Antireflejo</span><span class="color-hex">#F5F5F0</span></div>
+      </div>
+    </div>
+
+    <!-- 12 Modo Noche Rural -->
+    <div class="palette-card" data-tags="dark-mode noche oscura">
+      <div class="palette-header">
+        <span class="palette-num">#12</span>
+        <div class="palette-name">Modo Noche Rural</div>
+        <div class="palette-personality">Nocturna, oscura, descanso</div>
+        <div class="palette-best">✅ Mejor para: Invierno 5-7 PM, dark mode</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #121212"><div class="swatch-label">BG #121212</div></div>
+        <div class="swatch" style="background: #1E1E1E"><div class="swatch-label">Surface</div></div>
+        <div class="swatch" style="background: #2C2C2C"><div class="swatch-label">Surface 2</div></div>
+        <div class="swatch" style="background: #90CAF9"><div class="swatch-label">Primary #90CAF9</div></div>
+        <div class="swatch" style="background: #81C784"><div class="swatch-label">Secondary #81C784</div></div>
+        <div class="swatch" style="background: #FFB74D"><div class="swatch-label">Accent #FFB74D</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#121212"></span><span class="color-name">Carbón Profundo</span><span class="color-hex">#121212</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#90CAF9"></span><span class="color-name">Azul Lechero</span><span class="color-hex">#90CAF9</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#F5F5F5"></span><span class="color-name">Blanco Hueso</span><span class="color-hex">#F5F5F5</span></div>
+      </div>
+    </div>
+
+    <!-- 13 Monocromo Profesional -->
+    <div class="palette-card" data-tags="monocromo B2B minimalista TOP-PICK-ADMIN">
+      <div class="palette-header">
+        <span class="palette-num">#13</span>
+        <div class="palette-name">Monocromo Profesional<span class="badge-top">⭐ TOP ADMIN</span></div>
+        <div class="palette-personality">B2B seria, minimalista</div>
+        <div class="palette-best">✅ Mejor para: Web admin (CRM)</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #FAFAFA;border:1px solid #ddd"><div class="swatch-label">BG #FAFAFA</div></div>
+        <div class="swatch" style="background: #F4F4F5"><div class="swatch-label">Surface 2</div></div>
+        <div class="swatch" style="background: #18181B"><div class="swatch-label">Accent #18181B</div></div>
+        <div class="swatch" style="background: #10B981"><div class="swatch-label">Success #10B981</div></div>
+        <div class="swatch" style="background: #F59E0B"><div class="swatch-label">Warning #F59E0B</div></div>
+        <div class="swatch" style="background: #EF4444"><div class="swatch-label">Error #EF4444</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#27272A"></span><span class="color-name">Carbón</span><span class="color-hex">#27272A</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#71717A"></span><span class="color-name">Gris Medio</span><span class="color-hex">#71717A</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#A1A1AA"></span><span class="color-name">Gris Claro</span><span class="color-hex">#A1A1AA</span></div>
+      </div>
+    </div>
+
+    <!-- 14 Queso Andino -->
+    <div class="palette-card" data-tags="queso lactea producto">
+      <div class="palette-header">
+        <span class="palette-num">#14</span>
+        <div class="palette-name">Queso Andino</div>
+        <div class="palette-personality">Producto-específica, láctea</div>
+        <div class="palette-best">✅ Mejor para: Boletas, identidad de marca</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #F4A418"><div class="swatch-label">Primary #F4A418</div></div>
+        <div class="swatch" style="background: #FFD580"><div class="swatch-label">Light #FFD580</div></div>
+        <div class="swatch" style="background: #A06C0A"><div class="swatch-label">Dark #A06C0A</div></div>
+        <div class="swatch" style="background: #6B8E23"><div class="swatch-label">Secondary #6B8E23</div></div>
+        <div class="swatch" style="background: #D97706"><div class="swatch-label">Warning #D97706</div></div>
+        <div class="swatch" style="background: #991B1E"><div class="swatch-label">Error #991B1E</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#F4A418"></span><span class="color-name">Mantequilla Dorada</span><span class="color-hex">#F4A418</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#A06C0A"></span><span class="color-name">Corteza Tostada</span><span class="color-hex">#A06C0A</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#FFFEF7;border:1px solid #ddd"></span><span class="color-name">Crema Lechada</span><span class="color-hex">#FFFEF7</span></div>
+      </div>
+    </div>
+
+    <!-- 15 Bosque de Eucaliptos -->
+    <div class="palette-card" data-tags="verde-profundo bosque premium">
+      <div class="palette-header">
+        <span class="palette-num">#15</span>
+        <div class="palette-name">Bosque de Eucaliptos</div>
+        <div class="palette-personality">Profunda, premium, robusta</div>
+        <div class="palette-best">✅ Mejor para: Web admin, reportes</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #1B4332"><div class="swatch-label">Primary #1B4332</div></div>
+        <div class="swatch" style="background: #2D6A4F"><div class="swatch-label">Light #2D6A4F</div></div>
+        <div class="swatch" style="background: #081C15"><div class="swatch-label">Dark #081C15</div></div>
+        <div class="swatch" style="background: #74A05A"><div class="swatch-label">Secondary #74A05A</div></div>
+        <div class="swatch" style="background: #DDA15E"><div class="swatch-label">Accent #DDA15E</div></div>
+        <div class="swatch" style="background: #780000"><div class="swatch-label">Error #780000</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#1B4332"></span><span class="color-name">Pino Profundo</span><span class="color-hex">#1B4332</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#2D6A4F"></span><span class="color-name">Eucalipto</span><span class="color-hex">#2D6A4F</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#DDA15E"></span><span class="color-name">Mostaza Bosque</span><span class="color-hex">#DDA15E</span></div>
+      </div>
+    </div>
+
+    <!-- 16 Niebla Matutina -->
+    <div class="palette-card" data-tags="fria moderna minimalista">
+      <div class="palette-header">
+        <span class="palette-num">#16</span>
+        <div class="palette-name">Niebla Matutina</div>
+        <div class="palette-personality">Moderna, fría, startup</div>
+        <div class="palette-best">✅ Mejor para: Estética startup tech</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #5B7B9A"><div class="swatch-label">Primary #5B7B9A</div></div>
+        <div class="swatch" style="background: #A4C2D4"><div class="swatch-label">Light #A4C2D4</div></div>
+        <div class="swatch" style="background: #2E4A66"><div class="swatch-label">Dark #2E4A66</div></div>
+        <div class="swatch" style="background: #8FA68E"><div class="swatch-label">Secondary #8FA68E</div></div>
+        <div class="swatch" style="background: #E8C547"><div class="swatch-label">Accent #E8C547</div></div>
+        <div class="swatch" style="background: #A24D5A"><div class="swatch-label">Error #A24D5A</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#5B7B9A"></span><span class="color-name">Azul Niebla</span><span class="color-hex">#5B7B9A</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#A4C2D4"></span><span class="color-name">Celeste Mañana</span><span class="color-hex">#A4C2D4</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#F8FAFB;border:1px solid #ddd"></span><span class="color-name">Blanco Lechoso</span><span class="color-hex">#F8FAFB</span></div>
+      </div>
+    </div>
+
+    <!-- 17 Río y Pradera -->
+    <div class="palette-card" data-tags="azul verde agua frescura">
+      <div class="palette-header">
+        <span class="palette-num">#17</span>
+        <div class="palette-name">Río y Pradera</div>
+        <div class="palette-personality">Frescura, agua, vida</div>
+        <div class="palette-best">✅ Mejor para: Campañas temporada lluvias</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #0078A8"><div class="swatch-label">Primary #0078A8</div></div>
+        <div class="swatch" style="background: #48B5D1"><div class="swatch-label">Light #48B5D1</div></div>
+        <div class="swatch" style="background: #003E5C"><div class="swatch-label">Dark #003E5C</div></div>
+        <div class="swatch" style="background: #5BA82F"><div class="swatch-label">Secondary #5BA82F</div></div>
+        <div class="swatch" style="background: #9BC53D"><div class="swatch-label">Accent #9BC53D</div></div>
+        <div class="swatch" style="background: #D14545"><div class="swatch-label">Error #D14545</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#0078A8"></span><span class="color-name">Azul Río</span><span class="color-hex">#0078A8</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#5BA82F"></span><span class="color-name">Verde Pradera</span><span class="color-hex">#5BA82F</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#9BC53D"></span><span class="color-name">Verde Lima</span><span class="color-hex">#9BC53D</span></div>
+      </div>
+    </div>
+
+    <!-- 18 Trópico Andino -->
+    <div class="palette-card" data-tags="vibrante audaz memorable">
+      <div class="palette-header">
+        <span class="palette-num">#18</span>
+        <div class="palette-name">Trópico Andino</div>
+        <div class="palette-personality">Audaz, vibrante, memorable</div>
+        <div class="palette-best">✅ Mejor para: Diferenciación radical</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #7B2CBF"><div class="swatch-label">Primary #7B2CBF</div></div>
+        <div class="swatch" style="background: #C77DFF"><div class="swatch-label">Light #C77DFF</div></div>
+        <div class="swatch" style="background: #3C096C"><div class="swatch-label">Dark #3C096C</div></div>
+        <div class="swatch" style="background: #06D6A0"><div class="swatch-label">Secondary #06D6A0</div></div>
+        <div class="swatch" style="background: #FF9E1B"><div class="swatch-label">Accent #FF9E1B</div></div>
+        <div class="swatch" style="background: #D62828"><div class="swatch-label">Error #D62828</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#7B2CBF"></span><span class="color-name">Morado Andino</span><span class="color-hex">#7B2CBF</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#06D6A0"></span><span class="color-name">Turquesa Vivo</span><span class="color-hex">#06D6A0</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#FF9E1B"></span><span class="color-name">Naranja Tumbo</span><span class="color-hex">#FF9E1B</span></div>
+      </div>
+    </div>
+
+    <!-- 19 Color-Blind Safe (Wong) -->
+    <div class="palette-card" data-tags="WCAG-AAA daltonismo accesible TOP-PICK-ACCESSIBILITY">
+      <div class="palette-header">
+        <span class="palette-num">#19</span>
+        <div class="palette-name">Color-Blind Safe (Wong)<span class="badge-top">⭐ TOP ACCESS</span></div>
+        <div class="palette-personality">100% accesible universal</div>
+        <div class="palette-best">✅ Mejor para: Inclusión universal</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #0072B2"><div class="swatch-label">Primary #0072B2</div></div>
+        <div class="swatch" style="background: #E69F00"><div class="swatch-label">Naranja #E69F00</div></div>
+        <div class="swatch" style="background: #009E73"><div class="swatch-label">Verde #009E73</div></div>
+        <div class="swatch" style="background: #F0E442"><div class="swatch-label">Amarillo #F0E442</div></div>
+        <div class="swatch" style="background: #D55E00"><div class="swatch-label">Bermellón #D55E00</div></div>
+        <div class="swatch" style="background: #CC79A7"><div class="swatch-label">Púrpura #CC79A7</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#0072B2"></span><span class="color-name">Azul Wong</span><span class="color-hex">#0072B2</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#009E73"></span><span class="color-name">Verde Wong</span><span class="color-hex">#009E73</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#D55E00"></span><span class="color-name">Bermellón</span><span class="color-hex">#D55E00</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#56B4E9"></span><span class="color-name">Azul Cielo</span><span class="color-hex">#56B4E9</span></div>
+      </div>
+    </div>
+
+    <!-- 20 Indigo Mountain -->
+    <div class="palette-card" data-tags="premium B2B fintech">
+      <div class="palette-header">
+        <span class="palette-num">#20</span>
+        <div class="palette-name">Indigo Mountain</div>
+        <div class="palette-personality">Premium B2B, fintech rural</div>
+        <div class="palette-best">✅ Mejor para: Reuniones corporativas</div>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background: #1A1F71"><div class="swatch-label">Primary #1A1F71</div></div>
+        <div class="swatch" style="background: #3A3FAA"><div class="swatch-label">Light #3A3FAA</div></div>
+        <div class="swatch" style="background: #0A0E3D"><div class="swatch-label">Dark #0A0E3D</div></div>
+        <div class="swatch" style="background: #C9A227"><div class="swatch-label">Dorado Solar</div></div>
+        <div class="swatch" style="background: #B87333"><div class="swatch-label">Naranja Cobre</div></div>
+        <div class="swatch" style="background: #A52A2A"><div class="swatch-label">Error #A52A2A</div></div>
+      </div>
+      <div class="palette-detail">
+        <div class="color-row"><span class="color-dot" style="background:#1A1F71"></span><span class="color-name">Indigo Profundo</span><span class="color-hex">#1A1F71</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#C9A227"></span><span class="color-name">Dorado Solar</span><span class="color-hex">#C9A227</span></div>
+        <div class="color-row"><span class="color-dot" style="background:#1F1F2E"></span><span class="color-name">Carbón Indigo</span><span class="color-hex">#1F1F2E</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>📚 Investigación generada con <strong>Exa Web Search</strong> + <strong>Firecrawl</strong> + análisis manual</p>
+    <p>📅 Fecha: 4 de septiembre de 2026 · 🎯 Milkbook Project · 📍 Cajamarca, Perú</p>
+    <p style="margin-top:1rem;"><a href="README.md" style="color:#1976D2;">← Volver al README maestro con análisis completo</a></p>
+  </footer>
+
+</div>
+
+<script>
+function filterAll() {
+  document.querySelectorAll('.palette-card').forEach(c => c.style.display = '');
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+function filterByTag(tag) {
+  document.querySelectorAll('.palette-card').forEach(c => {
+    const tags = c.getAttribute('data-tags') || '';
+    c.style.display = tags.includes(tag) ? '' : 'none';
+  });
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+// Hover effect for color labels
+document.querySelectorAll('.swatch').forEach(swatch => {
+  swatch.addEventListener('click', () => {
+    const label = swatch.querySelector('.swatch-label').textContent;
+    navigator.clipboard?.writeText(label.match(/#[A-F0-9]+/i)?.[0] || '');
+    const original = swatch.querySelector('.swatch-label').textContent;
+    swatch.querySelector('.swatch-label').textContent = '✓ Copiado';
+    setTimeout(() => {
+      swatch.querySelector('.swatch-label').textContent = original;
+    }, 1000);
+  });
+});
+</script>
+
+</body>
+</html>

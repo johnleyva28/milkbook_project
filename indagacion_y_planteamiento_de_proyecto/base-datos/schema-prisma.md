@@ -11,6 +11,21 @@
 - **User:** agregado `email` opcional (para boletas por email).
 - **Boleta:** agregado `clienteEmail` para el envío.
 
+## Cambios v2 → v3 (firma digital en auth + flujo de doble registro)
+
+- **`User.pinHash`** y **`User.firmaMetodoPreferido`**: el PIN hasheado del usuario y el método de firma que eligió (PIN, PASSWORD, BIOMETRIA_DACTILAR, BIOMETRIA_FACIAL). Se usan en **login (paso 2)** y en re-autenticación después de 15 min de inactividad.
+- **`EstadoRegistro` extendido**: se mantienen los 6 estados originales (legacy) y se agregan 6 nuevos para soportar el **flujo de doble registro**:
+  - `PENDIENTE`: nadie ha registrado nada.
+  - `ESPERANDO_VENDEDOR`: Carlos marcó "recogido" pero falta que el vendedor confirme.
+  - `ESPERANDO_LECHERO`: el vendedor registró, falta que Carlos marque "recogido".
+  - `RECOGIDO_COINCIDE`: ambos lados coinciden.
+  - `RECOGIDO_DISCREPANCIA`: hay recogida pero los valores no coinciden.
+  - `RECOGIDO_SIN_CONFIRMAR`: pasaron 24h sin que el vendedor confirmara; se usa el valor de Carlos.
+- **`Registro.registradoPorVendedorAt`**: timestamp de cuándo Juan (vendedor) registró la cantidad por primera vez.
+- **`Registro.recogidoPorCarlosAt`**: timestamp de cuándo Carlos marcó "✓ recogido" en su app.
+- **`Registro.carlosRecogio`**: boolean para saber si Carlos físicamente recogió leche ese día.
+- **`Registro.estado` default cambió de `REGISTRADO` a `PENDIENTE`**: ya nadie "registra primero", ambos lados registran independientemente.
+
 ## `schema.prisma`
 
 ```prisma
@@ -43,12 +58,21 @@ enum EstadoContrato {
 }
 
 enum EstadoRegistro {
-  REGISTRADO
-  CONFIRMADO_COINCIDE
-  CONFIRMADO_DISCREPANCIA
-  NO_VENDIO
-  CARLOS_NO_VINO
-  PENDIENTE_VENCIDO
+  // === Estados originales (mantener para compatibilidad) ===
+  REGISTRADO               // Carlos registró, cliente pendiente (legacy)
+  CONFIRMADO_COINCIDE      // Ambos coinciden (legacy)
+  CONFIRMADO_DISCREPANCIA  // Ambos registran, distinto (legacy)
+  NO_VENDIO                // Cliente confirmó que no vendió (legacy)
+  CARLOS_NO_VINO           // Cliente no confirmó; se asume Carlos no vino (legacy)
+  PENDIENTE_VENCIDO        // >3 días sin confirmación (legacy)
+
+  // === Nuevos estados del flujo de doble registro (v3) ===
+  PENDIENTE                // Aún nadie ha registrado nada este día
+  ESPERANDO_VENDEDOR       // Carlos marcó "recogido", falta que el vendedor confirme
+  ESPERANDO_LECHERO        // El vendedor registró, falta que el lechero marque "recogido"
+  RECOGIDO_COINCIDE        // Ambos lados coinciden en la cantidad
+  RECOGIDO_DISCREPANCIA    // Hubo recogida pero los valores no coinciden
+  RECOGIDO_SIN_CONFIRMAR   // Carlos recogió y registró solo (vendedor no confirmó en 24h) → se usa valor de Carlos
 }
 
 enum RegistradoPor {
@@ -111,6 +135,12 @@ model User {
   celular         String      @db.VarChar(20)
   nombre          String      @db.VarChar(200)
   passwordHash    String?     @map("password_hash") @db.VarChar(200)
+
+  // Firma digital para autenticación (login + acciones sensibles)
+  pinHash                 String?   @map("pin_hash") @db.VarChar(200)  // bcrypt
+  firmaMetodoPreferido    MetodoFirma? @map("firma_metodo_preferido")
+  firmaConfiguradaAt      DateTime? @map("firma_configurada_at")
+
   userType        UserType    @map("user_type")
   activo          Boolean     @default(true)
   suspendedAt     DateTime?   @map("suspended_at")
@@ -272,7 +302,7 @@ model Registro {
   litrosCarlos            Decimal?        @map("litros_carlos") @db.Decimal(10, 2)
   litrosCliente           Decimal?        @map("litros_cliente") @db.Decimal(10, 2)
   valorFinal              Decimal?        @map("valor_final") @db.Decimal(10, 2) // Resultado tras resolver discrepancia
-  estado                  EstadoRegistro  @default(REGISTRADO)
+  estado                  EstadoRegistro  @default(PENDIENTE)
   razonNoVendio           String?         @map("razon_no_vendio")
   notas                   String?
 
@@ -281,17 +311,20 @@ model Registro {
   registradoPorId         String?         @map("registrado_por_id")  // FK a Lechero o Empleado
   registradoPorNombre     String?         @map("registrado_por_nombre")  // snapshot
 
+  // Flujo de doble registro (v3): ambos lados pueden registrar primero
+  registradoPorVendedorAt DateTime?       @map("registrado_por_vendedor_at")  // Juan registró primero
+  recogidoPorCarlosAt     DateTime?       @map("recogido_por_carlos_at")      // Carlos marcó "recogido"
+  carlosRecogio          Boolean         @default(false) @map("carlos_reco_gio")
+
   // Resolución de discrepancia
   resueltoPorId           String?         @map("resuelto_por_id")
   resueltoAt              DateTime?       @map("resuelto_at")
 
-  // Firmas
+  // Firmas (usadas para confirmar litros, adelantos, liquidaciones)
   metodoFirmaCarlos       MetodoFirma?    @map("metodo_firma_carlos")
   metodoFirmaCliente      MetodoFirma?    @map("metodo_firma_cliente")
 
   // Auditoría offline-first
-  registradoPorCarlosAt   DateTime?       @map("registrado_por_carlos_at")
-  confirmadoPorClienteAt  DateTime?       @map("confirmado_por_cliente_at")
   version                 Int             @default(1)
   clientUpdatedAt         DateTime?       @map("client_updated_at")  // Timestamp del cliente (offline)
   createdAt               DateTime        @default(now()) @map("created_at")
@@ -589,6 +622,16 @@ model SyncCursor {
 | `UserType.EMPLEADO` | Para empleados con cuenta propia (futuro) | V2 |
 | `MetodoFirma` enum | PIN, contraseña, biometría | ✅ Validado |
 | `ServerOutboxItem` y `SyncCursor` | Para el patrón de sync del cliente al backend | ✅ |
+
+## Resumen de cambios v2 → v3 (actualización)
+
+| Cambio | Razón | Validación |
+| --- | --- | --- |
+| `User.pinHash` + `firmaMetodoPreferido` | Firma digital también en login/registro (no solo en liquidaciones) | ✅ Usuario validó PIN, contraseña, biometría |
+| `EstadoRegistro` extendido (6 nuevos valores) | Soportar que **ambos lados** puedan registrar primero | ✅ Flujo nuevo de doble registro |
+| `Registro.registradoPorVendedorAt` | Saber cuándo Juan registró primero (caso A) | ✅ |
+| `Registro.recogidoPorCarlosAt` | Saber cuándo Carlos marcó "✓ recogido" | ✅ |
+| `Registro.carlosRecogio` | Saber si Carlos recogió leche ese día | ✅ |
 
 ## Notas
 

@@ -2,11 +2,16 @@
 
 ## Objetivo
 
-Permitir al cliente **confirmar o corregir** los litros que el lechero registró, **en menos de 30 segundos por día**.
+Permitir al cliente **registrar, confirmar o corregir** la cantidad de leche del día, **en menos de 30 segundos por día**.
+
+## Cambio importante: flujo v3 (doble registro)
+
+> **Antes:** Carlos siempre registraba primero; Juan confirmaba después.
+> **Ahora:** ambos lados pueden registrar primero, y Carlos siempre marca "✓ recogido" cuando físicamente recoge la leche. Ver [`confirmar-litros.md`](./confirmar-litros.md) para el flujo completo del cliente y [`../lechero/confirmar-recoleccion.md`](../lechero/confirmar-recoleccion.md) para el flujo del lechero.
 
 ## Pantalla: "Confirmar litros de hoy"
 
-### Estructura visual
+### Estructura visual (caso A — vendedor registró primero, Carlos ya marcó recogido)
 
 ```
 ┌────────────────────────────────────────────┐
@@ -16,70 +21,91 @@ Permitir al cliente **confirmar o corregir** los litros que el lechero registró
 │  Lechero: Carlos                            │
 │  Quincena: 15-29 septiembre                 │
 │                                            │
-│  Hoy se registró:                            │
+│  ✓ Carlos recogió 17 L                     │
+│  (tú habías puesto 17 L)                   │
+│                                            │
+│  ¿Confirmas? (requiere tu firma)           │
 │  ┌──────────────────────────────────────┐ │
-│  │                                      │ │
-│  │         1 8 . 5  L                  │ │
-│  │         (Carlos anota)              │ │
-│  │                                      │ │
+│  │ [👆 CONFIRMAR CON HUELLA]            │ │
+│  │ [🔒 CONFIRMAR CON PIN]               │ │
+│  │ [🔑 CONFIRMAR CON CONTRASEÑA]       │ │
 │  └──────────────────────────────────────┘ │
 │                                            │
-│  ¿Cuántos litros vendiste hoy?             │
-│  ┌──────────────────────────────────────┐ │
-│  │   [5]  [10]  [15]  [20]             │ │
-│  │                                      │ │
-│  │   [25]  [30]  [+]   [-]             │ │
-│  │                                      │ │
-│  │  Manual: [___] L                    │ │
-│  │                                      │ │
-│  │  [ ] Hoy no vendí                    │ │
-│  │                                      │ │
-│  └──────────────────────────────────────┘ │
+│  O corrige si es diferente:                 │
+│  Manual: [___] L                            │
 │                                            │
-│  [  CONFIRMAR 18.5 L  ]                   │
-│                                            │
-│  Si discrepas con Carlos, ambos valores    │
-│  se registran. Carlos verá tu versión.    │
+│  [ ✕ No vendí hoy ]                         │
 │                                            │
 └────────────────────────────────────────────┘
 ```
 
-## Flujo del usuario
+### Caso A — El vendedor registra primero
 
-### Caso 1: Coincide el valor
-1. Carlos anota 18.5 L en su app.
-2. Juan recibe push: "Confirmar 18.5 L hoy".
-3. Juan abre la app.
-4. Juan ve el número 18.5 L.
-5. Juan toca el botón "CONFIRMAR 18.5 L".
-6. Sistema registra la confirmación. Cierra la pantalla.
+```
+Madrugada
+─────────
+05:30  Juan ordeña 5 vacas y obtiene 17 L.
+05:35  Juan abre su app, registra "17 L", toca "Guardar".
+       Estado: ESPERANDO_LECHERO.
 
-### Caso 2: Difiere el valor
-1. Carlos anota 18 L en su app.
-2. Juan sabe que vendió 19.5 L.
-3. Juan recibe push.
-4. Juan abre la app.
-5. Juan ve el número 18 L.
-6. Juan toca "20" (o cualquier valor cercano).
-7. Juan edita manualmente a 19.5 L.
-8. Juan toca "CONFIRMAR 19.5 L".
-9. Sistema registra: 18 L (Carlos) y 19.5 L (Juan).
-10. Sistema notifica a Carlos de la discrepancia.
-11. Carlos ve la discrepancia y puede ajustar antes del cierre.
+Cuando Carlos recoge
+─────────────────────
+06:10  Carlos vierte la leche, ve "17 L" en su pantalla.
+06:14  Carlos toca "✓ Recogido: 17 L" (coincide).
+       Estado: RECOGIDO_COINCIDE.
+
+Cuando Juan confirma (push inmediato)
+──────────────────────────────────────
+       Juan ve la pantalla de arriba (con botones de firma).
+       Juan toca [👆 CONFIRMAR CON HUELLA].
+       Estado: RECOGIDO_COINCIDE (firmado).
+```
+
+### Caso B — Carlos registra solo
+
+```
+Madrugada
+─────────
+05:30  Juan ordeña 17 L pero NO abre la app.
+
+Cuando Carlos recoge
+─────────────────────
+06:10  Carlos vierte la leche. Ve "Hoy no hay registro del vendedor" en su app.
+       Carlos registra "16.5 L" y marca "✓ Recogido".
+       Estado: RECOGIDO_SIN_CONFIRMAR.
+
+Más tarde, Juan abre la app
+───────────────────────────────
+       Juan ve "Carlos registró 16.5 L. ¿Confirmas?"
+       Juan toca [👆 SÍ, CONFIRMAR 16.5 L].
+       Estado: RECOGIDO_COINCIDE (firmado).
+```
 
 ### Caso 3: No vendió ese día
+
+```
 1. Carlos no vino a recoger (lluvia, ausencia).
 2. Juan abre la app.
 3. Juan ve "No se registró venta hoy".
-4. Juan toca "[ ] Hoy no vendí".
-5. Sistema marca ese día como 0 L en ambos lados.
+4. Juan toca [ ✕ No vendí hoy ].
+5. Juan confirma con PIN o huella.
+6. Sistema marca ese día como 0 L en ambos lados.
+   Estado: NO_VENDIO.
+```
 
-### Caso 4: Carlos registró pero Juan no
-1. Carlos anota 18 L.
-2. Juan no abre la app.
-3. Después de 24h, sistema envía recordatorio.
-4. Juan confirma después.
-5. Si pasan 3 días sin confirmar, sistema marca como "Pendiente de confirmación" pero mantiene el valor de Carlos.
+### Caso 4: Discrepancia detectada por Carlos
+
+```
+1. Juan registra "17 L" en la app.
+2. Carlos llega, vierte, su bidón marca 16.5 L.
+3. Carlos marca "⚠ Recogido con diferencia" → 16.5 L.
+4. Estado: RECOGIDO_DISCREPANCIA.
+5. Juan ve push: "Carlos recogió 16.5 L. Tú habías puesto 17 L. Diferencia 0.5 L."
+6. Juan elige:
+   - [👆 ACEPTAR 16.5 L DE CARLOS] (firma)
+   - [🔒 MANTENER MIS 17 L (DISPUTA)]
+   - [✏️ OTRA CANTIDAD]
+```
 
 ## Lógica de los botones quick
 
@@ -127,10 +153,15 @@ Permitir al cliente **confirmar o corregir** los litros que el lechero registró
 - Validación: warning, no bloqueo (puede ser legítimo si tuvo vaca extra o algo excepcional).
 - Log para análisis posterior.
 
-### Juan no confirma en absoluto
-- Después de 3 días: valor de Carlos se mantiene como "definitivo" para efectos de cierre.
-- Juan puede ver su discrepancia pendiente cuando quiera.
-- Al cierre, ambos valores se imprimen en la liquidación final.
+### Juan no confirma en absoluto (>24 h)
+- Estado: `RECOGIDO_SIN_CONFIRMAR` (vencido).
+- Se usa valor de Carlos como definitivo.
+- Juan puede aún abrir una disputa si quiere.
+
+### Juan no tiene smartphone o no sabe firmar
+- Carlos marca "✓ Recogido" sin firma del vendedor.
+- Se usa solo firma del lechero para ese registro.
+- Al cierre, Juan puede firmar la liquidación completa (que es lo crítico legalmente).
 
 ## Componentes Flutter necesarios
 
@@ -138,12 +169,14 @@ Permitir al cliente **confirmar o corregir** los litros que el lechero registró
 - `QuickEntryGrid` — botones de números rápidos.
 - `NumericInput` — input manual con validación.
 - `NoVendiSwitch` — switch para marcar día no vendido.
+- `FirmaButtons` — botones para confirmar con PIN/huella/cara/contraseña.
 - `ConfirmButton` — botón principal de confirmación.
 - `DiscrepancyBanner` — banner si hay diferencia con Carlos.
 
 ## Métricas UX
 
-- **Tiempo promedio** de confirmación: target < 30 segundos.
-- **Tasa de confirmación** el mismo día: target > 80%.
+- **Tiempo promedio** de confirmación (incluyendo firma): target < 30 segundos.
+- **Tasa de confirmación con firma** el mismo día: target > 80%.
 - **Tasa de discrepancia > 1L**: target < 5% de los días.
 - **Tasa de "No vendí" usado correctamente**: target > 90% (no abuso).
+- **% de casos B (vendedor no registró)**: target < 20%.

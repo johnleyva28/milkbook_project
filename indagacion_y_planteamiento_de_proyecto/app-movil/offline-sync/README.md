@@ -366,6 +366,107 @@ async update(@Param('id') id: string, @Body() dto: UpdateRegistroDto) {
 - Backend usa `server_time` como referencia.
 - Cliente puede usar NTP si es posible.
 
+### Flujo v3 de doble registro (vendedor + lechero pueden registrar independientemente)
+
+Con el nuevo flujo (`v3`), **ambos lados** pueden registrar la cantidad y/o marcar "✓ recogido" **en cualquier orden** y a veces **sin conexión**. Esto cambia algunos aspectos del sync.
+
+**Escenario típico:**
+1. Juan (vendedor) registra 17 L **offline** en su app a las 05:35. Estado local: `ESPERANDO_LECHERO`. Outbox: 1 operación pendiente.
+2. Juan recupera señal a las 06:00 → sync → backend tiene `litrosCliente=17`, `registradoPorVendedorAt=05:35`.
+3. Carlos (lechero) llega a las 06:10 (con o sin señal) y marca "✓ Recogido: 17 L". Si está offline, queda en outbox local.
+4. Carlos recupera señal → sync → backend recibe `litrosCarlos=17`, `carlosRecogio=true`, `recogidoPorCarlosAt=06:10`.
+5. Backend determina estado final: `RECOGIDO_COINCIDE` (pendiente de firma del cliente).
+6. Push inmediato a Juan: "Carlos recogió 17 L. Confirma para firmar."
+7. Juan abre app, confirma con huella → sync → estado final: `RECOGIDO_COINCIDE` (firmado).
+
+**Reglas de reconciliación offline-first:**
+
+| Lado que escribe primero | Qué se sincroniza | Estado resultante |
+|---|---|---|
+| Vendedor (Juan) | `litrosCliente=17` primero | `ESPERANDO_LECHERO` |
+| Lechero (Carlos) marca "✓ recogido" antes que Juan registre | `litrosCarlos=16.5`, `carlosRecogio=true` | `RECOGIDO_SIN_CONFIRMAR` |
+| Lechero registra y marca "✓ recogido", vendedor aún no ha visto nada | `litrosCarlos=16.5`, `carlosRecogio=true` | `RECOGIDO_SIN_CONFIRMAR` (24 h) |
+| Ambos lados escriben offline, sincronizan al recuperar señal | El backend hace **merge last-write-wins por campo** | El estado se recalcula con la lógica del backend |
+| Carlos marca "✓ No recogí" después de que Juan había registrado | Backend prioriza la realidad física (no se recogió) | `NO_VENDIO` + nota explicativa |
+
+**Push trigger por delta de estado:**
+- Cuando el backend recibe un cambio que **completa** un registro (ej. Carlos recogió después de que Juan había registrado), se dispara push al cliente para que confirme.
+- Si el registro pasa de `ESPERANDO_LECHERO` a `RECOGIDO_COINCIDE` (Carlos recogió y coincide), push inmediato.
+- Si pasa a `RECOGIDO_DISCREPANCIA` (Carlos recogió distinta cantidad), push con detalle de la diferencia.
+- Si pasa a `RECOGIDO_SIN_CONFIRMAR` (Carlos registró solo), push con la cantidad y tiempo límite.
+
+**Tabla de auditoría:**
+- Cada cambio de estado en `Registro` se registra en `AuditLog` con `datos_antes` y `datos_despues`.
+- El admin puede reconstruir la cronología completa si hay disputa.
+
+**Manejo del caso B cuando Carlos registra solo:**
+
+```typescript
+// Backend: cuando llega un POST /registros/:id/carlos-reco gio
+async carlosRecogio(registroId: string, litros: number, userId: string) {
+  return prisma.$transaction(async (tx) => {
+    const reg = await tx.registro.findUnique({ where: { id: registroId } });
+    if (!reg) throw new NotFoundException();
+
+    const updateData: any = {
+      litrosCarlos: litros,
+      carlosRecogio: true,
+      recogidoPorCarlosAt: new Date(),
+    };
+
+    // Determinar estado
+    if (reg.litrosCliente === null) {
+      // Caso B: vendedor aún no ha registrado
+      updateData.estado = 'RECOGIDO_SIN_CONFIRMAR';
+      updateData.valorFinal = litros;
+    } else if (reg.litrosCliente === litros) {
+      // Coincide
+      updateData.estado = 'RECOGIDO_COINCIDE';
+    } else {
+      // Discrepancia
+      updateData.estado = 'RECOGIDO_DISCREPANCIA';
+    }
+
+    return tx.registro.update({ where: { id: registroId }, data: updateData });
+  });
+}
+```
+
+**Job de 24 h para registros sin confirmar:**
+- Backend corre cada hora un cron que detecta registros en estado `RECOGIDO_SIN_CONFIRMAR` con `recogidoPorCarlosAt < now - 24h`.
+- Les agrega una nota "Vencido: vendedor no confirmó en 24h. Se usa valor del lechero."
+- Notifica al vendedor.
+
+```typescript
+@Cron('0 * * * *')
+async vencerRegistrosSinConfirmar() {
+  const hace24h = subHours(new Date(), 24);
+
+  const registros = await this.prisma.registro.findMany({
+    where: {
+      estado: 'RECOGIDO_SIN_CONFIRMAR',
+      recogidoPorCarlosAt: { lt: hace24h },
+    },
+    include: { contrato: { include: { cliente: { include: { user: true } } } } },
+  });
+
+  for (const reg of registros) {
+    await this.prisma.registro.update({
+      where: { id: reg.id },
+      data: {
+        notas: `${reg.notas || ''}\n[Vencido ${new Date().toISOString()}] Vendedor no confirmó en 24h. Se usa valor del lechero.`,
+      },
+    });
+
+    await this.pushService.notify({
+      userId: reg.contrato.cliente.user.id,
+      type: 'REGISTRO_VENCIDO',
+      data: { registroId: reg.id, litrosCarlos: reg.litrosCarlos },
+    });
+  }
+}
+```
+
 ## Validación con tests
 
 ### Tests unitarios

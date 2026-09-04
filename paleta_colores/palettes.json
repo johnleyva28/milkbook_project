@@ -1,0 +1,331 @@
+{
+  "metadata": {
+    "project": "Milkbook - Plataforma Lechera Rural",
+    "location": "Cajamarca, Peru",
+    "research_date": "2026-09-04",
+    "sources": ["Exa Web Search", "Firecrawl", "Manual analysis"],
+    "total_palettes": 20,
+    "current_project_palette": {
+      "verde_confianza": "#2E7D32",
+      "azul_leche": "#1976D2",
+      "amarillo_alerta": "#F9A825",
+      "rojo_discrepancia": "#C62828",
+      "gris_texto": "#212121",
+      "gris_claro": "#F5F5F5"
+    }
+  },
+  "palettes": [
+    {
+      "id": "01",
+      "name": "Material Design Dairy",
+      "filename": "01-material-design-dairy.md",
+      "personality": "Clasica, conservadora, universal",
+      "best_for": "MVP rapido sin riesgos",
+      "primary": "#1565C0",
+      "secondary": "#2E7D32",
+      "tertiary": "#F9A825",
+      "error": "#C62828",
+      "background": "#FAF8F1",
+      "text": "#212121",
+      "tags": ["clasica", "conservadora", "MVP", "azul"]
+    },
+    {
+      "id": "02",
+      "name": "Andina Tradicional",
+      "filename": "02-andina-tradicional.md",
+      "personality": "Cultural, vibrante, identitaria",
+      "best_for": "Diferenciacion con identidad andina",
+      "primary": "#C0392B",
+      "secondary": "#1ABC9C",
+      "tertiary": "#F1C40F",
+      "error": "#C0392B",
+      "background": "#FDF6E3",
+      "text": "#2C3E50",
+      "tags": ["andina", "cultural", "vibrante", "TOP-PICK-MOBILE"]
+    },
+    {
+      "id": "03",
+      "name": "Cafe con Leche",
+      "filename": "03-cafe-con-leche.md",
+      "personality": "Calida, hogarena, acogedora",
+      "best_for": "Onboarding acogedor",
+      "primary": "#6F4E37",
+      "secondary": "#3F704D",
+      "tertiary": "#F4D03F",
+      "error": "#A93226",
+      "background": "#FAF3E0",
+      "text": "#2C1810",
+      "tags": ["calida", "cafetera", "onboarding"]
+    },
+    {
+      "id": "04",
+      "name": "Gloria-Inspired",
+      "filename": "04-gloria-inspired.md",
+      "personality": "Corporativa, seria, tradicional",
+      "best_for": "Reuniones SUNAT/bancos",
+      "primary": "#0D47A1",
+      "secondary": "#D32F2F",
+      "tertiary": "#FFA000",
+      "error": "#D32F2F",
+      "background": "#FFF8E1",
+      "text": "#1A237E",
+      "tags": ["corporativa", "Gloria", "Laive", "B2B"]
+    },
+    {
+      "id": "05",
+      "name": "Sol de los Andes",
+      "filename": "05-sol-de-los-andes.md",
+      "personality": "Cosecha, abundancia, dorada",
+      "best_for": "Temporada alta de leche",
+      "primary": "#D4A017",
+      "secondary": "#5B7C3A",
+      "tertiary": "#D87C3A",
+      "error": "#B33A1F",
+      "background": "#FFF8E7",
+      "text": "#2D2A22",
+      "tags": ["dorado", "cosecha", "andina"]
+    },
+    {
+      "id": "06",
+      "name": "Pastizal Verde",
+      "filename": "06-pastizal-verde.md",
+      "personality": "Ecologica, organica, sostenible",
+      "best_for": "Modulos de sostenibilidad",
+      "primary": "#4A7C2A",
+      "secondary": "#7CB342",
+      "tertiary": "#FBC02D",
+      "error": "#C62828",
+      "background": "#FAF7F0",
+      "text": "#1B1F1A",
+      "tags": ["verde", "ecologica", "farm-fresh"]
+    },
+    {
+      "id": "07",
+      "name": "Tierra Fertil",
+      "filename": "07-tierra-fertil.md",
+      "personality": "Solida, tradicional, campestre",
+      "best_for": "Branding 'del campo'",
+      "primary": "#6B4423",
+      "secondary": "#558B2F",
+      "tertiary": "#E6A817",
+      "error": "#A02418",
+      "background": "#F5EFE6",
+      "text": "#2A1F18",
+      "tags": ["tierra", "marron", "solida", "agricola"]
+    },
+    {
+      "id": "08",
+      "name": "Cielo Lechero",
+      "filename": "08-cielo-lechero.md",
+      "personality": "Universal, confianza, global",
+      "best_for": "Convenciones globales",
+      "primary": "#0277BD",
+      "secondary": "#7CB342",
+      "tertiary": "#FFB300",
+      "error": "#D32F2F",
+      "background": "#F8FBFF",
+      "text": "#102A43",
+      "tags": ["azul", "leche", "confianza", "universal", "TOP-PICK-MOBILE"]
+    },
+    {
+      "id": "09",
+      "name": "Sunset Cajamarquino",
+      "filename": "09-sunset-cajamarquino.md",
+      "personality": "Moderna, vibrante, romantica",
+      "best_for": "Atraer productores jovenes",
+      "primary": "#E85D04",
+      "secondary": "#FFB703",
+      "tertiary": "#FF6B9D",
+      "error": "#9D0208",
+      "background": "#FFF1E6",
+      "text": "#1D1D1D",
+      "tags": ["moderna", "vibrante", "joven", "sunset"]
+    },
+    {
+      "id": "10",
+      "name": "Madera y Lana",
+      "filename": "10-madera-y-lana.md",
+      "personality": "Artesanal, calida, hecha a mano",
+      "best_for": "Boletas fisicas, PDFs",
+      "primary": "#8B4513",
+      "secondary": "#7C8B5C",
+      "tertiary": "#C77B4B",
+      "error": "#7B2D12",
+      "background": "#F5EFE0",
+      "text": "#2A1F14",
+      "tags": ["artesanal", "madera", "cajamarquina"]
+    },
+    {
+      "id": "11",
+      "name": "WCAG AAA Solar",
+      "filename": "11-wcag-aaa-solar.md",
+      "personality": "Maxima legibilidad al sol",
+      "best_for": "Uso bajo sol directo",
+      "primary": "#003C8F",
+      "secondary": "#1B5E20",
+      "tertiary": "#B8860B",
+      "error": "#B30000",
+      "background": "#F5F5F0",
+      "text": "#000000",
+      "tags": ["WCAG-AAA", "solar", "accesible", "TOP-PICK-LEGIBILITY"]
+    },
+    {
+      "id": "12",
+      "name": "Modo Noche Rural",
+      "filename": "12-modo-noche-rural.md",
+      "personality": "Nocturna, oscura, descanso",
+      "best_for": "Invierno 5-7 PM, dark mode",
+      "primary": "#90CAF9",
+      "secondary": "#81C784",
+      "tertiary": "#FFB74D",
+      "error": "#EF5350",
+      "background": "#121212",
+      "text": "#F5F5F5",
+      "tags": ["dark-mode", "noche", "oscura"]
+    },
+    {
+      "id": "13",
+      "name": "Monocromo Profesional",
+      "filename": "13-monocromo-profesional.md",
+      "personality": "B2B seria, minimalista",
+      "best_for": "Web admin (CRM)",
+      "primary": "#18181B",
+      "secondary": "#10B981",
+      "tertiary": "#F59E0B",
+      "error": "#EF4444",
+      "background": "#FAFAFA",
+      "text": "#27272A",
+      "tags": ["monocromo", "B2B", "minimalista", "TOP-PICK-ADMIN"]
+    },
+    {
+      "id": "14",
+      "name": "Queso Andino",
+      "filename": "14-queso-andino.md",
+      "personality": "Producto-especifica, lactea",
+      "best_for": "Boletas, identidad de marca",
+      "primary": "#F4A418",
+      "secondary": "#6B8E23",
+      "tertiary": "#D97706",
+      "error": "#991B1E",
+      "background": "#FFFEF7",
+      "text": "#3D2914",
+      "tags": ["queso", "lactea", "producto"]
+    },
+    {
+      "id": "15",
+      "name": "Bosque de Eucaliptos",
+      "filename": "15-bosque-eucaliptos.md",
+      "personality": "Profunda, premium, robusta",
+      "best_for": "Web admin, reportes",
+      "primary": "#1B4332",
+      "secondary": "#2D6A4F",
+      "tertiary": "#DDA15E",
+      "error": "#780000",
+      "background": "#F4F1E8",
+      "text": "#1A1A1A",
+      "tags": ["verde-profundo", "bosque", "premium"]
+    },
+    {
+      "id": "16",
+      "name": "Niebla Matutina",
+      "filename": "16-niebla-matutina.md",
+      "personality": "Moderna, fria, startup",
+      "best_for": "Estetica startup tech",
+      "primary": "#5B7B9A",
+      "secondary": "#8FA68E",
+      "tertiary": "#E8C547",
+      "error": "#A24D5A",
+      "background": "#F8FAFB",
+      "text": "#2A3540",
+      "tags": ["fria", "moderna", "minimalista"]
+    },
+    {
+      "id": "17",
+      "name": "Rio y Pradera",
+      "filename": "17-rio-y-pradera.md",
+      "personality": "Frescura, agua, vida",
+      "best_for": "Campanas temporada lluvias",
+      "primary": "#0078A8",
+      "secondary": "#5BA82F",
+      "tertiary": "#9BC53D",
+      "error": "#D14545",
+      "background": "#F2FAFC",
+      "text": "#1A2B3A",
+      "tags": ["azul", "verde", "agua", "frescura"]
+    },
+    {
+      "id": "18",
+      "name": "Tropico Andino",
+      "filename": "18-tropico-andino.md",
+      "personality": "Audaz, vibrante, memorable",
+      "best_for": "Diferenciacion radical",
+      "primary": "#7B2CBF",
+      "secondary": "#06D6A0",
+      "tertiary": "#FF9E1B",
+      "error": "#D62828",
+      "background": "#FFFDF7",
+      "text": "#0D1117",
+      "tags": ["vibrante", "audaz", "memorable"]
+    },
+    {
+      "id": "19",
+      "name": "Color-Blind Safe (Wong)",
+      "filename": "19-color-blind-safe-wong.md",
+      "personality": "100% accesible universal",
+      "best_for": "Inclusion universal",
+      "primary": "#0072B2",
+      "secondary": "#009E73",
+      "tertiary": "#F0E442",
+      "error": "#D55E00",
+      "background": "#FFFFFF",
+      "text": "#000000",
+      "tags": ["wcag-aaa", "daltonismo", "Wong", "TOP-PICK-ACCESSIBILITY"]
+    },
+    {
+      "id": "20",
+      "name": "Indigo Mountain",
+      "filename": "20-indigo-mountain.md",
+      "personality": "Premium B2B, fintech rural",
+      "best_for": "Reuniones corporativas",
+      "primary": "#1A1F71",
+      "secondary": "#C9A227",
+      "tertiary": "#B87333",
+      "error": "#A52A2A",
+      "background": "#FAFAFA",
+      "text": "#1F1F2E",
+      "tags": ["premium", "B2B", "fintech"]
+    }
+  ],
+  "recommendations": {
+    "mobile_app_primary": {
+      "palette": "02_andina_tradicional",
+      "reason": "Conecta emocionalmente con cultura andina, cumple WCAG AAA, diferencia Milkbook",
+      "secondary_options": ["08_cielo_lechero", "09_sunset_cajamarquino"]
+    },
+    "web_admin": {
+      "palette": "13_monocromo_profesional",
+      "reason": "Reduce fatiga visual en jornadas largas, combina con cualquier paleta movil",
+      "secondary_options": ["15_bosque_eucaliptos"]
+    },
+    "dark_mode": {
+      "palette": "12_modo_noche_rural",
+      "reason": "Diseñada para uso nocturno en zonas rurales sin luz"
+    },
+    "high_visibility": {
+      "palette": "11_wcag_aaa_solar",
+      "reason": "Maxima legibilidad bajo luz solar directa"
+    },
+    "accessibility": {
+      "palette": "19_color_blind_safe_wong",
+      "reason": "Cumple 100% con accesibilidad para daltonicos"
+    },
+    "boletas_pdf": {
+      "palette": "14_queso_andino",
+      "reason": "Conecta visualmente con el producto"
+    },
+    "onboarding": {
+      "palette": "03_cafe_con_leche",
+      "reason": "Sensacion calida de bienvenida"
+    }
+  }
+}

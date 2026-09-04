@@ -336,6 +336,95 @@ enum MetodoFirma {
 
 El usuario **elige** el método disponible en su dispositivo.
 
+### Dónde se usa la firma digital
+
+| Acción | Quién firma | Método |
+|---|---|---|
+| **Login (paso 2)** | Cliente y Lechero | DNI + PIN/huella/cara/contraseña |
+| **Re-autenticación (después de 15 min)** | Cliente y Lechero | PIN/huella/cara (sin re-pedir DNI) |
+| **Confirmar litros** | Cliente | PIN/huella/cara |
+| **Confirmar adelanto recibido** | Cliente | PIN/huella/cara |
+| **Confirmar encargo recibido** | Cliente | PIN/huella/cara |
+| **Firmar liquidación** | Cliente | PIN/huella/cara |
+| **Acciones sensibles** (cambiar precio, cerrar contrato, generar boleta) | Lechero | PIN/huella/cara |
+
+> **Nota importante:** el **lechero NO firma al marcar "recogido"**. Solo el vendedor (cliente) firma al confirmar la cantidad. Esto evita fricción en la moto con guantes/sol.
+
+### Login en dos pasos con firma
+
+```typescript
+@Post('auth/login-step1')
+async loginStep1(@Body() dto: { dni: string }) {
+  // 1. Verificar DNI existe
+  const user = await this.prisma.user.findUnique({ where: { dni: dto.dni } });
+  if (!user) throw new UnauthorizedException('DNI_NOT_FOUND');
+  if (!user.activo) throw new UnauthorizedException('USER_SUSPENDED');
+
+  // 2. Emitir token temporal de 5 minutos
+  const tempToken = jwt.sign(
+    { sub: user.id, userType: user.userType, scope: 'firma' },
+    { expiresIn: '5m' }
+  );
+  return { temp_token: tempToken, user_id: user.id };
+}
+
+@Post('auth/login-step2')
+async loginStep2(@Body() dto: { temp_token: string, method: 'PIN'|'PASSWORD'|'BIO', value: string }) {
+  // 1. Verificar temp_token
+  const payload = jwt.verify(dto.temp_token);
+  if (payload.scope !== 'firma') throw new UnauthorizedException();
+
+  // 2. Si es PASSWORD, comparar con hash
+  if (dto.method === 'PASSWORD') {
+    const user = await this.prisma.user.findUnique({ where: { id: payload.sub } });
+    const ok = await bcrypt.compare(dto.value, user.passwordHash);
+    if (!ok) throw new UnauthorizedException('INVALID_CREDENTIALS');
+  }
+
+  // 3. Si es PIN, comparar hash
+  if (dto.method === 'PIN') {
+    const ok = await this.verifyPin(payload.sub, dto.value);
+    if (!ok) throw new UnauthorizedException('INVALID_PIN');
+  }
+
+  // 4. Si es BIO, el device ya validó → confiar y emitir tokens
+  // (Si el device reporta OK, el user es quien dice ser)
+
+  // 5. Emitir access + refresh tokens
+  return this.emitTokens(payload.sub);
+}
+```
+
+### Almacenamiento del PIN
+
+- El PIN se guarda **hasheado** en la DB (bcrypt con salt).
+- El PIN en el device se guarda en **flutter_secure_storage** (Keychain/Keystore), nunca viaja al backend en claro.
+- Tamaño: 4-6 dígitos.
+
+```typescript
+async setPin(userId: string, pin: string): Promise<void> {
+  const hash = await bcrypt.hash(pin, 12);
+  await this.prisma.user.update({
+    where: { id: userId },
+    data: { pinHash: hash, firmaMetodoPreferido: 'PIN' },
+  });
+}
+```
+
+### Biometría (consideraciones de seguridad)
+
+- La biometría **nunca viaja al backend**. Solo el resultado OK/FAIL del device.
+- El backend **confía** en que si el device reporta OK, el usuario fue autenticado correctamente por el hardware.
+- Riesgo: si el dispositivo está comprometido, la biometría puede ser falsificada. Por eso se ofrece fallback a PIN.
+- Se puede requerir PIN **periódicamente** (ej: cada 72 horas) incluso con biometría, como medida extra.
+
+### Re-autenticación por timeout
+
+- Access token expira a los **15 minutos**.
+- Al expirar, la app pide la firma de nuevo (PIN o biometría) **sin volver a pedir el DNI**.
+- Refresh token (7-30 días) renueva el access sin pedir firma; se usa solo para refresh silencioso.
+- Si el refresh token expira o se revoca → login completo desde DNI.
+
 ## Rate Limiting
 
 ```typescript

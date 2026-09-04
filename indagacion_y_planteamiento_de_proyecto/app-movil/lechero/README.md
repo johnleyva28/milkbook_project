@@ -42,16 +42,42 @@ El lechero **NO** hace:
   - Switch "No recogí".
   - Botón "Guardar y siguiente".
 
-### 4. Mis clientes
-- Lista de todos los clientes.
-- Búsqueda por nombre o DNI.
-- Filtros: activos, inactivos, con contrato activo.
+### 3.b. Confirmar recolección (la MÁS USADA del día — flujo v3)
+
+Esta es la **pantalla crítica diaria** del lechero. Se actualizó el flujo para soportar **doble registro**: el vendedor puede registrar primero o el lechero puede registrar él solo si el vendedor no lo hizo. Ver [`confirmar-recoleccion.md`](./confirmar-recoleccion.md) para el detalle completo.
+
+**Resumen del flujo:**
+
+| Caso | Vendedor hizo | Lechero hace | Estado final |
+|---|---|---|---|
+| **A — Normal** | Registró 17 L | Toca "✓ Recogido: 17 L" | `RECOGIDO_COINCIDE` |
+| **A.b — Diferencia** | Registró 17 L | Registra 16.5 L y marca "Recogido con diferencia" | `RECOGIDO_DISCREPANCIA` |
+| **B — Vendedor no registró** | No hizo nada | Registra la cantidad y marca "✓ Recogido" | `RECOGIDO_SIN_CONFIRMAR` (24 h para que vendedor confirme) |
+| **No recogió** | (cualquiera) | Toca "✕ No recogí" | `NO_VENDIO` |
+
+**Reglas clave:**
+- El lechero **NO firma** (PIN/huella) al marcar "✓ recogido". Solo es un tap. La fricción en la moto sería demasiado alta.
+- El **vendedor sí firma** (PIN/huella) al confirmar la cantidad desde su app.
+- Si pasan 24 h sin que el vendedor confirme (caso B), se usa el valor del lechero como definitivo.
+
+### 4. Mis clientes (vista principal del módulo "Clientes")
+- **Lista con vista dual:** cards y detalle (toggle en la parte superior).
+- **Ordenamiento:** alfabético por nombre (default) o por última visita.
+- **Búsqueda:** barra de búsqueda integrada (busca por nombre o DNI).
+- **Filtros por tabs:** `| Vigentes | Vencidos |` (default Vigentes — solo muestra clientes con contrato activo).
+- **Filtros avanzados:**وصول (próximamente: región, litros producidos, con/sin adelantos pendientes, etc.).
 - Detalle de cliente: nombre, DNI, celular, contratos previos.
 
-### 5. Detalle de cliente
+> **Detalle completo:** ver [`mis-clientes-busqueda.md`](./mis-clientes-busqueda.md). Este documento explica la vista dual, los tabs, la búsqueda fuzzy, y la vista especial "Para sacar cuentas hoy" (que es lo que Carlos usa cuando está en la casa del cliente cerrando la quincena).
+
+### 5. Detalle de cliente (interfaz secundaria — al tocar un productor)
 - Header: nombre, DNI, celular.
 - Botón "Llamar" (abre marcador).
 - Botón "WhatsApp" (abre chat).
+- **Acciones rápidas:**
+  - "📝 Anotar o confirmar cantidad" → abre `ConfirmarRecoleccionScreen` (pantalla 3.b).
+  - "💰 Registrar adelanto".
+  - "🛒 Registrar encargo".
 - Contrato actual: ver detalles (litros, adelantos, encargos).
 - Lista de contratos pasados.
 - Botón "Iniciar nuevo contrato" (futuro).
