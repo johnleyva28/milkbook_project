@@ -1,0 +1,4 @@
+# Keep shell scripts with LF line endings on every OS so that
+# the commit-msg hook stays executable for Git for Windows / macOS / Linux.
+*.sh           text eol=lf
+.githooks/*    text eol=lf

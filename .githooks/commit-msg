@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# .githooks/commit-msg
+# ----------------------------------------------------------------------
+# Enforces Conventional Commits format on EVERY branch
+# (main, develop, feature/*, hotfix/*, release/*, ...).
+#
+# A git hook fires on `git commit` regardless of the active branch,
+# so a single hook covers main and develop without extra logic.
+#
+# Required format:  <type>(<scope>): <subject>
+#
+# Allowed types:    feat, fix, docs, chore, style, build, perf,
+#                   refactor, test, ci, revert
+#
+# Scope is OPTIONAL but, if present, must be lowercase alphanumerics,
+# dots, dashes or underscores (e.g. `feat(api): ...`).
+#
+# Subject must have at least one non-whitespace character.
+# ----------------------------------------------------------------------
+
+COMMIT_MSG_FILE="$1"
+FIRST_LINE=$(head -n 1 "${COMMIT_MSG_FILE}")
+
+# --- Allow commits produced automatically by git itself --------------
+# Merge commits
+if echo "${FIRST_LINE}" | grep -qE "^Merge (branch|remote-tracking branch) " ; then
+  exit 0
+fi
+
+# `git revert` automatic commits
+if echo "${FIRST_LINE}" | grep -qE '^Revert "' ; then
+  exit 0
+fi
+
+# --- Conventional Commits validation ---------------------------------
+REGEX='^(feat|fix|docs|chore|style|build|perf|refactor|test|ci|revert)(\([a-zA-Z0-9_.-]+\))?: .+$'
+
+if echo "${FIRST_LINE}" | grep -qE "${REGEX}" ; then
+  exit 0
+fi
+
+# --- Reject with a helpful error -------------------------------------
+cat <<EOF
+
+  COMMIT REJECTED: invalid message format
+
+  Got:      ${FIRST_LINE}
+
+  Expected: <type>(<scope>): <subject>
+
+  Allowed types:
+    feat, fix, docs, chore, style,
+    build, perf, refactor, test, ci, revert
+
+  Scope rules (optional):
+    - alphanumeric, dot, dash or underscore only
+    - examples: (api), (ui), (login-form), (deps)
+
+  Examples:
+    feat(login): add Google OAuth button
+    fix(api): handle 401 responses
+    docs: update README with setup steps
+    style(nav): fix mobile menu alignment
+
+  Tip: keep the subject short (max ~72 chars).
+
+EOF
+
+exit 1
