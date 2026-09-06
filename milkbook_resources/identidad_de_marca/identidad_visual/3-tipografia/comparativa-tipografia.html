@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milkbook — Sistema Tipográfico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600;700&family=Lexend:wght@300;400;500;600;700&family=Fraunces:wght@500;700&family=Roboto:wght@400;500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* === Paleta Milkbook (referencia) === */
+    --cream-50:  #FFFDF7;
+    --cream-100: #FAF8F3;
+    --cream-200: #F5F0E1;
+    --cream-300: #EBE3CC;
+    --cream-400: #D9CCA8;
+    --cream-500: #B89766;
+
+    --green-700: #184318;
+    --green-500: #2A782A;
+    --green-300: #88D088;
+    --green-100: #DCF1DC;
+
+    --blue-700:  #003965;
+    --blue-500:  #0064B1;
+    --blue-300:  #78C0F8;
+    --blue-100:  #D9ECFA;
+
+    --warning:     #B26A00;
+    --warning-bg:  #FFF4E0;
+    --error:       #B3261E;
+    --error-bg:    #FCE8E6;
+
+    --text:           #1A1F1A;
+    --text-soft:      #5C5C5C;
+    --text-disabled:  #9CA39C;
+    --border:         var(--cream-300);
+    --border-strong:  var(--cream-400);
+    --surface:        #FFFFFF;
+    --bg:             var(--cream-50);
+  }
+  [data-theme="dark"] {
+    --bg:             #1A1814;
+    --surface:        #25211B;
+    --border:         #3A332A;
+    --border-strong:  #524838;
+    --text:           #FAF8F3;
+    --text-soft:      #C7BFAE;
+    --text-disabled:  #6E6655;
+    --green-700: #2A782A;
+    --green-500: #52C652;
+    --green-100: #1F3A1F;
+    --blue-700:  #0064B1;
+    --blue-500:  #199BFF;
+    --blue-100:  #1A2E40;
+    --warning:     #FEB64C;
+    --warning-bg:  #3A2810;
+    --error:       #E15850;
+    --error-bg:    #3A1815;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2rem 1rem;
+    transition: background 0.2s, color 0.2s;
+  }
+  .container { max-width: 1280px; margin: 0 auto; }
+
+  header { text-align: center; margin-bottom: 2.5rem; }
+  header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+  header .sub { color: var(--text-soft); max-width: 760px; margin: 0 auto; }
+
+  .theme-toggle {
+    position: fixed; top: 1rem; right: 1rem;
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 0.5rem 1rem; font-weight: 600; cursor: pointer;
+    z-index: 10;
+  }
+
+  h2 {
+    margin: 3rem 0 1rem; font-size: 1.5rem;
+    border-bottom: 2px solid var(--border); padding-bottom: 0.5rem;
+  }
+  h3 { margin: 1.5rem 0 0.75rem; font-size: 1.1rem; }
+
+  /* === Cards de comparación === */
+  .font-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+  @media (max-width: 900px) { .font-grid { grid-template-columns: 1fr; } }
+  .font-card {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .font-card.recommended { border: 2px solid var(--green-500); }
+  .font-card .name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .font-card .role { font-size: 0.85rem; color: var(--text-soft); margin-bottom: 0.75rem; }
+  .font-card .badge {
+    display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem;
+    background: var(--green-100); color: var(--green-700);
+    border-radius: 4px; font-weight: 700; margin-bottom: 0.5rem;
+  }
+
+  .font-sample {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+  .font-sample .label { font-size: 0.7rem; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+  .font-sample .demo { font-size: 1.5rem; line-height: 1.3; }
+  .font-sample .small { font-size: 0.95rem; }
+
+  .legibility-test {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+  }
+  .legibility-test .label { font-size: 0.7rem; color: var(--text-soft); margin-bottom: 0.5rem; }
+  .legibility-test .row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+  .legibility-test .row span { padding: 0.25rem 0.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; font-size: 1.1rem; }
+
+  /* === Mockups de pantallas Milkbook === */
+  .mockup-section {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    margin: 1.5rem 0;
+  }
+  .mockup-section h3 { margin-top: 0; }
+
+  .mockup-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 700px) { .mockup-row { grid-template-columns: 1fr; } }
+
+  .phone {
+    max-width: 340px; margin: 0 auto; width: 100%;
+    aspect-ratio: 9 / 19;
+    border-radius: 28px; border: 8px solid #1a1a1a;
+    background: var(--bg);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+  .phone-status {
+    height: 24px; background: rgba(0,0,0,0.04);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 1rem; font-size: 0.7rem; font-weight: 700;
+    color: var(--text);
+  }
+  .phone-body { flex: 1; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; overflow: hidden; color: var(--text); }
+  .phone h4 { font-size: 1.05rem; }
+  .phone .greeting { font-size: 0.85rem; color: var(--text-soft); }
+  .btn-big {
+    border: none; border-radius: 12px; padding: 1rem;
+    font-size: 0.95rem; font-weight: 700; color: white; min-height: 56px;
+    font-family: inherit;
+  }
+  .btn-primary { background: var(--green-500); }
+  .btn-info { background: var(--blue-500); }
+  .btn-warn { background: var(--warning); }
+  .card-mock {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 0.8rem;
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 0.3rem;
+  }
+  .card-mock .litros { font-size: 1.5rem; font-weight: 700; color: var(--green-700); }
+  .card-mock .label { font-size: 0.75rem; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; }
+  .card-alert { background: var(--warning-bg); border-color: var(--warning); }
+  .card-alert .litros { color: var(--warning); }
+  .screen-label { text-align: center; font-weight: 700; margin-top: 0.5rem; font-size: 0.9rem; }
+
+  /* Variantes tipográficas en el mockup */
+  .typo-original .card-mock .litros,
+  .typo-original h4,
+  .typo-original .greeting { font-family: "Roboto", system-ui, sans-serif; }
+  .typo-original .btn-big { font-family: "Roboto", system-ui, sans-serif; }
+  .typo-original .label { font-family: "Inter", system-ui, sans-serif; }
+
+  .typo-mixed .card-mock .litros,
+  .typo-mixed h4,
+  .typo-mixed .greeting { font-family: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", system-ui, sans-serif; }
+  .typo-mixed .btn-big { font-family: "Inter", system-ui, sans-serif; }
+  .typo-mixed .label { font-family: "Inter", system-ui, sans-serif; }
+
+  /* === Snippets de código === */
+  .code-section {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    margin: 1rem 0;
+  }
+  .code-section h3 { margin-top: 0; }
+  .code-tabs {
+    display: flex; gap: 0.5rem; margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .code-tab {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border: none; background: none;
+    color: var(--text-soft);
+    font-weight: 600;
+    font-family: "Inter", system-ui, sans-serif;
+    border-bottom: 2px solid transparent;
+    font-size: 0.9rem;
+  }
+  .code-tab.active { color: var(--blue-500); border-bottom-color: var(--blue-500); }
+  pre {
+    background: #0d1117;
+    color: #e6edf3;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  pre .comment { color: #8b949e; }
+  pre .keyword { color: #ff7b72; }
+  pre .string  { color: #a5d6ff; }
+  pre .fn      { color: #d2a8ff; }
+  pre .prop    { color: #79c0ff; }
+  pre .num     { color: #f0883e; }
+
+  .pairing-reco {
+    background: var(--green-100);
+    border-left: 4px solid var(--green-500);
+    padding: 1rem 1.25rem;
+    border-radius: 6px;
+    margin: 1rem 0;
+    color: var(--text);
+  }
+  [data-theme="dark"] .pairing-reco { background: var(--green-100); color: var(--text); }
+
+  .footer-note {
+    margin-top: 3rem; padding: 1.5rem; background: var(--green-700); color: white;
+    border-radius: 12px; text-align: center;
+  }
+  [data-theme="dark"] .footer-note { background: var(--green-500); color: var(--bg); }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
+
+<div class="container">
+
+<header>
+  <h1>✍️ Milkbook — Sistema Tipográfico</h1>
+  <p class="sub">Comparativa de fuentes candidatas con texto real de la app, mockups en light/dark, y snippets de instalación para <strong>React (web admin)</strong>, <strong>Flutter (cliente + lechero)</strong> y <strong>Swift (iOS nativo)</strong>.</p>
+</header>
+
+<h2>1. Por qué NO una sola fuente</h2>
+<div class="mockup-section">
+  <p>Una sola familia no puede ser excelente en <strong>todo</strong>. Milkbook necesita:</p>
+  <ul style="margin: 0.75rem 0 0.75rem 1.5rem; line-height: 1.8;">
+    <li><strong>Para datos numéricos</strong> (litros, montos): fuente que distinga <code style="background:var(--bg); padding: 0.1rem 0.3rem; border-radius: 3px;">0/O</code>, <code style="background:var(--bg); padding: 0.1rem 0.3rem; border-radius: 3px;">1/l/I</code> y <code style="background:var(--bg); padding: 0.1rem 0.3rem; border-radius: 3px;">S/5/$</code> sin confundirlos. Crítico cuando lees el monto total.</li>
+    <li><strong>Para UI densa</strong> (botones, labels, navegación): fuente con x-height alta que aproveche el espacio y se lea bien al sol.</li>
+    <li><strong>Para el wordmark y marketing</strong>: fuente con personalidad que diferencie a Milkbook de apps genéricas.</li>
+  </ul>
+  <div class="pairing-reco">
+    <strong>Recomendación final:</strong> <strong>4 familias, 4 roles.</strong> <strong>Atkinson Hyperlegible Next</strong> (datos en app) + <strong>Inter</strong> (UI general) + <strong>Lexend</strong> (lectura larga en web admin) + <strong>Fraunces</strong> (display/wordmark). Todas gratuitas, OFL, disponibles en Google Fonts.
+  </div>
+</div>
+
+
+<h2>1b. Disponibilidad, costo y soporte multiplataforma</h2>
+<div class="mockup-section">
+  <p>Las 4 fuentes elegidas son <strong>100% gratuitas</strong> bajo la licencia <strong>SIL Open Font License (OFL)</strong> — uso comercial libre, redistribución libre, modificación libre, sin atribución obligatoria. No hay letra chica, no hay costo oculto.</p>
+  <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 1rem;">
+    <thead>
+      <tr style="border-bottom: 2px solid var(--border); text-align: left;">
+        <th style="padding: 0.5rem;">Fuente</th>
+        <th style="padding: 0.5rem;">Licencia</th>
+        <th style="padding: 0.5rem;">Costo</th>
+        <th style="padding: 0.5rem;">Google Fonts</th>
+        <th style="padding: 0.5rem;">TTF/OTF</th>
+        <th style="padding: 0.5rem;">Variable font</th>
+        <th style="padding: 0.5rem;">React (next/font)</th>
+        <th style="padding: 0.5rem;">Flutter (pubspec)</th>
+        <th style="padding: 0.5rem;">Swift (Info.plist)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.5rem;"><strong>Atkinson Hyperlegible Next</strong></td><td style="padding: 0.5rem;">OFL</td><td style="padding: 0.5rem;">✅ Gratis</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td></tr>
+      <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.5rem;"><strong>Inter</strong></td><td style="padding: 0.5rem;">OFL</td><td style="padding: 0.5rem;">✅ Gratis</td><td style="padding: 0.5rem;">✅*</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td></tr>
+      <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.5rem;"><strong>Lexend</strong></td><td style="padding: 0.5rem;">OFL</td><td style="padding: 0.5rem;">✅ Gratis</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td></tr>
+      <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.5rem;"><strong>Fraunces</strong></td><td style="padding: 0.5rem;">OFL</td><td style="padding: 0.5rem;">✅ Gratis</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅ (4 ejes)</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td><td style="padding: 0.5rem;">✅</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.75rem;">*<strong>Inter en Google Fonts</strong> está un poco desactualizada (sin itálicas, sin variable font). El autor Rasmus Andersson recomienda bajarla de <a href="https://rsms.me/inter/" style="color: var(--blue-500);">rsms.me/inter</a> directamente. En Milkbook no usamos itálicas, así que la de Google Fonts es suficiente, pero si quieres la última versión, baja de rsms.me.</p>
+  <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.5rem;"><strong>¿Cómo verifico la licencia?</strong> Cada archivo TTF/OTF incluye un archivo <code>LICENSE.txt</code> o <code>OFL.txt</code> adjunto. OFL permite: uso comercial, redistribución, modificación. Solo prohíbe vender la fuente por sí sola.</p>
+</div>
+
+<h2>2. Las 5 candidatas, una al lado de la otra</h2>
+<p style="color: var(--text-soft); margin-bottom: 1rem;">Cada una renderizada con texto real de Milkbook: el caso más difícil (datos numéricos, nombres con tildes y ñ) y la prueba de "caracteres confundibles".</p>
+
+<div class="font-grid">
+
+  <div class="font-card recommended">
+    <div class="badge">⭐ RECOMENDADA · DATOS</div>
+    <div class="name">Atkinson Hyperlegible Next</div>
+    <div class="role">Braille Institute · 2025 · 7 pesos · 150+ idiomas · OFL · ✅ 100% gratis · ✅ TTF/OTF · React + Flutter + Swift</div>
+    <div class="font-sample" style="font-family: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible', system-ui, sans-serif;">
+      <div class="label">Dato crítico · 32px Bold</div>
+      <div class="demo"><strong>18.5 L · S/ 12.03</strong></div>
+    </div>
+    <div class="font-sample" style="font-family: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible', system-ui, sans-serif;">
+      <div class="label">Nombre con tildes · 18px Regular</div>
+      <div class="demo small">Juan Mamani López · DNI 45678901</div>
+    </div>
+    <div class="legibility-test" style="font-family: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible', system-ui, sans-serif;">
+      <div class="label">Prueba confundibles</div>
+      <div class="row">
+        <span>0</span><span>O</span><span>Q</span><span>D</span>
+        <span>1</span><span>l</span><span>I</span><span>|</span>
+        <span>5</span><span>S</span><span>$</span>
+        <span>ñ</span><span>Ñ</span>
+      </div>
+    </div>
+    <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.75rem;">✓ Cada carácter es único. La I, l, 1 y | son inconfundibles. La 0, O, Q y D se distinguen claramente.</p>
+  </div>
+
+  <div class="font-card">
+    <div class="badge" style="background: var(--blue-100); color: var(--blue-700);">RECOMENDADA · UI</div>
+    <div class="name">Inter</div>
+    <div class="role">Rasmus Andersson · 9 pesos · variable · OFL · ✅ 100% gratis · ✅ TTF/OTF · React + Flutter + Swift · ⚠️ bajar de rsms.me</div>
+    <div class="font-sample" style="font-family: 'Inter', system-ui, sans-serif;">
+      <div class="label">Botón · 16px Semibold</div>
+      <div class="demo"><strong>CONFIRMAR LITROS</strong></div>
+    </div>
+    <div class="font-sample" style="font-family: 'Inter', system-ui, sans-serif;">
+      <div class="label">Título pantalla · 24px Bold</div>
+      <div class="demo small"><strong>Mis clientes del día</strong></div>
+    </div>
+    <div class="legibility-test" style="font-family: 'Inter', system-ui, sans-serif;">
+      <div class="label">Prueba confundibles</div>
+      <div class="row">
+        <span>0</span><span>O</span><span>Q</span><span>D</span>
+        <span>1</span><span>l</span><span>I</span><span>|</span>
+        <span>5</span><span>S</span><span>$</span>
+        <span>ñ</span><span>Ñ</span>
+      </div>
+    </div>
+    <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.75rem;">✓ Excelente para UI densa. x-height alta = texto más grande al mismo px. <strong>Pero</strong> la 1 y la l son similares a la I.</p>
+  </div>
+
+  <div class="font-card">
+    <div class="badge" style="background: var(--cream-200); color: var(--text);">RECOMENDADA · DISPLAY</div>
+    <div class="name">Fraunces</div>
+    <div class="role">Undercase Type · 4 ejes (wght/opsz/SOFT/WONK) · variable · OFL · ✅ 100% gratis · ✅ TTF/OTF · React + Flutter + Swift</div>
+    <div class="font-sample" style="font-family: 'Fraunces', Georgia, serif;">
+      <div class="label">Wordmark · 36px Medium</div>
+      <div class="demo"><strong>Milkbook</strong></div>
+    </div>
+    <div class="font-sample" style="font-family: 'Fraunces', Georgia, serif;">
+      <div class="label">Hero marketing · 24px</div>
+      <div class="demo small"><strong>La leche de tu caserío,</strong></div>
+    </div>
+    <div class="legibility-test" style="font-family: 'Fraunces', Georgia, serif;">
+      <div class="label">Prueba confundibles</div>
+      <div class="row">
+        <span>0</span><span>O</span><span>Q</span><span>D</span>
+        <span>1</span><span>l</span><span>I</span><span>|</span>
+        <span>5</span><span>S</span><span>$</span>
+        <span>ñ</span><span>Ñ</span>
+      </div>
+    </div>
+    <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.75rem;">⚠️ Display <strong>solo</strong>. Cero uso en UI diaria. Espaciado generoso, no apta para textos largos.</p>
+  </div>
+
+  <div class="font-card">
+    <div class="name">Roboto</div>
+    <div class="role">Google · Android default · OFL</div>
+    <div class="font-sample" style="font-family: 'Roboto', system-ui, sans-serif;">
+      <div class="label">Dato · 32px Bold</div>
+      <div class="demo"><strong>18.5 L · S/ 12.03</strong></div>
+    </div>
+    <div class="font-sample" style="font-family: 'Roboto', system-ui, sans-serif;">
+      <div class="label">UI · 16px Medium</div>
+      <div class="demo small"><strong>Confirmar litros</strong></div>
+    </div>
+    <div class="legibility-test" style="font-family: 'Roboto', system-ui, sans-serif;">
+      <div class="label">Prueba confundibles</div>
+      <div class="row">
+        <span>0</span><span>O</span><span>Q</span><span>D</span>
+        <span>1</span><span>l</span><span>I</span><span>|</span>
+        <span>5</span><span>S</span><span>$</span>
+        <span>ñ</span><span>Ñ</span>
+      </div>
+    </div>
+    <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.75rem;">⚠️ Default Android. Gratis y preinstalada en el Xiaomi de Carlos. <strong>Pero</strong> ya envejeció; la 1/l/I siguen confundibles.</p>
+  </div>
+
+  <div class="font-card">
+    <div class="name">Source Sans 3</div>
+    <div class="role">Adobe · 6 pesos · humanist · OFL</div>
+    <div class="font-sample" style="font-family: 'Source Sans 3', system-ui, sans-serif;">
+      <div class="label">Dato · 32px Bold</div>
+      <div class="demo"><strong>18.5 L · S/ 12.03</strong></div>
+    </div>
+    <div class="font-sample" style="font-family: 'Source Sans 3', system-ui, sans-serif;">
+      <div class="label">UI · 16px Semibold</div>
+      <div class="demo small"><strong>Confirmar litros</strong></div>
+    </div>
+    <div class="legibility-test" style="font-family: 'Source Sans 3', system-ui, sans-serif;">
+      <div class="label">Prueba confundibles</div>
+      <div class="row">
+        <span>0</span><span>O</span><span>Q</span><span>D</span>
+        <span>1</span><span>l</span><span>I</span><span>|</span>
+        <span>5</span><span>S</span><span>$</span>
+        <span>ñ</span><span>Ñ</span>
+      </div>
+    </div>
+    <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.75rem;">⚠️ Humanist, cálida, buena para textos largos en web. <strong>Pero</strong> no tan nítida para datos numéricos como Atkinson.</p>
+  </div>
+
+  <div class="font-card">
+    <div class="name">Inter Tight</div>
+    <div class="role">Rasmus Andersson · Inter compacta · OFL</div>
+    <div class="font-sample" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+      <div class="label">UI densa · 14px Semibold</div>
+      <div class="demo"><strong>Tabla de liquidaciones</strong></div>
+    </div>
+    <div class="font-sample" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+      <div class="label">Dato · 32px Bold</div>
+      <div class="demo"><strong>18.5 L · S/ 12.03</strong></div>
+    </div>
+    <div class="legibility-test" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+      <div class="label">Prueba confundibles</div>
+      <div class="row">
+        <span>0</span><span>O</span><span>Q</span><span>D</span>
+        <span>1</span><span>l</span><span>I</span><span>|</span>
+        <span>5</span><span>S</span><span>$</span>
+        <span>ñ</span><span>Ñ</span>
+      </div>
+    </div>
+    <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.75rem;">Variante compacta de Inter. Útil para tablas densas del web admin. No para datos críticos.</p>
+  </div>
+
+  <div class="font-card recommended">
+    <div class="badge" style="background: var(--cream-200); color: var(--text);">⭐ AÑADIDA · LECTURA LARGA</div>
+    <div class="name">Lexend</div>
+    <div class="role">Dr. Bonnie Shaver-Troup · 9 pesos · variable · OFL · ✅ 100% gratis · ✅ TTF/OTF · React + Flutter + Swift</div>
+    <div class="font-sample" style="font-family: 'Lexend', system-ui, sans-serif;">
+      <div class="label">Cuerpo lectura · 18px Regular</div>
+      <div class="demo small">La liquidación del mes de agosto cerró con un total de 4,820 litros vendidos a 12 clientes activos en Celendín, Llacanora y Namora.</div>
+    </div>
+    <div class="font-sample" style="font-family: 'Lexend', system-ui, sans-serif;">
+      <div class="label">Subtítulo reporte · 16px Medium</div>
+      <div class="demo small"><strong>Resumen de producción semanal</strong></div>
+    </div>
+    <div class="legibility-test" style="font-family: 'Lexend', system-ui, sans-serif;">
+      <div class="label">Prueba confundibles</div>
+      <div class="row">
+        <span>0</span><span>O</span><span>Q</span><span>D</span>
+        <span>1</span><span>l</span><span>I</span><span>|</span>
+        <span>5</span><span>S</span><span>$</span>
+        <span>ñ</span><span>Ñ</span>
+      </div>
+    </div>
+    <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.75rem;">✓ <strong>Diseñada para aumentar la velocidad de lectura</strong> (estudios del Dr. Shaver-Troup). Hiper-espaciado reduce "crowding" y "masking". Ideal para <strong>reportes, liquidaciones y textos largos en el web admin</strong>.</p>
+  </div>
+
+</div>
+
+<h2>3. Mockups: la diferencia en contexto real</h2>
+<p style="color: var(--text-soft); margin-bottom: 1rem;">Misma pantalla, dos setups tipográficos. Fíjate sobre todo en el "18.5 L · S/ 12.03".</p>
+
+<div class="mockup-row">
+
+  <div>
+    <div class="mockup-section typo-original" style="padding: 1rem;">
+      <h3 style="font-family: 'Roboto', sans-serif; font-size: 0.9rem; color: var(--text-soft); text-align: center;">Setup A · TODO en Roboto (default Android)</h3>
+      <div class="phone" style="margin-top: 0.5rem;">
+        <div class="phone-status"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="phone-body">
+          <h4>Buenos días, Juan</h4>
+          <div class="greeting">Cliente: Pedro Mamani</div>
+          <div class="card-mock">
+            <span class="label">LITROS HOY</span>
+            <span class="litros">18.5 L</span>
+            <span class="label">S/ 0.65/L → S/ 12.03</span>
+          </div>
+          <button class="btn-big btn-primary">CONFIRMAR</button>
+          <div class="card-mock card-alert">
+            <span class="label">DIFIERE DE AYER</span>
+            <span class="litros" style="font-size: 1rem;">Ayer: 16.0 L (−2.5 L)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="mockup-section typo-mixed" style="padding: 1rem;">
+      <h3 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text-soft); text-align: center;">Setup B · Atkinson (datos) + Inter (UI) ⭐</h3>
+      <div class="phone" style="margin-top: 0.5rem;">
+        <div class="phone-status"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="phone-body">
+          <h4>Buenos días, Juan</h4>
+          <div class="greeting">Cliente: Pedro Mamani</div>
+          <div class="card-mock">
+            <span class="label">LITROS HOY</span>
+            <span class="litros">18.5 L</span>
+            <span class="label">S/ 0.65/L → S/ 12.03</span>
+          </div>
+          <button class="btn-big btn-primary">CONFIRMAR</button>
+          <div class="card-mock card-alert">
+            <span class="label">DIFIERE DE AYER</span>
+            <span class="litros" style="font-size: 1rem;">Ayer: 16.0 L (−2.5 L)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<h2>4. Reglas de uso por contexto</h2>
+<div class="mockup-section">
+  <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+    <thead>
+      <tr style="border-bottom: 2px solid var(--border); text-align: left;">
+        <th style="padding: 0.5rem 0.5rem;">Contexto</th>
+        <th style="padding: 0.5rem 0.5rem;">Familia</th>
+        <th style="padding: 0.5rem 0.5rem;">Peso</th>
+        <th style="padding: 0.5rem 0.5rem;">App (sp)</th>
+        <th style="padding: 0.5rem 0.5rem;">Web (px)</th>
+        <th style="padding: 0.5rem 0.5rem;">Line height</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 0.5rem;"><strong>Litros del día</strong></td>
+        <td style="padding: 0.5rem;">Atkinson</td>
+        <td style="padding: 0.5rem;">Bold 700</td>
+        <td style="padding: 0.5rem;">24-32sp</td>
+        <td style="padding: 0.5rem;">28-40px</td>
+        <td style="padding: 0.5rem;">1.2</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 0.5rem;"><strong>Monto total</strong></td>
+        <td style="padding: 0.5rem;">Atkinson</td>
+        <td style="padding: 0.5rem;">Bold 700</td>
+        <td style="padding: 0.5rem;">28-36sp</td>
+        <td style="padding: 0.5rem;">32-44px</td>
+        <td style="padding: 0.5rem;">1.1</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 0.5rem;">Nombre de cliente</td>
+        <td style="padding: 0.5rem;">Atkinson</td>
+        <td style="padding: 0.5rem;">Regular 400</td>
+        <td style="padding: 0.5rem;">18sp</td>
+        <td style="padding: 0.5rem;">18-20px</td>
+        <td style="padding: 0.5rem;">1.3</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 0.5rem;">Título de pantalla</td>
+        <td style="padding: 0.5rem;">Inter</td>
+        <td style="padding: 0.5rem;">Bold 700</td>
+        <td style="padding: 0.5rem;">24sp</td>
+        <td style="padding: 0.5rem;">24-32px</td>
+        <td style="padding: 0.5rem;">1.2</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 0.5rem;">Subtítulo / card title</td>
+        <td style="padding: 0.5rem;">Inter</td>
+        <td style="padding: 0.5rem;">Semibold 600</td>
+        <td style="padding: 0.5rem;">20sp</td>
+        <td style="padding: 0.5rem;">20-24px</td>
+        <td style="padding: 0.5rem;">1.3</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 0.5rem;">Texto de cuerpo (UI app)</td>
+        <td style="padding: 0.5rem;">Inter</td>
+        <td style="padding: 0.5rem;">Regular 400</td>
+        <td style="padding: 0.5rem;">16sp</td>
+        <td style="padding: 0.5rem;">16-18px</td>
+        <td style="padding: 0.5rem;">1.5</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border); background: var(--cream-100);">
+        <td style="padding: 0.5rem;"><strong>Texto largo (web admin)</strong></td>
+        <td style="padding: 0.5rem;"><strong>Lexend</strong></td>
+        <td style="padding: 0.5rem;">Regular 400</td>
+        <td style="padding: 0.5rem;">—</td>
+        <td style="padding: 0.5rem;">16-18px</td>
+        <td style="padding: 0.5rem;">1.7</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border); background: var(--cream-100);">
+        <td style="padding: 0.5rem;"><strong>Reporte / liquidación</strong></td>
+        <td style="padding: 0.5rem;"><strong>Lexend</strong></td>
+        <td style="padding: 0.5rem;">Medium 500</td>
+        <td style="padding: 0.5rem;">—</td>
+        <td style="padding: 0.5rem;">15-17px</td>
+        <td style="padding: 0.5rem;">1.6</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 0.5rem;">Label / caption</td>
+        <td style="padding: 0.5rem;">Inter</td>
+        <td style="padding: 0.5rem;">Medium 500</td>
+        <td style="padding: 0.5rem;">14sp</td>
+        <td style="padding: 0.5rem;">14-15px</td>
+        <td style="padding: 0.5rem;">1.4</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 0.5rem;">Texto de botón</td>
+        <td style="padding: 0.5rem;">Inter</td>
+        <td style="padding: 0.5rem;">Semibold 600</td>
+        <td style="padding: 0.5rem;">16sp</td>
+        <td style="padding: 0.5rem;">16px</td>
+        <td style="padding: 0.5rem;">1.0</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 0.5rem;">Wordmark "Milkbook"</td>
+        <td style="padding: 0.5rem;">Fraunces</td>
+        <td style="padding: 0.5rem;">Medium 500</td>
+        <td style="padding: 0.5rem;">según logo</td>
+        <td style="padding: 0.5rem;">según logo</td>
+        <td style="padding: 0.5rem;">1.0</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 1rem;"><strong>Regla dura:</strong> nunca menos de 16sp en la app (restricción de baja alfabetización del proyecto). Datos numéricos SIEMPRE en Atkinson. Texto largo en web admin SIEMPRE en Lexend. Wordmark SIEMPRE en Fraunces, nunca en otra fuente.</p>
+</div>
+
+<h2>5. Snippets de instalación</h2>
+
+<div class="code-section">
+  <h3>🌐 React / Next.js — Web Admin</h3>
+  <div class="code-tabs">
+    <button class="code-tab active" data-lang="react">Next.js (recomendado)</button>
+    <button class="code-tab" data-lang="react-cdn">CDN / Vite</button>
+    <button class="code-tab" data-lang="react-css">CSS final</button>
+  </div>
+
+  <div data-pane="react">
+  <pre><span class="comment">// app/layout.tsx — Next.js 13+ con next/font (self-hosted, sin FOUT)</span>
+  <span class="keyword">import</span> { Atkinson_Hyperlegible_Next, Inter, Lexend, Fraunces } <span class="keyword">from</span> <span class="string">'next/font/google'</span>
+
+  <span class="keyword">const</span> <span class="prop">atkinson</span> = <span class="fn">Atkinson_Hyperlegible_Next</span>({
+    subsets: [<span class="string">'latin'</span>, <span class="string">'latin-ext'</span>],   <span class="comment">// incluye ñ, tildes</span>
+    weight: [<span class="string">'400'</span>, <span class="string">'500'</span>, <span class="string">'600'</span>, <span class="string">'700'</span>],
+    variable: <span class="string">'--font-data'</span>,
+    display: <span class="string">'swap'</span>,
+    preload: <span class="keyword">true</span>,
+  })
+
+  <span class="keyword">const</span> <span class="prop">inter</span> = <span class="fn">Inter</span>({
+    subsets: [<span class="string">'latin'</span>, <span class="string">'latin-ext'</span>],
+    variable: <span class="string">'--font-ui'</span>,
+    display: <span class="string">'swap'</span>,
+  })
+
+  <span class="keyword">const</span> <span class="prop">lexend</span> = <span class="fn">Lexend</span>({
+    subsets: [<span class="string">'latin'</span>, <span class="string">'latin-ext'</span>],
+    weight: [<span class="string">'300'</span>, <span class="string">'400'</span>, <span class="string">'500'</span>, <span class="string">'600'</span>, <span class="string">'700'</span>],
+    variable: <span class="string">'--font-reading'</span>,
+    display: <span class="string">'swap'</span>,
+  })
+
+  <span class="keyword">const</span> <span class="prop">fraunces</span> = <span class="fn">Fraunces</span>({
+    subsets: [<span class="string">'latin'</span>],
+    weight: [<span class="string">'500'</span>, <span class="string">'700'</span>],
+    variable: <span class="string">'--font-display'</span>,
+    display: <span class="string">'swap'</span>,
+  })
+
+  <span class="keyword">export default function</span> <span class="fn">RootLayout</span>({ children }) {
+    <span class="keyword">return</span> (
+      &lt;html lang=<span class="string">"es"</span> className={`${atkinson.variable} ${inter.variable} ${lexend.variable} ${fraunces.variable}`}&gt;
+        &lt;body&gt;{children}&lt;/body&gt;
+      &lt;/html&gt;
+    )
+  }</pre>
+  </div>
+
+  <div data-pane="react-cdn" hidden>
+<pre><span class="comment">&lt;!-- index.html — Vite / CRA / HTML estático --&gt;</span>
+&lt;link rel=<span class="string">"preconnect"</span> href=<span class="string">"https://fonts.googleapis.com"</span>&gt;
+&lt;link rel=<span class="string">"preconnect"</span> href=<span class="string">"https://fonts.gstatic.com"</span> crossorigin&gt;
+&lt;link
+  href=<span class="string">"https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap"</span>
+  rel=<span class="string">"stylesheet"</span>
+&gt;
+
+<span class="comment">// Componente React</span>
+<span class="keyword">const</span> <span class="prop">LitrosCell</span> = ({ value }) =&gt; (
+  &lt;td style={{ fontFamily: <span class="string">'var(--font-data)'</span>, fontWeight: <span class="num">700</span>, fontSize: <span class="string">'1.25rem'</span> }}&gt;
+    {value} L
+  &lt;/td&gt;
+)</pre>
+  </div>
+
+  <div data-pane="react-css" hidden>
+<pre><span class="comment">/* styles/tokens.css */</span>
+:root {
+  <span class="comment">/* Familias */</span>
+  --font-data:    <span class="string">'Atkinson Hyperlegible Next'</span>, <span class="string">'Atkinson Hyperlegible'</span>, system-ui, sans-serif;
+  --font-ui:      <span class="string">'Inter'</span>, system-ui, -apple-system, <span class="string">'Segoe UI'</span>, Roboto, sans-serif;
+  --font-display: <span class="string">'Fraunces'</span>, Georgia, serif;
+
+  <span class="comment">/* Roles */</span>
+  --text-mono:    var(--font-data);
+  --text-default: var(--font-ui);
+  --text-brand:   var(--font-display);
+}
+
+<span class="comment">/* data-numeric en HTML: usar el atributo data-role="numeric" */</span>
+[data-role=<span class="string">"numeric"</span>] {
+  font-family: var(--font-data);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: <span class="string">"tnum"</span>;
+}
+
+<span class="comment">/* Si usas Tailwind: */</span>
+<span class="comment">/* @theme { --font-sans: var(--font-ui); --font-mono: var(--font-data); } */</span></pre>
+  </div>
+</div>
+
+<div class="code-section">
+  <h3>📱 Flutter — App móvil (cliente + lechero)</h3>
+  <div class="code-tabs">
+    <button class="code-tab active" data-lang="flutter-pubspec">pubspec.yaml</button>
+    <button class="code-tab" data-lang="flutter-theme">theme.dart</button>
+    <button class="code-tab" data-lang="flutter-usage">uso en widgets</button>
+  </div>
+
+  <div data-pane="flutter-pubspec">
+<pre><span class="comment"># pubspec.yaml — embebidas en el binario (offline-first, caseríos sin internet)</span>
+flutter:
+  uses-material-design: <span class="keyword">true</span>
+
+  fonts:
+    <span class="comment"># Atkinson Hyperlegible Next — datos (litros, montos, DNI)</span>
+    - family: Atkinson
+      fonts:
+        - asset: assets/fonts/AtkinsonHyperlegibleNext-Regular.ttf
+          weight: <span class="num">400</span>
+        - asset: assets/fonts/AtkinsonHyperlegibleNext-Medium.ttf
+          weight: <span class="num">500</span>
+        - asset: assets/fonts/AtkinsonHyperlegibleNext-SemiBold.ttf
+          weight: <span class="num">600</span>
+        - asset: assets/fonts/AtkinsonHyperlegibleNext-Bold.ttf
+          weight: <span class="num">700</span>
+
+    <span class="comment"># Inter — UI (títulos, botones, labels)</span>
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+          weight: <span class="num">400</span>
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: <span class="num">500</span>
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: <span class="num">600</span>
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: <span class="num">700</span>
+
+    <span class="comment"># Lexend — solo si el web admin también es Flutter Web (reportes, lecturas largas)</span>
+    <span class="comment"># Para app móvil nativa NO se necesita — Inter cubre la UI de lectura</span>
+    - family: Lexend
+      fonts:
+        - asset: assets/fonts/Lexend-Light.ttf
+          weight: <span class="num">300</span>
+        - asset: assets/fonts/Lexend-Regular.ttf
+          weight: <span class="num">400</span>
+        - asset: assets/fonts/Lexend-Medium.ttf
+          weight: <span class="num">500</span>
+
+    <span class="comment"># Fraunces — solo para el wordmark del logo</span>
+    - family: Fraunces
+      fonts:
+        - asset: assets/fonts/Fraunces-Medium.ttf
+          weight: <span class="num">500</span>
+        - asset: assets/fonts/Fraunces-Bold.ttf
+          weight: <span class="num">700</span></pre>
+  </div>
+
+  <div data-pane="flutter-theme">
+<pre><span class="comment">// lib/theme.dart</span>
+<span class="keyword">import</span> 'package:flutter/material.dart';
+
+<span class="keyword">class</span> <span class="fn">MilkbookTheme</span> {
+  <span class="keyword">static const</span> String fontData    = <span class="string">'Atkinson'</span>;
+  <span class="keyword">static const</span> String fontUI      = <span class="string">'Inter'</span>;
+  <span class="keyword">static const</span> String fontReading = <span class="string">'Lexend'</span>;  <span class="comment">// solo web admin / reportes</span>
+  <span class="keyword">static const</span> String fontDisplay = <span class="string">'Fraunces'</span>;
+
+  <span class="keyword">static</span> ThemeData <span class="fn">light</span>() =&gt; ThemeData(
+    useMaterial3: <span class="keyword">true</span>,
+    fontFamily: fontUI,
+    textTheme: TextTheme(
+      <span class="comment">// Títulos, labels, botones — Inter</span>
+      displayLarge: TextStyle(fontFamily: fontUI, fontSize: <span class="num">32</span>, fontWeight: FontWeight.w700, height: <span class="num">1.2</span>),
+      headlineMedium: TextStyle(fontFamily: fontUI, fontSize: <span class="num">24</span>, fontWeight: FontWeight.w700, height: <span class="num">1.2</span>),
+      titleLarge: TextStyle(fontFamily: fontUI, fontSize: <span class="num">20</span>, fontWeight: FontWeight.w600, height: <span class="num">1.3</span>),
+      titleMedium: TextStyle(fontFamily: fontUI, fontSize: <span class="num">18</span>, fontWeight: FontWeight.w500, height: <span class="num">1.3</span>),
+      bodyLarge: TextStyle(fontFamily: fontUI, fontSize: <span class="num">16</span>, fontWeight: FontWeight.w400, height: <span class="num">1.5</span>),
+      bodyMedium: TextStyle(fontFamily: fontUI, fontSize: <span class="num">14</span>, fontWeight: FontWeight.w500, height: <span class="num">1.4</span>),
+      labelLarge: TextStyle(fontFamily: fontUI, fontSize: <span class="num">16</span>, fontWeight: FontWeight.w600, height: <span class="num">1.0</span>),  <span class="comment">// botones</span>
+    ),
+  );
+}
+
+<span class="comment">// Extensión para usar Atkinson Hyperlegible en datos</span>
+<span class="keyword">extension</span> <span class="fn">DataText</span> <span class="keyword">on</span> TextStyle {
+  TextStyle <span class="fn">data</span>({double? size, FontWeight? weight, Color? color}) =&gt; copyWith(
+    fontFamily: MilkbookTheme.fontData,
+    fontSize: size ?? fontSize,
+    fontWeight: weight ?? fontWeight,
+    color: color,
+    height: <span class="num">1.2</span>,
+    leadingDistribution: TextLeadingDistribution.even,  <span class="comment">// fija leading cross-platform</span>
+  );
+}
+
+<span class="comment">// Extensión para usar Lexend en lectura larga (web admin)</span>
+<span class="keyword">extension</span> <span class="fn">ReadingText</span> <span class="keyword">on</span> TextStyle {
+  TextStyle <span class="fn">reading</span>({double? size, FontWeight? weight}) =&gt; copyWith(
+    fontFamily: MilkbookTheme.fontReading,
+    fontSize: size ?? fontSize,
+    fontWeight: weight ?? FontWeight.w400,
+    height: <span class="num">1.7</span>,
+  );
+}</pre>
+  </div>
+
+  <div data-pane="flutter-usage">
+<pre><span class="comment">// lib/screens/confirmar_litros.dart</span>
+<span class="keyword">import</span> 'package:flutter/material.dart';
+<span class="keyword">import</span> '../theme.dart';
+
+<span class="keyword">class</span> <span class="fn">ConfirmarLitrosScreen</span> <span class="keyword">extends</span> StatelessWidget {
+  @override
+  Widget <span class="fn">build</span>(BuildContext context) {
+    <span class="keyword">return</span> Scaffold(
+      appBar: AppBar(
+        <span class="comment">// Título de pantalla — Inter</span>
+        title: Text(<span class="string">'Buenos días, Juan'</span>,
+          style: Theme.of(context).textTheme.headlineMedium),
+      ),
+      body: Column(
+        children: [
+          <span class="comment">// Dato numérico — Atkinson Hyperlegible</span>
+          Text(<span class="string">'18.5 L'</span>,
+            style: Theme.of(context).textTheme.displayLarge!.data(
+              size: <span class="num">36</span>,
+              weight: FontWeight.w700,
+              color: Color(<span class="num">0xFF2A782A</span>),
+            ),
+          ),
+          Text(<span class="string">'S/ 12.03'</span>,
+            style: TextStyle(
+              fontFamily: MilkbookTheme.fontData,
+              fontSize: <span class="num">28</span>,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          SizedBox(height: <span class="num">24</span>),
+          <span class="comment">// Botón — Inter Semibold</span>
+          FilledButton(
+            onPressed: () {},
+            child: Text(<span class="string">'CONFIRMAR'</span>,
+              style: TextStyle(
+                fontFamily: MilkbookTheme.fontUI,
+                fontWeight: FontWeight.w600,
+                fontSize: <span class="num">16</span>,
+                letterSpacing: <span class="num">1.2</span>,  <span class="comment">// MAYÚSCULAS + tracking</span>
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}</pre>
+  </div>
+</div>
+
+<div class="code-section">
+  <h3>🍎 Swift / SwiftUI — iOS nativo</h3>
+  <div class="code-tabs">
+    <button class="code-tab active" data-lang="swift-info">Info.plist</button>
+    <button class="code-tab" data-lang="swift-fonts">FontManager.swift</button>
+    <button class="code-tab" data-lang="swift-usage">uso en SwiftUI</button>
+  </div>
+
+  <div data-pane="swift-info">
+<pre><span class="comment">&lt;!-- Info.plist — registrar las 4 familias --&gt;</span>
+&lt;key&gt;UIAppFonts&lt;/key&gt;
+&lt;array&gt;
+    &lt;string&gt;AtkinsonHyperlegibleNext-Regular.ttf&lt;/string&gt;
+    &lt;string&gt;AtkinsonHyperlegibleNext-Medium.ttf&lt;/string&gt;
+    &lt;string&gt;AtkinsonHyperlegibleNext-SemiBold.ttf&lt;/string&gt;
+    &lt;string&gt;AtkinsonHyperlegibleNext-Bold.ttf&lt;/string&gt;
+
+    &lt;string&gt;Inter-Regular.ttf&lt;/string&gt;
+    &lt;string&gt;Inter-Medium.ttf&lt;/string&gt;
+    &lt;string&gt;Inter-SemiBold.ttf&lt;/string&gt;
+    &lt;string&gt;Inter-Bold.ttf&lt;/string&gt;
+
+    &lt;string&gt;Lexend-Light.ttf&lt;/string&gt;
+    &lt;string&gt;Lexend-Regular.ttf&lt;/string&gt;
+    &lt;string&gt;Lexend-Medium.ttf&lt;/string&gt;
+
+    &lt;string&gt;Fraunces-Medium.ttf&lt;/string&gt;
+    &lt;string&gt;Fraunces-Bold.ttf&lt;/string&gt;
+&lt;/array&gt;
+
+<span class="comment">// ⚠️ El nombre que se pasa a Font.custom() es el PostScript Name del .ttf,</span>
+<span class="comment">// no el nombre del archivo. Verificarlo abriendo el .ttf en Font Book (macOS)</span>
+<span class="comment">// o imprimiendo UIFont.familyNames en el log al arrancar.</span>
+<span class="comment">// Lexend SOLO se embebe si la app iOS también incluye módulo de reportes</span>
+<span class="comment">// (versión admin móvil). Si es solo la app del lechero/cliente, omitir Lexend.</span></pre>
+  </div>
+
+  <div data-pane="swift-fonts">
+<pre><span class="comment">// FontManager.swift — registrar con fallback seguro</span>
+<span class="keyword">import</span> SwiftUI
+<span class="keyword">import</span> CoreText
+
+<span class="keyword">enum</span> <span class="fn">MilkbookFont</span>: String {
+    <span class="keyword">case</span> dataRegular    = <span class="string">"AtkinsonHyperlegibleNext-Regular"</span>
+    <span class="keyword">case</span> dataBold       = <span class="string">"AtkinsonHyperlegibleNext-Bold"</span>
+    <span class="keyword">case</span> uiRegular      = <span class="string">"Inter-Regular"</span>
+    <span class="keyword">case</span> uiMedium       = <span class="string">"Inter-Medium"</span>
+    <span class="keyword">case</span> uiSemibold     = <span class="string">"Inter-SemiBold"</span>
+    <span class="keyword">case</span> uiBold         = <span class="string">"Inter-Bold"</span>
+    <span class="keyword">case</span> readingLight   = <span class="string">"Lexend-Light"</span>
+    <span class="keyword">case</span> readingRegular = <span class="string">"Lexend-Regular"</span>
+    <span class="keyword">case</span> readingMedium  = <span class="string">"Lexend-Medium"</span>
+    <span class="keyword">case</span> displayMedium  = <span class="string">"Fraunces-Medium"</span>
+}
+
+<span class="keyword">extension</span> Font {
+    <span class="comment">/// Tipografía semántica: dato numérico (litros, montos)</span>
+    <span class="keyword">static func</span> <span class="fn">milkbookData</span>(_ size: CGFloat, weight: Font.Weight = .regular) -&gt; Font {
+        <span class="keyword">let</span> name = (weight == .bold) ? MilkbookFont.dataBold.rawValue : MilkbookFont.dataRegular.rawValue
+        <span class="keyword">return</span> Font.custom(name, size: size, relativeTo: .title)
+    }
+
+    <span class="comment">/// Tipografía semántica: UI general</span>
+    <span class="keyword">static func</span> <span class="fn">milkbookUI</span>(_ size: CGFloat, weight: Font.Weight = .regular) -&gt; Font {
+        <span class="keyword">let</span> name: String
+        <span class="keyword">switch</span> weight {
+        <span class="keyword">case</span> .bold:     name = MilkbookFont.uiBold.rawValue
+        <span class="keyword">case</span> .semibold: name = MilkbookFont.uiSemibold.rawValue
+        <span class="keyword">case</span> .medium:   name = MilkbookFont.uiMedium.rawValue
+        <span class="keyword">default</span>:       name = MilkbookFont.uiRegular.rawValue
+        }
+        <span class="keyword">return</span> Font.custom(name, size: size, relativeTo: .body)
+    }
+
+    <span class="comment">/// Tipografía semántica: lectura larga (reportes, liquidaciones)</span>
+    <span class="keyword">static func</span> <span class="fn">milkbookReading</span>(_ size: CGFloat, weight: Font.Weight = .regular) -&gt; Font {
+        <span class="keyword">let</span> name: String
+        <span class="keyword">switch</span> weight {
+        <span class="keyword">case</span> .light:   name = MilkbookFont.readingLight.rawValue
+        <span class="keyword">case</span> .medium:  name = MilkbookFont.readingMedium.rawValue
+        <span class="keyword">default</span>:      name = MilkbookFont.readingRegular.rawValue
+        }
+        <span class="keyword">return</span> Font.custom(name, size: size, relativeTo: .body)
+    }
+
+    <span class="comment">/// Wordmark (solo branding)</span>
+    <span class="keyword">static var</span> <span class="prop">milkbookWordmark</span>: Font {
+        Font.custom(MilkbookFont.displayMedium.rawValue, size: <span class="num">32</span>, relativeTo: .largeTitle)
+    }
+}</pre>
+  </div>
+
+  <div data-pane="swift-usage">
+<pre><span class="comment">// ConfirmarLitrosView.swift</span>
+<span class="keyword">import</span> SwiftUI
+
+<span class="keyword">struct</span> <span class="fn">ConfirmarLitrosView</span>: View {
+    <span class="keyword">let</span> litros: Double = <span class="num">18.5</span>
+    <span class="keyword">let</span> monto: Decimal = <span class="num">12.03</span>
+
+    <span class="keyword">var</span> body: <span class="keyword">some</span> View {
+        VStack(alignment: .leading, spacing: <span class="num">16</span>) {
+            <span class="comment">// Título — Inter</span>
+            Text(<span class="string">"Buenos días, Juan"</span>)
+                .font(.milkbookUI(<span class="num">24</span>, weight: .bold))
+                .foregroundStyle(.primary)
+
+            <span class="comment">// Dato numérico — Atkinson Hyperlegible</span>
+            VStack(alignment: .leading, spacing: <span class="num">4</span>) {
+                Text(<span class="string">"LITROS HOY"</span>)
+                    .font(.milkbookUI(<span class="num">12</span>, weight: .medium))
+                    .foregroundStyle(.secondary)
+                Text(<span class="string">"\(litros, specifier: "%.1f") L"</span>)
+                    .font(.milkbookData(<span class="num">36</span>, weight: .bold))
+                    .foregroundStyle(Color(red: <span class="num">0.16</span>, green: <span class="num">0.47</span>, blue: <span class="num">0.16</span>))  <span class="comment">// green-500</span>
+            }
+
+            Text(<span class="string">"S/ \(monto, specifier: "%.2f")"</span>)
+                .font(.milkbookData(<span class="num">28</span>, weight: .bold))
+
+            <span class="comment">// Botón — Inter Semibold</span>
+            Button(action: { }) {
+                Text(<span class="string">"CONFIRMAR"</span>)
+                    .font(.milkbookUI(<span class="num">16</span>, weight: .semibold))
+                    .tracking(<span class="num">1.2</span>)
+                    .frame(maxWidth: .infinity, minHeight: <span class="num">56</span>)
+                    .foregroundStyle(.white)
+                    .background(Color(red: <span class="num">0.16</span>, green: <span class="num">0.47</span>, blue: <span class="num">0.16</span>))
+                    .clipShape(RoundedRectangle(cornerRadius: <span class="num">12</span>))
+            }
+        }
+        .padding()
+    }
+}</pre>
+  </div>
+</div>
+
+<div class="footer-note">
+  <h3>📋 Resumen ejecutivo</h3>
+  <p>
+    <strong>4 familias tipográficas, 4 roles, 3 plataformas.</strong><br>
+    <strong>Atkinson Hyperlegible Next</strong> para datos · <strong>Inter</strong> para UI · <strong>Lexend</strong> para lectura larga en web admin · <strong>Fraunces</strong> solo para el wordmark.<br>
+    Todas OFL, todas en Google Fonts, todas embebidas en el binario (offline-first).<br>
+    Ver <code>README.md</code> para tokens, reglas duras, validación con usuarios y checklist.
+  </p>
+</div>
+
+</div>
+
+<script>
+  function toggleTheme() {
+    const current = document.documentElement.dataset.theme;
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('milkbook-theme', next);
+  }
+  const saved = localStorage.getItem('milkbook-theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+
+  // Tabs
+  document.querySelectorAll('.code-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const lang = tab.dataset.lang;
+      const section = tab.closest('.code-section');
+      section.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      section.querySelectorAll('[data-pane]').forEach(p => {
+        p.hidden = p.dataset.pane !== lang;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

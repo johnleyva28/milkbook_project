@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milkbook — Patrones y Texturas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream-50:  #FFFDF7;
+    --cream-100: #FAF8F3;
+    --cream-200: #F5F0E1;
+    --cream-300: #EBE3CC;
+    --cream-400: #D9CCA8;
+    --cream-500: #B89766;
+    --green-700: #184318;
+    --green-500: #2A782A;
+    --green-300: #88D088;
+    --green-100: #DCF1DC;
+    --blue-700:  #003965;
+    --blue-500:  #0064B1;
+    --blue-300:  #78C0F8;
+    --blue-100:  #D9ECFA;
+    --warning:     #B26A00;
+    --error:       #B3261E;
+    --text:           #1A1F1A;
+    --text-soft:      #5C5C5C;
+    --border:         var(--cream-300);
+    --surface:        #FFFFFF;
+    --bg:             var(--cream-50);
+  }
+  [data-theme="dark"] {
+    --bg:             #1A1814;
+    --surface:        #25211B;
+    --border:         #3A332A;
+    --text:           #FAF8F3;
+    --text-soft:      #C7BFAE;
+    --green-700: #2A782A;
+    --green-500: #52C652;
+    --green-100: #1F3A1F;
+    --blue-700:  #0064B1;
+    --blue-500:  #199BFF;
+    --blue-100:  #1A2E40;
+    --warning:     #FEB64C;
+    --error:       #E15850;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 1280px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 2.5rem; }
+  header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+  header .sub { color: var(--text-soft); max-width: 820px; margin: 0 auto; }
+
+  .theme-toggle {
+    position: fixed; top: 1rem; right: 1rem;
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 0.5rem 1rem; font-weight: 600; cursor: pointer; z-index: 10;
+  }
+
+  h2 { margin: 2.5rem 0 1rem; font-size: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+  h3 { margin: 1.5rem 0 0.5rem; font-size: 1.1rem; }
+
+  /* === Grid de 6 patrones === */
+  .pattern-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 800px) { .pattern-grid { grid-template-columns: 1fr; } }
+  .pattern-card {
+    background: var(--surface);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .pattern-card.recommended { border: 2px solid var(--green-500); }
+  .pattern-card .preview {
+    height: 220px;
+    background: var(--cream-100);
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .pattern-card .preview svg { width: 100%; height: 100%; display: block; }
+  .pattern-card .info { padding: 1.25rem; }
+  .pattern-card .info .name { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .pattern-card .info .badge {
+    display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem;
+    background: var(--green-100); color: var(--green-700);
+    border-radius: 4px; font-weight: 700; margin-bottom: 0.5rem;
+  }
+  .pattern-card .info .desc { font-size: 0.85rem; color: var(--text-soft); margin-bottom: 0.5rem; }
+  .pattern-card .info .ref { font-size: 0.75rem; color: var(--text-soft); font-style: italic; }
+
+  /* === Mockups de aplicación === */
+  .mockup-section {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    margin: 1.5rem 0;
+  }
+  .phone {
+    max-width: 360px; margin: 0 auto; width: 100%;
+    aspect-ratio: 9 / 19;
+    border-radius: 28px; border: 8px solid #1a1a1a;
+    background: var(--bg);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+  .phone-status {
+    height: 24px; background: rgba(0,0,0,0.04);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 1rem; font-size: 0.7rem; font-weight: 700;
+    color: var(--text);
+  }
+  .phone-body { flex: 1; padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; overflow: hidden; color: var(--text); }
+
+  .hero-example {
+    height: 180px; border-radius: 12px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center; color: white;
+    font-size: 1.2rem; font-weight: 700;
+  }
+  .hero-example svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  /* === Tabla de uso === */
+  .use-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 1rem 0; }
+  .use-table th, .use-table td { text-align: left; padding: 0.6rem 0.5rem; border-bottom: 1px solid var(--border); }
+  .use-table th { background: var(--cream-100); font-weight: 700; }
+
+  pre {
+    background: #0d1117; color: #e6edf3; padding: 1rem; border-radius: 8px;
+    overflow-x: auto;
+    font-family: "JetBrains Mono", "Courier New", monospace;
+    font-size: 0.85rem; line-height: 1.5;
+  }
+  pre .comment { color: #8b949e; }
+  pre .tag { color: #79c0ff; }
+  pre .attr { color: #ffa657; }
+  pre .val { color: #a5d6ff; }
+
+  .footer-note {
+    margin-top: 3rem; padding: 1.5rem; background: var(--green-700); color: white;
+    border-radius: 12px; text-align: center;
+  }
+  [data-theme="dark"] .footer-note { background: var(--green-500); color: var(--bg); }
+  .footer-note p { opacity: 0.95; }
+
+  .info-box {
+    background: var(--cream-100);
+    border-left: 4px solid var(--green-500);
+    padding: 1rem 1.25rem;
+    border-radius: 6px;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .mockup-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 900px) { .mockup-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
+
+<div class="container">
+
+<header>
+  <h1>🟫 Milkbook — Patrones y Texturas</h1>
+  <p class="sub">Los patrones y texturas son el "toque final" que da calidez y coherencia a la marca. Esta guía define 4 candidatos finales (3 patrones + 1 textura principal + 1 textura kraft opcional), con la paleta Milkbook exacta, y las reglas de cuándo usar cada uno.</p>
+</header>
+
+<h2>1. Los 4 candidatos: 3 patrones + 1 textura + 1 textura kraft (opcional)</h2>
+
+<p style="color: var(--text-soft); margin-bottom: 1rem;">Cada uno está renderizado con SVG inline usando la paleta Milkbook. Los marcados con ⭐ son los recomendados para Milkbook.</p>
+
+<div class="pattern-grid">
+
+  <!-- 1. Patrón de gotas de leche AZULES -->
+  <div class="pattern-card recommended">
+    <div class="preview">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+        <rect width="400" height="220" fill="#FAF8F3"/>
+        <defs>
+          <pattern id="drop" x="0" y="0" width="90" height="90" patternUnits="userSpaceOnUse">
+            <!-- Gota grande -->
+            <path d="M45 25 Q35 38 35 48 Q35 60 45 60 Q55 60 55 48 Q55 38 45 25 Z" fill="#78C0F8" opacity="0.7"/>
+            <ellipse cx="40" cy="42" rx="2.5" ry="4" fill="#FFFFFF" opacity="0.8"/>
+            <!-- Gotas pequeñas alrededor -->
+            <circle cx="20" cy="70" r="2" fill="#78C0F8" opacity="0.5"/>
+            <circle cx="70" cy="80" r="1.5" fill="#78C0F8" opacity="0.5"/>
+            <circle cx="10" cy="20" r="1.5" fill="#78C0F8" opacity="0.4"/>
+            <circle cx="80" cy="15" r="2" fill="#78C0F8" opacity="0.4"/>
+          </pattern>
+        </defs>
+        <rect width="400" height="220" fill="url(#drop)"/>
+        <text x="200" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#0064B1" opacity="0.5">Gotas de leche azules</text>
+      </svg>
+    </div>
+    <div class="info">
+      <span class="badge">⭐ RECOMENDADO · ORGÁNICO</span>
+      <div class="name">1. Gotas de leche azules</div>
+      <div class="desc">Patrón orgánico de gotas en azul (color del logo). Evoca el producto (leche) directamente. Coherente con la paleta cálida cremosa como fondo.</div>
+      <div class="ref">Inspirado en: getillustrations, Hero Patterns (variantes orgánicas), Morphos</div>
+    </div>
+  </div>
+
+  <!-- 2. Patrón de hojas de pasto (realista) -->
+  <div class="pattern-card recommended">
+    <div class="preview">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+        <rect width="400" height="220" fill="#FAF8F3"/>
+        <defs>
+          <pattern id="leaf" x="0" y="0" width="120" height="100" patternUnits="userSpaceOnUse">
+            <!-- Hoja grande realista (forma de lágrima con nervadura) -->
+            <g transform="translate(30 55)">
+              <path d="M0 0 Q-8 -20 -2 -40 Q8 -42 10 -20 Q5 -2 0 0 Z" fill="#88D088" stroke="#2A782A" stroke-width="0.8"/>
+              <line x1="0" y1="0" x2="2" y2="-36" stroke="#2A782A" stroke-width="0.6" opacity="0.6"/>
+              <path d="M-1 -10 Q-5 -12 -7 -8 M-2 -20 Q-7 -22 -8 -18 M-2 -30 Q-7 -32 -8 -28" stroke="#2A782A" stroke-width="0.4" fill="none" opacity="0.4"/>
+            </g>
+            <!-- Hoja mediana inclinada derecha -->
+            <g transform="translate(75 50) rotate(35)">
+              <path d="M0 0 Q-7 -18 -2 -32 Q7 -34 8 -18 Q4 -2 0 0 Z" fill="#2A782A" stroke="#184318" stroke-width="0.8"/>
+              <line x1="0" y1="0" x2="1" y2="-28" stroke="#FAF8F3" stroke-width="0.6" opacity="0.5"/>
+            </g>
+            <!-- Briznas de pasto alrededor (detalle) -->
+            <path d="M15 75 Q17 65 19 75" stroke="#88D088" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M55 80 Q58 68 60 80" stroke="#2A782A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M95 75 Q97 65 100 75" stroke="#88D088" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M50 85 Q52 78 55 85" stroke="#2A782A" stroke-width="1" fill="none" stroke-linecap="round"/>
+          </pattern>
+        </defs>
+        <rect width="400" height="220" fill="url(#leaf)"/>
+        <text x="200" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#2A782A" opacity="0.4">Hojas de pasto realistas</text>
+      </svg>
+    </div>
+    <div class="info">
+      <span class="badge">⭐ RECOMENDADO · ORGÁNICO</span>
+      <div class="name">2. Hojas de pasto (realistas)</div>
+      <div class="desc">Patrón orgánico con hojas detalladas (forma de lágrima, nervadura central, ramificación lateral) y briznas de pasto. Evoca el pasto andino de Cajamarca con realismo botánico.</div>
+      <div class="ref">Inspirado en: Outgrow (India), agricultura contextual, AgriTrust, ilustraciones botánicas</div>
+    </div>
+  </div>
+
+  <!-- 3. Patrón geométrico de puntos -->
+  <div class="pattern-card">
+    <div class="preview">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+        <rect width="400" height="220" fill="#FAF8F3"/>
+        <defs>
+          <pattern id="dots" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+            <circle cx="15" cy="15" r="2.5" fill="#B89766" opacity="0.5"/>
+            <circle cx="0" cy="0" r="2" fill="#B89766" opacity="0.3"/>
+            <circle cx="30" cy="0" r="2" fill="#B89766" opacity="0.3"/>
+            <circle cx="0" cy="30" r="2" fill="#B89766" opacity="0.3"/>
+            <circle cx="30" cy="30" r="2" fill="#B89766" opacity="0.3"/>
+          </pattern>
+        </defs>
+        <rect width="400" height="220" fill="url(#dots)"/>
+        <text x="200" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#B89766" opacity="0.5">Puntos crema</text>
+      </svg>
+    </div>
+    <div class="info">
+      <div class="name">3. Puntos crema</div>
+      <div class="desc">Patrón geométrico sutil de puntos. Más "limpio" que los orgánicos. Útil para web admin donde se quiere orden visual.</div>
+      <div class="ref">Inspirado en: Hero Patterns, polka dot vintage, subtle dot patterns</div>
+    </div>
+  </div>
+
+  <!-- 4. Textura de papel crema (sutil) -->
+  <div class="pattern-card recommended">
+    <div class="preview">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+        <rect width="400" height="220" fill="#FAF8F3"/>
+        <defs>
+          <filter id="grain" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3"/>
+            <feColorMatrix values="0 0 0 0 0.7   0 0 0 0 0.65   0 0 0 0 0.55   0 0 0 0.08 0"/>
+          </filter>
+        </defs>
+        <rect width="400" height="220" filter="url(#grain)"/>
+        <text x="200" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#B89766" opacity="0.6">Textura papel crema</text>
+      </svg>
+    </div>
+    <div class="info">
+      <span class="badge">⭐ RECOMENDADO · TEXTURA</span>
+      <div class="name">5. Textura papel crema (noise)</div>
+      <div class="desc">Textura muy sutil de ruido tipo "papel". Da calidez sin distraer. Coherente con la paleta Milkbook (no rompe el cream-50). Perfecta para fondos.</div>
+      <div class="ref">Inspirado en: Transparent Textures (cream paper), handmade paper, ekru</div>
+    </div>
+  </div>
+
+  <!-- 5. Textura de madera kraft (warm) -->
+  <div class="pattern-card">
+    <div class="preview">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+        <rect width="400" height="220" fill="#F5F0E1"/>
+        <defs>
+          <pattern id="wood" x="0" y="0" width="400" height="8" patternUnits="userSpaceOnUse">
+            <path d="M0 4 Q100 0 200 4 T400 4" stroke="#D9CCA8" stroke-width="0.8" fill="none" opacity="0.4"/>
+            <path d="M0 8 Q150 4 300 8 T600 8" stroke="#B89766" stroke-width="0.5" fill="none" opacity="0.3"/>
+          </pattern>
+        </defs>
+        <rect width="400" height="220" fill="url(#wood)"/>
+        <text x="200" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#B89766" opacity="0.5">Madera kraft</text>
+      </svg>
+    </div>
+    <div class="info">
+      <div class="name">4. Madera kraft</div>
+      <div class="desc">Textura que evoca madera cálida. Útil para secciones del web admin tipo "artesanal" o boletas PDF. No apto para app móvil (distrae al sol).</div>
+      <div class="ref">Inspirado en: Madera reciclada, craft food packaging, café de especialidad</div>
+    </div>
+  </div>
+
+</div>
+
+<h2>2. Mockups: cómo se ven aplicados</h2>
+
+<div class="mockup-row">
+
+  <!-- Mockup 1: Hero del web admin con hojas -->
+  <div>
+    <div class="mockup-section" style="padding: 1rem;">
+      <h3 style="font-size: 0.9rem; color: var(--text-soft); text-align: center;">Hero del web admin (hojas)</h3>
+      <div class="hero-example" style="border-radius: 8px; margin-top: 0.5rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="220" fill="#2A782A"/>
+          <defs>
+            <pattern id="hero-leaf" x="0" y="0" width="120" height="100" patternUnits="userSpaceOnUse">
+              <g transform="translate(30 55)">
+                <path d="M0 0 Q-8 -20 -2 -40 Q8 -42 10 -20 Q5 -2 0 0 Z" fill="#88D088" opacity="0.4"/>
+                <line x1="0" y1="0" x2="2" y2="-36" stroke="#FFFFFF" stroke-width="0.4" opacity="0.4"/>
+              </g>
+              <g transform="translate(75 50) rotate(35)">
+                <path d="M0 0 Q-7 -18 -2 -32 Q7 -34 8 -18 Q4 -2 0 0 Z" fill="#FFFFFF" opacity="0.3"/>
+              </g>
+            </pattern>
+          </defs>
+          <rect width="400" height="220" fill="url(#hero-leaf)"/>
+        </svg>
+        <div style="position: relative; text-align: center;">
+          <h2 style="font-size: 1.5rem; margin-bottom: 0.25rem;">Milkbook</h2>
+          <p style="font-size: 0.85rem; opacity: 0.9;">La leche de tu caserío</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mockup 2: Boleta PDF con textura papel -->
+  <div>
+    <div class="mockup-section" style="padding: 1rem;">
+      <h3 style="font-size: 0.9rem; color: var(--text-soft); text-align: center;">Boleta PDF (textura papel)</h3>
+      <div style="background: #FAF8F3; border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-top: 0.5rem; position: relative; overflow: hidden;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice" style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0.6;">
+          <rect width="400" height="220" fill="transparent"/>
+          <defs>
+            <filter id="grain2" x="0" y="0" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3"/>
+              <feColorMatrix values="0 0 0 0 0.7   0 0 0 0 0.65   0 0 0 0 0.55   0 0 0 0.08 0"/>
+            </filter>
+          </defs>
+          <rect width="400" height="220" filter="url(#grain2)"/>
+        </svg>
+        <div style="position: relative;">
+          <h3 style="color: #2A782A; font-size: 1rem; margin-bottom: 0.5rem;">Boleta de Entrega</h3>
+          <p style="font-size: 0.75rem; color: #5C5C5C;">Cliente: Pedro Mamani</p>
+          <p style="font-size: 0.75rem; color: #5C5C5C;">Fecha: 05/09/2026</p>
+          <p style="font-size: 1.5rem; font-weight: 800; color: #2A782A; margin: 0.5rem 0;">18.5 L</p>
+          <p style="font-size: 0.9rem; font-weight: 700; color: #1A1F1A;">Total: S/ 12.03</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mockup 3: Tarjeta de cliente con gotas azules -->
+  <div>
+    <div class="mockup-section" style="padding: 1rem;">
+      <h3 style="font-size: 0.9rem; color: var(--text-soft); text-align: center;">Tarjeta de cliente (gotas)</h3>
+      <div style="background: #D9ECFA; border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-top: 0.5rem; position: relative; overflow: hidden;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice" style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0.6;">
+          <rect width="400" height="220" fill="transparent"/>
+          <defs>
+            <pattern id="card-drop" x="0" y="0" width="90" height="90" patternUnits="userSpaceOnUse">
+              <path d="M45 25 Q35 38 35 48 Q35 60 45 60 Q55 60 55 48 Q55 38 45 25 Z" fill="#FFFFFF" opacity="0.6"/>
+              <circle cx="20" cy="70" r="2" fill="#FFFFFF" opacity="0.5"/>
+              <circle cx="70" cy="80" r="1.5" fill="#FFFFFF" opacity="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="220" fill="url(#card-drop)"/>
+        </svg>
+        <div style="position: relative;">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: #0064B1; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">PM</div>
+            <div>
+              <h3 style="color: #003965; font-size: 0.95rem;">Pedro Mamani</h3>
+              <p style="font-size: 0.7rem; color: #5C5C5C;">Llacanora · 8 meses con nosotros</p>
+            </div>
+          </div>
+          <p style="font-size: 0.75rem; color: #003965;">Última entrega: 18.5 L · 05/09</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<h2>3. Dónde se aplica cada uno</h2>
+
+<div class="mockup-section">
+  <table class="use-table">
+    <thead>
+      <tr>
+        <th>Patrón / Textura</th>
+        <th>Tipo</th>
+        <th>Casos de uso</th>
+        <th>NO usar en</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Gotas de leche azules</strong> (orgánico) ⭐</td>
+        <td>Patrón decorativo</td>
+        <td>Hero del web admin, emails, marketing secundario, tarjetas de cliente</td>
+        <td>Fondo de pantalla del app móvil (distrae al sol)</td>
+      </tr>
+      <tr>
+        <td><strong>2. Hojas de pasto realistas</strong> (orgánico) ⭐</td>
+        <td>Patrón decorativo</td>
+        <td>Onboarding, splash secundario, marketing, hero web admin</td>
+        <td>Inputs o cards (dificulta lectura)</td>
+      </tr>
+      <tr>
+        <td>3. Puntos crema (geométrico)</td>
+        <td>Patrón sutil</td>
+        <td>Web admin, tablas densas, headers</td>
+        <td>App móvil (se siente "tech")</td>
+      </tr>
+      <tr>
+        <td><strong>4. Papel crema (noise)</strong> ⭐</td>
+        <td>Textura sutil</td>
+        <td>Boletas PDF, fondo de emails, fondo de marketing</td>
+        <td>App móvil (no se ve en pantallas chicas)</td>
+      </tr>
+      <tr>
+        <td>5. Madera kraft (textura)</td>
+        <td>Textura</td>
+        <td>Sección "artesanal" del web admin, packaging físico</td>
+        <td>App móvil, boletas PDF (distrae)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>4. Reglas técnicas</h2>
+
+<div class="info-box">
+  <strong>Reglas duras para cualquier patrón o textura de Milkbook:</strong>
+  <ul style="margin-top: 0.5rem; line-height: 1.8;">
+    <li>✅ <strong>Opacidad 30-60%</strong> sobre fondos — los patrones nunca deben competir con el texto</li>
+    <li>✅ <strong>Solo 1-2 colores de la paleta</strong> — máximo 2 hex por patrón</li>
+    <li>✅ <strong>SVG repetible</strong> (usar <code>&lt;pattern&gt;</code>) o PNG seamless tileable</li>
+    <li>✅ <strong>Coherencia con la marca</strong> — verde/crema/azul de la paleta, nunca negro o rojo saturado</li>
+    <li>❌ <strong>NO usar patrones con gradientes</strong> — rompe el flat design</li>
+    <li>❌ <strong>NO usar patrones de alto contraste</strong> en app móvil (distrae al sol)</li>
+    <li>❌ <strong>NO mezclar más de 2 patrones</strong> en la misma pantalla</li>
+  </ul>
+</div>
+
+<h2>5. Cómo se usan en código</h2>
+
+<div class="mockup-section">
+<pre><span class="comment">// CSS — Patrón como background-image</span>
+<span class="attr">.hero</span> {
+  <span class="attr">background-image</span>: <span class="val">url('/patterns/gotas-leche.svg')</span>;
+  <span class="attr">background-repeat</span>: <span class="val">repeat</span>;
+  <span class="attr">background-size</span>: <span class="val">80px 80px</span>;
+  <span class="attr">opacity</span>: <span class="val">0.5</span>;
+}
+
+<span class="comment">// CSS — Textura noise sobre boleta PDF</span>
+<span class="attr">.boleta-bg</span> {
+  <span class="attr">background-color</span>: <span class="val">#FAF8F3</span>;
+  <span class="attr">background-image</span>: <span class="val">url('/patterns/papel-crema.svg')</span>;
+  <span class="attr">background-blend-mode</span>: <span class="val">multiply</span>;
+}
+
+<span class="comment">// SVG inline — Patrón dentro del HTML (mejor performance)</span>
+&lt;<span class="tag">svg</span> <span class="attr">width</span>=<span class="val">"0"</span> <span class="attr">height</span>=<span class="val">"0"</span>&gt;
+  &lt;<span class="tag">defs</span>&gt;
+    &lt;<span class="tag">pattern</span> <span class="attr">id</span>=<span class="val">"gota"</span> <span class="attr">width</span>=<span class="val">"80"</span> <span class="attr">height</span>=<span class="val">"80"</span> <span class="attr">patternUnits</span>=<span class="val">"userSpaceOnUse"</span>&gt;
+      &lt;<span class="tag">path</span> <span class="attr">d</span>=<span class="val">"M40 20 Q32 32 32 40 ..."</span> <span class="attr">fill</span>=<span class="val">"#88D088"</span> /&gt;
+    &lt;/<span class="tag">pattern</span>&gt;
+  &lt;/<span class="tag">defs</span>&gt;
+&lt;/<span class="tag">svg</span>&gt;
+</pre>
+</div>
+
+<div class="footer-note">
+  <h3>📋 Próximo paso</h3>
+  <p>
+    Si te convence la recomendación, redacto el <code>README.md</code> con:<br>
+    - Especificación detallada de los 3 patrones y 1 textura adoptados<br>
+    - Sistema de design tokens (SVG inline + CSS variables)<br>
+    - Pipeline de producción de los SVGs finales optimizados<br>
+    - Reglas de cuándo usar cada uno según contexto
+  </p>
+</div>
+
+</div>
+
+<script>
+  function toggleTheme() {
+    const current = document.documentElement.dataset.theme;
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('milkbook-theme', next);
+  }
+  const saved = localStorage.getItem('milkbook-theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+</script>
+
+</body>
+</html>
