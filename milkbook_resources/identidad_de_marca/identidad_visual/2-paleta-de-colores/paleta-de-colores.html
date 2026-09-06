@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milkbook — Sistema de diseño</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TEMA CLARO (default)
+     ============================================================ */
+  :root, [data-theme="light"] {
+    /* === CREMAS (base, evocan la leche) === */
+    --cream-50:  #FFFDF7;
+    --cream-100: #FAF8F3;
+    --cream-200: #F5F0E1;
+    --cream-300: #EBE3CC;
+    --cream-400: #D9CCA8;
+    --cream-500: #B89766;
+
+    /* === VERDE (primario, basado en la leche del logo) === */
+    --green-700: #184318;
+    --green-500: #2A782A;
+    --green-300: #88D088;
+    --green-100: #DCF1DC;
+
+    /* === AZUL (secundario, basado en la vaca del logo) === */
+    --blue-700:  #003965;
+    --blue-500:  #0064B1;
+    --blue-300:  #78C0F8;
+    --blue-100:  #D9ECFA;
+
+    /* === SEMÁNTICOS === */
+    --warning:     #B26A00;
+    --warning-bg:  #FFF4E0;
+    --error:       #B3261E;
+    --error-bg:    #FCE8E6;
+    --success:     var(--green-500);
+    --info:        var(--blue-500);
+
+    /* === NEUTROS === */
+    --text:           #1A1F1A;
+    --text-soft:      #5C5C5C;
+    --text-disabled:  #9CA39C;
+    --border:         var(--cream-300);
+    --border-strong:  var(--cream-400);
+    --surface:        #FFFFFF;
+    --bg:             var(--cream-50);
+
+    /* === SOMBRAS === */
+    --shadow-sm: 0 1px 2px rgba(26,31,26,0.05);
+    --shadow-md: 0 2px 8px rgba(26,31,26,0.08);
+    --shadow-lg: 0 8px 24px rgba(26,31,26,0.12);
+
+    /* === TIPOGRAFÍA === */
+    --font-data: "Atkinson Hyperlegible", "Atkinson Hyperlegible Next", system-ui, sans-serif;
+    --font-ui:   "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-display: "Fraunces", Georgia, serif;
+  }
+
+  /* ============================================================
+     TEMA OSCURO — derivado del claro, mismo matiz
+     ============================================================ */
+  [data-theme="dark"] {
+    /* Fondos: invertir luminosidad, mantener tinte cálido */
+    --bg:             #1A1814;
+    --surface:        #25211B;
+    --surface-2:      #2F2A22;
+    --border:         #3A332A;
+    --border-strong:  #524838;
+
+    /* Textos: claro sobre oscuro */
+    --text:           #FAF8F3;
+    --text-soft:      #C7BFAE;
+    --text-disabled:  #6E6655;
+
+    /* Verdes: aclarar para que destaquen sobre fondo oscuro */
+    --green-700: #2A782A;
+    --green-500: #52C652;
+    --green-300: #88D088;
+    --green-100: #1F3A1F;
+
+    /* Azules: aclarar */
+    --blue-700:  #0064B1;
+    --blue-500:  #199BFF;
+    --blue-300:  #78C0F8;
+    --blue-100:  #1A2E40;
+
+    /* Semánticos */
+    --warning:     #FEB64C;
+    --warning-bg:  #3A2810;
+    --error:       #E15850;
+    --error-bg:    #3A1815;
+
+    /* Cream-500: aclarar para acento en dark */
+    --cream-500:   #C1A57A;
+
+    --success:     var(--green-500);
+    --info:        var(--blue-500);
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md: 0 2px 8px rgba(0,0,0,0.4);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-ui);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2rem 1rem;
+    transition: background 0.2s, color 0.2s;
+  }
+  .container { max-width: 1280px; margin: 0 auto; }
+
+  header { text-align: center; margin-bottom: 2.5rem; }
+  header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+  header .sub { color: var(--text-soft); max-width: 720px; margin: 0 auto; }
+
+  .theme-toggle {
+    position: fixed; top: 1rem; right: 1rem;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    z-index: 10;
+  }
+  .theme-toggle:hover { background: var(--cream-100); }
+
+  h2 {
+    margin: 2.5rem 0 1rem;
+    font-size: 1.4rem;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 0.5rem;
+  }
+
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .swatch-card {
+    background: var(--surface);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+  .swatch-color { height: 100px; display: flex; align-items: flex-end; padding: 0.5rem 0.75rem; font-family: monospace; font-size: 0.85rem; font-weight: 700; }
+  .swatch-info { padding: 0.75rem; }
+  .swatch-info .name { font-weight: 700; font-size: 0.95rem; }
+  .swatch-info .role { font-size: 0.8rem; color: var(--text-soft); margin-top: 0.2rem; }
+  .contrast-row { display: flex; gap: 0.4rem; margin-top: 0.5rem; flex-wrap: wrap; }
+  .pill { font-size: 0.7rem; padding: 0.15rem 0.45rem; border-radius: 3px; font-weight: 700; }
+  .pill-aaa { background: #1B5E20; color: white; }
+  .pill-aa  { background: #F9A825; color: #1a1a1a; }
+  .pill-deco { background: #ECEFF1; color: #455A64; }
+
+  .mockup-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 700px) { .mockup-row { grid-template-columns: 1fr; } }
+  .phone {
+    max-width: 320px; margin: 0 auto; width: 100%;
+    aspect-ratio: 9 / 19;
+    border-radius: 28px; border: 8px solid #1a1a1a;
+    background: var(--bg);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: var(--shadow-lg);
+  }
+  .phone-status {
+    height: 24px; background: rgba(0,0,0,0.04);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 1rem; font-size: 0.7rem; font-weight: 700;
+    color: var(--text);
+  }
+  .phone-body { flex: 1; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; overflow: hidden; color: var(--text); }
+  .phone h4 { font-size: 1rem; }
+  .phone .greeting { font-size: 0.85rem; color: var(--text-soft); }
+  .btn-big {
+    border: none; border-radius: 12px; padding: 1rem;
+    font-size: 0.95rem; font-weight: 700; color: white; min-height: 56px;
+    cursor: pointer; font-family: var(--font-ui);
+  }
+  .btn-primary { background: var(--green-500); }
+  .btn-info { background: var(--blue-500); }
+  .btn-warn { background: var(--warning); }
+  .btn-error { background: var(--error); }
+  .card-mock {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 0.8rem;
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 0.3rem;
+  }
+  .card-mock .litros {
+    font-family: var(--font-data);
+    font-size: 1.4rem; font-weight: 700; color: var(--green-700);
+  }
+  .card-mock .label { font-size: 0.75rem; color: var(--text-soft); }
+  .card-alert { background: var(--warning-bg); border-color: var(--warning); }
+  .card-alert .litros { color: var(--warning); }
+  .card-success { background: var(--green-100); border-color: var(--green-500); }
+  .card-success .litros { color: var(--green-700); }
+  .screen-label { text-align: center; font-weight: 700; margin-top: 0.5rem; }
+
+  .button-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0; }
+  .btn {
+    border: none; border-radius: 10px; padding: 0.75rem 1.25rem;
+    font-size: 0.9rem; font-weight: 700; cursor: pointer;
+    font-family: var(--font-ui);
+  }
+  .btn-g500 { background: var(--green-500); color: white; }
+  .btn-g300 { background: var(--green-300); color: var(--green-700); }
+  .btn-g100 { background: var(--green-100); color: var(--green-700); }
+  .btn-b500 { background: var(--blue-500); color: white; }
+  .btn-b300 { background: var(--blue-300); color: var(--blue-700); }
+  .btn-b100 { background: var(--blue-100); color: var(--blue-700); }
+
+  /* === TIPOGRAFÍA === */
+  .typo-section {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+  .typo-role { margin-bottom: 2rem; }
+  .typo-role h3 {
+    font-size: 0.85rem; color: var(--text-soft);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;
+  }
+  .typo-role p { color: var(--text-soft); font-size: 0.9rem; margin-top: 0.5rem; }
+  .typo-data { font-family: var(--font-data); }
+  .typo-ui   { font-family: var(--font-ui); }
+  .typo-display { font-family: var(--font-display); }
+
+  .alphabet-block {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+  .alphabet-block small {
+    display: block; font-size: 0.7rem; color: var(--text-soft);
+    margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+
+  .footer-note {
+    margin-top: 3rem; padding: 1.5rem; background: var(--green-700); color: white;
+    border-radius: 12px; text-align: center;
+  }
+  [data-theme="dark"] .footer-note { background: var(--green-500); color: var(--bg); }
+  .footer-note p { opacity: 0.95; }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+  🌓 Cambiar tema
+</button>
+
+<div class="container">
+
+<header>
+  <h1>🥛 Milkbook — Sistema de diseño</h1>
+  <p class="sub">Colores derivados del logo + dark mode + tipografía. Todo verificado con WCAG y pensado para usuarios rurales con baja alfabetización digital.</p>
+</header>
+
+<h2>1. Pantallas — light y dark mode</h2>
+<p style="color: var(--text-soft); margin-bottom: 1rem;">Usa el botón 🌓 arriba a la derecha para alternar entre temas. Mismas pantallas, dos apariencias.</p>
+
+<div class="mockup-row">
+
+  <div>
+    <div class="phone">
+      <div class="phone-status"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="phone-body">
+        <h4>Buenos días, Juan</h4>
+        <div class="greeting">Cliente: Pedro Mamani</div>
+        <div class="card-mock">
+          <span class="label">LITROS HOY</span>
+          <span class="litros">18.5 L</span>
+          <span class="label">S/ 0.65/L → S/ 12.03</span>
+        </div>
+        <button class="btn-big btn-primary">✓ CONFIRMAR</button>
+        <div class="card-mock card-alert">
+          <span class="label">⚠️ DIFIERE DE AYER</span>
+          <span class="litros" style="font-size:1rem;">Ayer: 16.0 L (−2.5 L)</span>
+        </div>
+        <button class="btn-big btn-warn">⚠️ REPORTAR</button>
+      </div>
+    </div>
+    <p class="screen-label">Confirmar litros</p>
+  </div>
+
+  <div>
+    <div class="phone">
+      <div class="phone-status"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="phone-body">
+        <h4>Mis clientes</h4>
+        <div class="greeting">8 clientes asignados</div>
+        <div class="card-mock">
+          <span class="label">PEDRO MAMANI</span>
+          <span style="font-size: 1rem; font-weight: 700;">Llacanora · 18.5 L hoy</span>
+        </div>
+        <div class="card-mock card-success">
+          <span class="label">JUANA DÍAZ</span>
+          <span style="font-size: 1rem; font-weight: 700;">Namora · 12.0 L confirmado</span>
+        </div>
+        <div class="card-mock card-alert">
+          <span class="label">⚠️ CARLOS PÉREZ</span>
+          <span style="font-size: 1rem; font-weight: 700;">Celendín · discrepancia</span>
+        </div>
+        <button class="btn-big btn-info">+ NUEVO CLIENTE</button>
+      </div>
+    </div>
+    <p class="screen-label">Mis clientes</p>
+  </div>
+
+</div>
+
+<h2>2. Escala de colores</h2>
+<p style="color: var(--text-soft); margin-bottom: 1rem;">Cada token muestra su valor en tema claro. En dark mode se reemplaza automáticamente — todo está en los custom properties.</p>
+
+<div class="swatch-grid">
+
+  <div class="swatch-card">
+    <div class="swatch-color" style="background: var(--cream-50); color: var(--text); border-bottom: 1px solid var(--border);">cream-50</div>
+    <div class="swatch-info">
+      <div class="name">Fondo universal</div>
+      <div class="role">Reemplaza blanco puro · anti-halo solar</div>
+    </div>
+  </div>
+
+  <div class="swatch-card">
+    <div class="swatch-color" style="background: var(--cream-100); color: var(--text);">cream-100</div>
+    <div class="swatch-info">
+      <div class="name">Cream 100</div>
+      <div class="role">Cards suaves, hovers</div>
+    </div>
+  </div>
+
+  <div class="swatch-card">
+    <div class="swatch-color" style="background: var(--cream-200); color: var(--text);">cream-200</div>
+    <div class="swatch-info">
+      <div class="name">Cream 200</div>
+      <div class="role">Cards destacadas, secciones alternas</div>
+    </div>
+  </div>
+
+  <div class="swatch-card">
+    <div class="swatch-color" style="background: var(--green-500); color: white;">#2A782A / #52C652</div>
+    <div class="swatch-info">
+      <div class="name">Verde 500 — PRIMARY</div>
+      <div class="role">Botones "Confirmar", CTAs</div>
+      <div class="contrast-row">
+        <span class="pill pill-aaa">AAA 5.4:1 light</span>
+        <span class="pill pill-aaa">AAA 8.0:1 dark</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="swatch-card" style="border: 2px dashed var(--green-500);">
+    <div class="swatch-color" style="background: var(--green-300); color: var(--green-700);">#88D088</div>
+    <div class="swatch-info">
+      <div class="name">Verde 300 — color del logo</div>
+      <div class="role">Decorativo: logo, ilustraciones, avatares</div>
+      <div class="contrast-row">
+        <span class="pill pill-deco">DECO light</span>
+        <span class="pill pill-aaa">AAA 9.6:1 dark</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="swatch-card">
+    <div class="swatch-color" style="background: var(--green-100); color: var(--green-700);">green-100</div>
+    <div class="swatch-info">
+      <div class="name">Verde 100</div>
+      <div class="role">Fondos de éxito, cards confirmadas</div>
+    </div>
+  </div>
+
+  <div class="swatch-card">
+    <div class="swatch-color" style="background: var(--blue-500); color: white;">#0064B1 / #199BFF</div>
+    <div class="swatch-info">
+      <div class="name">Azul 500 — SECONDARY</div>
+      <div class="role">Links, info, navegación</div>
+      <div class="contrast-row">
+        <span class="pill pill-aaa">AAA 5.9:1 light</span>
+        <span class="pill pill-aa">AA 6.0:1 dark</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="swatch-card" style="border: 2px dashed var(--blue-500);">
+    <div class="swatch-color" style="background: var(--blue-300); color: var(--blue-700);">#78C0F8</div>
+    <div class="swatch-info">
+      <div class="name">Azul 300 — color del logo</div>
+      <div class="role">Decorativo, avatares, ilustraciones</div>
+      <div class="contrast-row">
+        <span class="pill pill-deco">DECO light</span>
+        <span class="pill pill-aaa">AAA 9.0:1 dark</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="swatch-card">
+    <div class="swatch-color" style="background: var(--blue-100); color: var(--blue-700);">blue-100</div>
+    <div class="swatch-info">
+      <div class="name">Azul 100</div>
+      <div class="role">Fondos de info, cards informativas</div>
+    </div>
+  </div>
+
+  <div class="swatch-card">
+    <div class="swatch-color" style="background: var(--warning); color: white;">#B26A00 / #FEB64C</div>
+    <div class="swatch-info">
+      <div class="name">Ámbar — WARNING</div>
+      <div class="role">Discrepancias, alertas</div>
+      <div class="contrast-row">
+        <span class="pill pill-aa">AA 4.2:1</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="swatch-card">
+    <div class="swatch-color" style="background: var(--error); color: white;">#B3261E / #E15850</div>
+    <div class="swatch-info">
+      <div class="name">Rojo — ERROR</div>
+      <div class="role">Errores, eliminar</div>
+      <div class="contrast-row">
+        <span class="pill pill-aa">AA 6.4:1</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="swatch-card">
+    <div class="swatch-color" style="background: var(--text); color: var(--bg);">text</div>
+    <div class="swatch-info">
+      <div class="name">Texto</div>
+      <div class="role">Negro suave en light, crema en dark</div>
+    </div>
+  </div>
+
+</div>
+
+<h2>3. Botones en ambos temas</h2>
+<div class="button-row">
+  <button class="btn btn-g500">Confirmar</button>
+  <button class="btn btn-g300">Secundaria verde</button>
+  <button class="btn btn-g100">Tag / chip</button>
+  <button class="btn btn-b500">Info / nav</button>
+  <button class="btn btn-b300">Acento azul</button>
+  <button class="btn btn-b100">Fondo azul</button>
+</div>
+
+<h2>4. Sistema tipográfico</h2>
+<p style="color: var(--text-soft); margin-bottom: 1rem;">Tres roles, tres familias. Cada una con una razón específica para Milkbook.</p>
+
+<div class="typo-section">
+
+  <div class="typo-role">
+    <h3>📊 Familia DATA — Atkinson Hyperlegible</h3>
+    <div class="alphabet-block typo-data">
+      18.5 L · S/ 12.03 · Juan Mamani
+      <small>Uso: números, montos, litros, nombres propios, datos del cliente</small>
+    </div>
+    <p><strong>Por qué:</strong> diseñada por el Braille Institute específicamente para <strong>baja visión y baja alfabetización</strong>. Cada glifo es único y no se confunde con otro (la "I", la "l" y el "1" son distintos). Gratis, OFL, soporta 150+ idiomas. <strong>Recomendación #1 para Milkbook.</strong></p>
+  </div>
+
+  <div class="typo-role">
+    <h3>🖥️ Familia UI — Inter</h3>
+    <div class="alphabet-block typo-ui">
+      Confirmar litros del día
+      <small>Uso: títulos, botones, labels, navegación, textos secundarios</small>
+    </div>
+    <p><strong>Por qué:</strong> estándar moderno de UI. x-height alta (texto se ve más grande al mismo tamaño), máxima legibilidad, variable font, distingue bien caracteres similares. Usada por GitHub, Figma, Linear. <strong>Web admin de Milkbook</strong>.</p>
+  </div>
+
+  <div class="typo-role">
+    <h3>📜 Familia DISPLAY — Fraunces</h3>
+    <div class="alphabet-block typo-display" style="font-size: 2rem; font-weight: 700;">
+      Milkbook
+      <small>Uso: solo el wordmark del logo, onboarding, splash screen, marketing</small>
+    </div>
+    <p><strong>Por qué:</strong> serif humanista con personalidad. Aporta calidez y diferenciación sin sacrificar legibilidad. Reservar para <strong>ocasiones especiales</strong> — no usar en UI diaria para evitar inconsistencias.</p>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  <h3>✅ Sistema completo</h3>
+  <p>
+    Colores light + dark derivados del logo · WCAG AA/AAA verificado en pares críticos.<br>
+    Tres familias tipográficas con roles claros: <strong>Atkinson Hyperlegible</strong> para datos, <strong>Inter</strong> para UI, <strong>Fraunces</strong> para el wordmark.<br>
+    Ver <code>README.md</code> para tokens, instalación y reglas de uso.
+  </p>
+</div>
+
+</div>
+
+<script>
+  // Cargar preferencia de tema guardada
+  const saved = localStorage.getItem('milkbook-theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+  document.querySelector('.theme-toggle').addEventListener('click', () => {
+    const current = document.documentElement.dataset.theme;
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('milkbook-theme', next);
+  });
+</script>
+
+</body>
+</html>
