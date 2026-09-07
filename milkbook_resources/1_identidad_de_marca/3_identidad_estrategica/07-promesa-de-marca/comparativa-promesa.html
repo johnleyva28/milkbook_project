@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Promesa de marca — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-300: #EBE3CC;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --text: #1A1F1A; --text-soft: #5C5C5C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--green-100), var(--blue-100)); padding: 48px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 36px; margin: 0 0 8px; }
+.promesa-root { font-family: var(--font-display); font-size: 26px; color: var(--text); max-width: 760px; margin: 24px auto 0; line-height: 1.3; font-style: italic; }
+header p { color: var(--text-soft); font-size: 16px; max-width: 720px; margin: 12px auto 0; }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--green-500); display: inline-block; }
+
+.promesas { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 24px 0; }
+.promesa-card { background: white; border-radius: 16px; padding: 24px; border-left: 6px solid; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.promesa-card.p1 { border-color: var(--green-500); }
+.promesa-card.p2 { border-color: var(--blue-500); }
+.promesa-card.p3 { border-color: var(--blue-700); }
+.promesa-card.p4 { border-color: var(--green-700); }
+.promesa-card.p5 { border-color: var(--text-soft); }
+.promesa-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.promesa-num { background: var(--cream-100); color: var(--green-700); font-weight: 700; padding: 4px 10px; border-radius: 16px; font-size: 12px; }
+.promesa-name { font-weight: 700; font-size: 16px; }
+.promesa-quote { font-family: var(--font-display); font-size: 18px; font-style: italic; color: var(--text); margin-bottom: 12px; line-height: 1.4; }
+.promesa-compromisos { background: var(--cream-100); border-radius: 8px; padding: 12px; margin: 12px 0; }
+.promesa-compromisos-title { font-size: 11px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.promesa-compromisos ul { margin: 0; padding-left: 20px; font-size: 13px; }
+.promesa-compromisos li { margin: 3px 0; }
+.promesa-incumplimiento { background: #FCE8E6; border-radius: 8px; padding: 10px; font-size: 12px; margin-top: 12px; }
+.promesa-incumplimiento strong { color: #B3261E; }
+
+.no-prometemos { background: #1A1F1A; color: #FAF8F3; border-radius: 16px; padding: 32px; margin: 24px 0; }
+.no-prometemos h2 { color: #FAF8F3; border-color: #E15850; }
+.no-prometemos table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+.no-prometemos td { padding: 10px 12px; border-bottom: 1px solid #3A3A3A; font-size: 13px; }
+.no-prometemos td:first-child { color: #FF8580; font-weight: 600; }
+
+.email-mockup { max-width: 560px; margin: 24px auto; background: white; border: 1px solid var(--cream-300); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.email-header { background: var(--cream-100); padding: 12px 20px; border-bottom: 1px solid var(--cream-300); font-size: 12px; color: var(--text-soft); }
+.email-subject { padding: 16px 20px; border-bottom: 1px solid var(--cream-300); font-size: 13px; color: var(--text-soft); }
+.email-subject strong { color: var(--text); font-size: 16px; display: block; margin-bottom: 4px; }
+.email-body { padding: 24px; font-size: 15px; line-height: 1.6; }
+.email-body strong { color: var(--green-700); }
+
+table.metrics { width: 100%; border-collapse: collapse; margin: 16px 0; background: var(--cream-100); border-radius: 12px; overflow: hidden; }
+table.metrics th, table.metrics td { padding: 10px 14px; border-bottom: 1px solid var(--cream-300); font-size: 13px; }
+table.metrics th { background: var(--cream-200); font-weight: 700; }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🤝 Promesa de marca — MilkBook</h1>
+  <div class="promesa-root">"Si usas MilkBook, no vas a perder plata por errores de registro ni por discusiones al cierre."</div>
+  <p>Las 5 promesas operativas y medibles a cada stakeholder — y lo que NO prometemos.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. Las 5 promesas de MilkBook</h2>
+
+  <div class="promesas">
+    <div class="promesa-card p1">
+      <div class="promesa-header">
+        <span class="promesa-num">P1</span>
+        <span class="promesa-name">👨‍🌾 Para el productor (Juan)</span>
+      </div>
+      <div class="promesa-quote">"Cada litro que te pague el lechero va a quedar registrado. Si hay diferencia, la vamos a resolver juntos. Vas a tener una boleta formal."</div>
+      <div class="promesa-compromisos">
+        <div class="promesa-compromisos-title">Compromisos medibles</div>
+        <ul>
+          <li>100% de las entregas se confirman entre Carlos y Juan</li>
+          <li>90% de discrepancias resueltas en menos de 5 min</li>
+          <li>100% de los cierres generan boleta descargable</li>
+          <li>0% de litigios por discrepancias</li>
+          <li>&lt;1% de pérdida de plata (vs. 3-5% sin MilkBook)</li>
+        </ul>
+      </div>
+      <div class="promesa-incumplimiento"><strong>Si MilkBook NO cumple:</strong> compensamos al productor afectado, auditamos el proceso, comunicamos públicamente qué pasó.</div>
+    </div>
+
+    <div class="promesa-card p2">
+      <div class="promesa-header">
+        <span class="promesa-num">P2</span>
+        <span class="promesa-name">🛵 Para el lechero (Carlos)</span>
+      </div>
+      <div class="promesa-quote">"Sacar las cuentas va a tomar 10 minutos, no 30. No vas a pelear más con tus clientes. Vas a tener historial para mostrar al banco."</div>
+      <div class="promesa-compromisos">
+        <div class="promesa-compromisos-title">Compromisos medibles</div>
+        <ul>
+          <li>8h o menos de sacado de cuentas por quincena (vs. 20h)</li>
+          <li>90% de cierres sin discusión presencial</li>
+          <li>Boletas históricas accesibles siempre</li>
+          <li>Cálculo automático sin errores</li>
+          <li>0% de olvidos de adelantos y encargos</li>
+        </ul>
+      </div>
+      <div class="promesa-incumplimiento"><strong>Si MilkBook NO cumple:</strong> soporte humano en menos de 4h, refactorizamos el flujo, capacitación al usuario.</div>
+    </div>
+
+    <div class="promesa-card p3">
+      <div class="promesa-header">
+        <span class="promesa-num">P3</span>
+        <span class="promesa-name">🏦 Para los aliados (bancos, cooperativas)</span>
+      </div>
+      <div class="promesa-quote">"Tus datos de productores son confiables, verificables y están disponibles cuando los necesites. Sin perder el control del productor."</div>
+      <div class="promesa-compromisos">
+        <div class="promesa-compromisos-title">Compromisos medibles</div>
+        <ul>
+          <li>API estable con SLA 99.5%</li>
+          <li>Datos actualizados en menos de 1 hora</li>
+          <li>Cumplimiento regulatorio (Ley 29733, SUNAT)</li>
+          <li>El productor es dueño de su data</li>
+          <li>Audit trail completo</li>
+        </ul>
+      </div>
+      <div class="promesa-incumplimiento"><strong>Si MilkBook NO cumple:</strong> compensamos según contrato, auditamos con el aliado, mejoramos infraestructura.</div>
+    </div>
+
+    <div class="promesa-card p4">
+      <div class="promesa-header">
+        <span class="promesa-num">P4</span>
+        <span class="promesa-name">👥 Para el equipo MilkBook</span>
+      </div>
+      <div class="promesa-quote">"Construimos la herramienta que nos hubiera gustado tener si fuéramos Carlos o Juan. Somos honestos con el equipo y con los usuarios sobre lo que sí funciona y lo que no."</div>
+      <div class="promesa-compromisos">
+        <div class="promesa-compromisos-title">Compromisos medibles</div>
+        <ul>
+          <li>Honestidad operativa: comunicamos bugs</li>
+          <li>Respeto por el usuario: validación en campo</li>
+          <li>Pragmatismo andino: testeamos en Xiaomi de Carlos</li>
+          <li>Pensamiento a 5 años</li>
+          <li>Cultura de feedback</li>
+        </ul>
+      </div>
+      <div class="promesa-incumplimiento"><strong>Si MilkBook NO cumple:</strong> retros honestas cada 2 semanas, cultura de aprendizaje continuo.</div>
+    </div>
+
+    <div class="promesa-card p5">
+      <div class="promesa-header">
+        <span class="promesa-num">P5</span>
+        <span class="promesa-name">🌍 Para el mercado / sociedad</span>
+      </div>
+      <div class="promesa-quote">"Construimos infraestructura digital abierta y confiable para la economía lechera andina. Nuestro trabajo es modesto pero concreto."</div>
+      <div class="promesa-compromisos">
+        <div class="promesa-compromisos-title">Compromisos medibles</div>
+        <ul>
+          <li>Open data de impacto publicado trimestralmente</li>
+          <li>Code of conduct público</li>
+          <li>Sin lock-in: productor puede exportar/borrar</li>
+          <li>Contribución al ecosistema</li>
+          <li>Sin greenwashing</li>
+        </ul>
+      </div>
+      <div class="promesa-incumplimiento"><strong>Si MilkBook NO cumple:</strong> reconocemos públicamente, ajustamos el plan, comunicamos qué cambió.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Lo que MilkBook NO promete</h2>
+
+  <div class="no-prometemos">
+    <h2>❌ Lo que NO prometemos</h2>
+    <p style="font-size: 14px; color: #C7BFAE;">Para que la promesa sea creíble, NO prometemos cosas que no podemos cumplir:</p>
+    <table>
+      <tr><td>Garantizamos que nunca perderás plata</td><td style="color: #C7BFAE;">Siempre hay factores fuera de MilkBook (cambio de precio, robo, helada).</td></tr>
+      <tr><td>Eliminaremos la pobreza rural</td><td style="color: #C7BFAE;">Hipócrita. Es rol de política pública, no de una app.</td></tr>
+      <tr><td>Cerraremos contratos sin tu confirmación</td><td style="color: #C7BFAE;">Eso sería quitarle agencia al usuario.</td></tr>
+      <tr><td>Te haremos rico</td><td style="color: #C7BFAE;">Mentira. MilkBook ayuda a no perder, no a ganar.</td></tr>
+      <tr><td>Funcionará en cualquier celular</td><td style="color: #C7BFAE;">Optimizamos para gama media-baja, pero no todos los modelos.</td></tr>
+      <tr><td>Nunca tendrás discrepancias</td><td style="color: #C7BFAE;">Son parte del negocio. Prometemos resolverlas.</td></tr>
+      <tr><td>Tu leche valdrá más</td><td style="color: #C7BFAE;">El precio lo determina el mercado, no MilkBook.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>3. Email de bienvenida con la promesa</h2>
+
+  <div class="email-mockup">
+    <div class="email-header"><strong>María Pérez</strong> · Equipo MilkBook</div>
+    <div class="email-subject"><strong>Bienvenido a MilkBook</strong>lechero@milkbook.com · 9:41</div>
+    <div class="email-body">
+      <p>Ey Carlos,</p>
+      <p>Antes de seguir, queremos ser honestos contigo.</p>
+      <p>MilkBook te promete que:</p>
+      <p>• Cada litro que registres quedará guardado (offline y online).<br>
+      • Si hay diferencia entre lo que tú y el productor anotaron, la app te la marca para resolverla juntos.<br>
+      • Al cierre, verás exactamente cuánto le pagas a cada uno.<br>
+      • Recibirás una boleta descargable.</p>
+      <p><strong>Si en algún momento sientes que no cumplimos, escríbenos a soporte@milkbook.com. Somos un equipo humano, no un chatbot.</strong></p>
+      <p>María<br>Equipo MilkBook<br><span style="color: var(--green-700); font-weight: 600;">Tu leche, en orden.</span></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4. Métricas de cumplimiento por promesa</h2>
+
+  <table class="metrics">
+    <thead><tr><th>Promesa</th><th>Métrica principal</th><th>Meta</th></tr></thead>
+    <tbody>
+      <tr><td><strong>P1. Productor</strong></td><td>% de discrepancias resueltas en &lt;5 min</td><td>≥90%</td></tr>
+      <tr><td><strong>P1. Productor</strong></td><td>% de boletas emitidas en cada cierre</td><td>100%</td></tr>
+      <tr><td><strong>P2. Lechero</strong></td><td>Tiempo medio de cierre de contrato</td><td>≤10 min</td></tr>
+      <tr><td><strong>P2. Lechero</strong></td><td>% de cierres sin discusión presencial</td><td>≥90%</td></tr>
+      <tr><td><strong>P2. Lechero</strong></td><td>Errores aritméticos reportados</td><td>&lt;1%</td></tr>
+      <tr><td><strong>P3. Aliados</strong></td><td>SLA de la plataforma</td><td>≥99.5%</td></tr>
+      <tr><td><strong>P3. Aliados</strong></td><td>Tiempo de sincronización de datos</td><td>&lt;1 hora</td></tr>
+      <tr><td><strong>P4. Equipo</strong></td><td>Rotación voluntaria anual</td><td>&lt;15%</td></tr>
+      <tr><td><strong>P5. Sociedad</strong></td><td>Reportes de impacto publicados</td><td>trimestral</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>2. Niveles de compensación si NO se cumple</h2>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+    <div style="background: var(--cream-100); padding: 16px; border-radius: 12px;">
+      <h3 style="margin-top: 0; font-size: 14px;">1 usuario afectado</h3>
+      <p style="font-size: 13px; margin: 0;">Llamada personal + disculpa + gesto (ej. 1 mes premium).</p>
+    </div>
+    <div style="background: var(--cream-100); padding: 16px; border-radius: 12px;">
+      <h3 style="margin-top: 0; font-size: 14px;">10-50 usuarios</h3>
+      <p style="font-size: 13px; margin: 0;">Email personalizado + compensación uniforme + fix prioritario.</p>
+    </div>
+    <div style="background: var(--cream-100); padding: 16px; border-radius: 12px;">
+      <h3 style="margin-top: 0; font-size: 14px;">100+ usuarios</h3>
+      <p style="font-size: 13px; margin: 0;">Comunicación pública + compensación + post-mortem público.</p>
+    </div>
+    <div style="background: var(--cream-100); padding: 16px; border-radius: 12px;">
+      <h3 style="margin-top: 0; font-size: 14px;">Pérdida real de plata</h3>
+      <p style="font-size: 13px; margin: 0;">Reembolso directo al usuario afectado.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>🤝 Identidad estratégica · Sección 7 de 7 (promesa de marca)</p>
+  <p>Ver <a href="./README.md">README.md</a> para procedimiento operativo completo cuando NO se cumple la promesa</p>
+</footer>
+
+</body>
+</html>

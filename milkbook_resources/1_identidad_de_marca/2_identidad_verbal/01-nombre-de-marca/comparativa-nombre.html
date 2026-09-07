@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Nombre de marca — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&family=Lexend:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-200: #F5F0E1;
+  --cream-300: #EBE3CC;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --text: #1A1F1A; --text-soft: #5C5C5C; --text-disabled: #9CA39C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-data: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-reading: 'Lexend', system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; padding: 0; line-height: 1.6; }
+header { background: linear-gradient(135deg, var(--blue-100), var(--green-100)); padding: 56px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 56px; margin: 0 0 8px; line-height: 1.1; }
+header h1 .milk { color: var(--blue-700); }
+header h1 .book { color: var(--green-700); }
+header p { color: var(--text-soft); font-size: 18px; margin: 8px 0 0; }
+header .sub { color: var(--text-soft); font-size: 16px; margin-top: 16px; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+main { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-size: 26px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--blue-500); display: inline-block; }
+h3 { font-size: 19px; margin: 24px 0 12px; }
+
+/* Etymology */
+.etymology { background: linear-gradient(135deg, var(--blue-100), var(--green-100)); border-radius: 20px; padding: 40px; text-align: center; margin: 32px 0; }
+.etymology .word { font-family: var(--font-display); font-size: 72px; font-weight: 700; margin-bottom: 16px; }
+.etymology .word .milk { color: var(--blue-700); }
+.etymology .word .plus { color: var(--text-soft); margin: 0 16px; font-weight: 300; }
+.etymology .word .book { color: var(--green-700); }
+.etymology .equals { font-family: var(--font-display); font-size: 32px; color: var(--text-soft); margin: 8px 0 16px; }
+.etymology .meaning { font-family: var(--font-display); font-size: 36px; color: var(--text); font-style: italic; }
+
+/* Variants */
+.variants { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.variant-card { background: var(--cream-100); border: 2px solid var(--cream-300); border-radius: 12px; padding: 28px; text-align: center; position: relative; }
+.variant-card.official { background: linear-gradient(135deg, var(--blue-100), var(--green-100)); border-color: var(--blue-500); border-width: 3px; }
+.variant-card.official::before { content: '★ OFICIAL'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--blue-500); color: white; font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 12px; letter-spacing: 0.5px; }
+.variant-name { font-family: var(--font-display); font-size: 32px; font-weight: 700; margin: 12px 0; }
+.variant-card.official .variant-name { background: linear-gradient(90deg, var(--blue-700), var(--green-700)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.variant-usage { font-size: 13px; color: var(--text-soft); margin-bottom: 12px; }
+.variant-example { font-family: var(--font-data); font-size: 13px; background: var(--cream-50); padding: 12px; border-radius: 6px; margin-top: 12px; border: 1px solid var(--cream-300); word-break: break-all; }
+
+/* Real-world mockups */
+.realworld { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; }
+
+/* App icon */
+.appicon-mock { width: 96px; height: 96px; margin: 0 auto 12px; border-radius: 22px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.appicon-mock img { width: 100%; height: 100%; display: block; }
+.icon-name { font-size: 12px; color: var(--text-soft); text-align: center; }
+
+/* Splash screen mockup */
+.splash-mockup { background: linear-gradient(180deg, #FFFDF7 0%, #FAF8F3 100%); border-radius: 24px; width: 240px; height: 480px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); padding: 20px; }
+.splash-mockup .iso-small { width: 96px; height: 96px; }
+.splash-mockup .wm-big { font-family: var(--font-display); font-size: 28px; font-weight: 500; color: var(--text); letter-spacing: -0.5px; }
+.splash-mockup .sl-small { font-family: var(--font-ui); font-weight: 700; font-size: 14px; color: var(--green-700); margin-top: 4px; }
+
+/* Email signature */
+.email-sig { background: white; border-radius: 8px; padding: 16px; border-left: 3px solid var(--green-500); max-width: 380px; margin: 0 auto; font-family: var(--font-ui); }
+.email-sig .name { font-weight: 700; font-size: 14px; color: var(--text); }
+.email-sig .role { font-size: 12px; color: var(--text-soft); }
+.email-sig .url { font-size: 12px; color: var(--blue-500); margin-top: 4px; }
+.email-sig .sig { font-size: 11px; color: var(--green-700); font-style: italic; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--cream-200); }
+
+/* URL/handle mockup */
+.url-mock { background: var(--cream-100); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid var(--cream-300); }
+.url-mock .url-name { font-family: var(--font-data); font-weight: 700; font-size: 18px; color: var(--blue-700); margin-bottom: 4px; word-break: break-all; }
+.url-mock .url-context { font-size: 12px; color: var(--text-soft); }
+
+/* Brand examples */
+.brand-examples { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 24px 0; }
+.brand-card { background: white; border-radius: 8px; padding: 16px; text-align: center; border: 1px solid var(--cream-300); }
+.brand-card .word { font-weight: 700; font-size: 18px; }
+.brand-card .split { font-size: 11px; color: var(--text-soft); margin-top: 4px; }
+
+/* Sticker for moto */
+.sticker-moto { background: var(--cream-50); border: 3px solid var(--green-500); border-radius: 8px; padding: 16px 20px; max-width: 220px; margin: 0 auto; transform: rotate(-3deg); box-shadow: 0 4px 12px rgba(42, 120, 42, 0.2); }
+.sticker-moto .wm-s { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--text); }
+.sticker-moto .sl-s { font-family: var(--font-ui); font-weight: 700; font-size: 13px; color: var(--green-700); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+/* Pronunciation */
+.pronunciation { background: var(--blue-100); border-radius: 16px; padding: 32px; text-align: center; margin: 24px 0; }
+.pronunciation .ipa { font-family: var(--font-display); font-size: 64px; font-weight: 700; color: var(--blue-700); margin-bottom: 12px; }
+.pronunciation .alt { font-size: 18px; color: var(--text-soft); }
+
+.decision { background: var(--green-100); border-left: 4px solid var(--green-500); padding: 20px 24px; border-radius: 0 12px 12px 0; margin: 24px 0; }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1><span class="milk">Milk</span><span class="book">Book</span></h1>
+  <p>Cuaderno de leche · Milk = producto · Book = registro contable</p>
+  <p class="sub">El nombre oficial de la marca, su etimología, sus variantes oficiales y las reglas que el equipo debe respetar para escribirlo correctamente en todos los contextos.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. Etimología: Milk + Book = Cuaderno de leche</h2>
+
+  <div class="etymology">
+    <div class="word">
+      <span class="milk">Milk</span><span class="plus">+</span><span class="book">Book</span>
+    </div>
+    <div class="equals">=</div>
+    <div class="meaning">"Cuaderno de leche"</div>
+  </div>
+
+  <p>El nombre <strong>MilkBook</strong> es la composición deliberada de dos raíces anglosajonas que describen exactamente lo que hace el producto:</p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0;">
+    <div style="background: white; border-radius: 12px; padding: 20px; border-left: 4px solid var(--blue-500);">
+      <div style="font-family: var(--font-data); font-weight: 700; color: var(--blue-700); font-size: 14px; margin-bottom: 8px;">🥛 MILK</div>
+      <div style="font-weight: 700; margin-bottom: 8px;">El producto</div>
+      <div style="font-size: 13px; color: var(--text-soft);">La materia prima que da sentido al negocio del lechero y del productor. Es lo que se vende, se compra, se registra.</div>
+    </div>
+    <div style="background: white; border-radius: 12px; padding: 20px; border-left: 4px solid var(--green-500);">
+      <div style="font-family: var(--font-data); font-weight: 700; color: var(--green-700); font-size: 14px; margin-bottom: 8px;">📒 BOOK</div>
+      <div style="font-weight: 700; margin-bottom: 8px;">El registro contable</div>
+      <div style="font-size: 13px; color: var(--text-soft);">El cuaderno donde se asientan transacciones. En contabilidad inglesa, un "book" es el libro mayor. MilkBook es la herramienta que <em>asienta</em> litros, adelantos, encargos.</div>
+    </div>
+  </div>
+
+  <p>En el caserío de Cajamarca, Carlos lleva en su moto una libreta escolar donde cada mañana anota "Juan — 18 L" cuando recoge la leche. Juan lleva su propia libreta donde anota lo que le pagó Carlos. <strong>MilkBook es, literalmente, ese cuaderno. Pero digital.</strong></p>
+</section>
+
+<section>
+  <h2>2. Mockups del nombre MilkBook en uso real</h2>
+
+  <div class="realworld">
+    <div>
+      <div class="appicon-mock">
+        <img src="../9-favicon-y-app-icon/assets/icon-512.png" alt="MilkBook app icon">
+      </div>
+      <div class="icon-name">📱 App icon (sin wordmark — solo isotipo)</div>
+    </div>
+
+    <div>
+      <div class="splash-mockup">
+        <svg class="iso-small" viewBox="0 0 64 64">
+          <path d="M22 12 H42 V20 Q42 22 44 24 V52 Q44 56 40 56 H24 Q20 56 20 52 V24 Q22 22 22 20 Z" fill="#78C0F8"/>
+          <rect x="26" y="8" width="12" height="6" rx="1" fill="#FAF8F3" stroke="#78C0F8" stroke-width="1.5"/>
+          <ellipse cx="32" cy="38" rx="14" ry="11" fill="#88D088"/>
+          <ellipse cx="32" cy="44" rx="7" ry="4" fill="#FAF8F3"/>
+          <circle cx="27" cy="35" r="1.5" fill="#1A1F1A"/>
+          <circle cx="37" cy="35" r="1.5" fill="#1A1F1A"/>
+          <circle cx="30" cy="44" r="0.8" fill="#1A1F1A"/>
+          <circle cx="34" cy="44" r="0.8" fill="#1A1F1A"/>
+          <path d="M22 30 Q19 26 21 24" stroke="#1A1F1A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M42 30 Q45 26 43 24" stroke="#1A1F1A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div class="wm-big">MilkBook</div>
+        <div class="sl-small">Tu leche, en orden.</div>
+      </div>
+      <div class="icon-name">📱 Splash con wordmark + eslogan</div>
+    </div>
+
+    <div>
+      <div class="email-sig">
+        <div class="name">María Pérez</div>
+        <div class="role">Equipo MilkBook</div>
+        <div class="url">milkbook.com</div>
+        <div class="sig">Tu leche, en orden.</div>
+      </div>
+      <div class="icon-name">✉️ Pie de firma de email</div>
+    </div>
+
+    <div>
+      <div class="sticker-moto">
+        <div class="wm-s">MilkBook</div>
+        <div class="sl-s">Tu leche, en orden</div>
+      </div>
+      <div class="icon-name">🏍️ Sticker para moto de Carlos</div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 20px 0 0;">
+    <div class="url-mock">
+      <div class="url-name">milkbook.com</div>
+      <div class="url-context">Dominio web principal · minúscula</div>
+    </div>
+    <div class="url-mock">
+      <div class="url-name">@milkbook</div>
+      <div class="url-context">Handle de redes sociales · minúscula</div>
+    </div>
+    <div class="url-mock">
+      <div class="url-name">com.milkbook.lechero</div>
+      <div class="url-context">Package Android · minúscula</div>
+    </div>
+    <div class="url-mock">
+      <div class="url-name">MilkBook.app</div>
+      <div class="url-context">Bundle iOS · PascalCase</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. Las 4 variantes oficiales de MilkBook</h2>
+
+  <div class="variants">
+    <div class="variant-card official">
+      <div class="variant-name">MilkBook</div>
+      <div class="variant-usage">Por defecto en TODOS los contextos. M+B mayúscula para preservar la etimología Milk + Book.</div>
+      <div class="variant-example">"Bienvenido a MilkBook"</div>
+    </div>
+
+    <div class="variant-card">
+      <div class="variant-name" style="font-size: 24px;">milkbook</div>
+      <div class="variant-usage">Solo en URLs, dominios, handles, paquetes npm/pub.dev, comandos CLI.</div>
+      <div class="variant-example">milkbook.com · @milkbook · npm install milkbook-sdk</div>
+    </div>
+
+    <div class="variant-card">
+      <div class="variant-name" style="font-size: 24px; letter-spacing: 4px;">MILKBOOK</div>
+      <div class="variant-usage">Solo en contextos físicos: banners de feria, calcomanías de moto, uniformes.</div>
+      <div class="variant-example">Sticker para moto de Carlos</div>
+    </div>
+
+    <div class="variant-card" style="opacity: 0.5;">
+      <div class="variant-name" style="font-size: 24px; text-decoration: line-through;">MilkBook</div>
+      <div class="variant-usage" style="color: #B3261E;">⚠️ Forma histórica abandonada. No reintroducir en código nuevo.</div>
+      <div class="variant-example">Solo aparece en assets legacy (renombrar a logo_milkbook.png)</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4. ¿Por qué CamelCase (M + B mayúscula)?</h2>
+
+  <p><strong>MilkBook</strong> se escribe con <strong>M</strong> y <strong>B</strong> en mayúscula porque las dos raíces son <strong>visualmente separables</strong> y eso comunica el concepto:</p>
+
+  <div class="brand-examples">
+    <div class="brand-card">
+      <div class="word" style="color: #FF0000;">YouTube</div>
+      <div class="split">You + Tube</div>
+    </div>
+    <div class="brand-card">
+      <div class="word" style="color: #1877F2;">FaceBook</div>
+      <div class="split">Face + Book</div>
+    </div>
+    <div class="brand-card">
+      <div class="word" style="color: #FF5A5F;">AirBnB</div>
+      <div class="split">Air + Bed & Breakfast</div>
+    </div>
+    <div class="brand-card">
+      <div class="word" style="color: #003087;">PayPal</div>
+      <div class="split">Pay + Pal</div>
+    </div>
+    <div class="brand-card">
+      <div class="word" style="color: #1DA1F2;">SnapChat</div>
+      <div class="split">Snap + Chat</div>
+    </div>
+    <div class="brand-card">
+      <div class="word" style="color: #0A66C2;">LinkedIn</div>
+      <div class="split">Linked + In</div>
+    </div>
+    <div class="brand-card" style="background: linear-gradient(135deg, var(--blue-100), var(--green-100));">
+      <div class="word" style="background: linear-gradient(90deg, var(--blue-700), var(--green-700)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">MilkBook</div>
+      <div class="split">Milk + Book</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>5. Pronunciación</h2>
+
+  <div class="pronunciation">
+    <div class="ipa">/míl.buk/</div>
+    <div class="alt">Español rural: "MIL-buk" · Inglés: "milk-BOOK"</div>
+  </div>
+
+  <table style="width: 100%; border-collapse: collapse; margin: 16px 0; background: var(--cream-100); border-radius: 12px; overflow: hidden;">
+    <thead><tr style="background: var(--cream-200);"><th style="text-align: left; padding: 12px;">Audiencia</th><th style="text-align: left; padding: 12px;">Pronunciación</th><th style="text-align: left; padding: 12px;">Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td style="padding: 12px;">Español (Cajamarca, Perú)</td><td style="padding: 12px;">"MIL-buk" (con 'b' suave castellana)</td><td style="padding: 12px; font-family: var(--font-data);">"¿Ya descargaste Milkbuk?"</td></tr>
+      <tr style="background: white;"><td style="padding: 12px;">Español latino internacional</td><td style="padding: 12px;">"MIL-buk"</td><td style="padding: 12px; font-family: var(--font-data);">"Milkbuk es una app rural"</td></tr>
+      <tr><td style="padding: 12px;">Inglés (internacional)</td><td style="padding: 12px;">"milk-BOOK" (acento en segunda sílaba)</td><td style="padding: 12px; font-family: var(--font-data);">"MilkBook helps dairy farmers"</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>6. Por qué NO se traduce al español</h2>
+
+  <p>Decisión deliberada: <strong>MilkBook no se traduce</strong>.</p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0;">
+    <div style="background: white; border-radius: 12px; padding: 20px; border-left: 4px solid var(--green-500);">
+      <div style="font-weight: 700; margin-bottom: 12px;">✅ Por qué NO traducir</div>
+      <ul style="font-size: 13px; padding-left: 20px; margin: 0;">
+        <li><strong>Marca tecnológica.</strong> El software moderno se nombra en inglés.</li>
+        <li><strong>"-book" comunica modernidad.</strong> Evoca Facebook (que Carlos ya conoce).</li>
+        <li><strong>Pronunciable en español rural.</strong> Carlos y Juan ya dicen "Milkbuk".</li>
+        <li><strong>Registrable y defendible.</strong> Mayor territorialidad en INDECOPI.</li>
+        <li><strong>Escala a otros países.</strong> Funciona idéntico en LATAM.</li>
+      </ul>
+    </div>
+    <div style="background: #FCE8E6; border-radius: 12px; padding: 20px; border-left: 4px solid var(--error);">
+      <div style="font-weight: 700; margin-bottom: 12px; color: #B3261E;">❌ Traducciones prohibidas</div>
+      <ul style="font-size: 13px; padding-left: 20px; margin: 0;">
+        <li>"CuadernoLácteo" — suena a yogur industrial.</li>
+        <li>"LibroLechero" — confunde con recetas.</li>
+        <li>"La Libreta de la Leche" — demasiado largo.</li>
+        <li>"DairyNote" — fonética rara en español rural.</li>
+        <li>"LecheBook" — mezcla idiomas sin ganancia.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>7. Resumen: la decisión final</h2>
+
+  <div style="background: linear-gradient(135deg, var(--blue-100), var(--green-100)); border-radius: 16px; padding: 40px; text-align: center; margin: 24px 0;">
+    <div style="font-family: var(--font-display); font-size: 64px; font-weight: 700; margin-bottom: 16px;">
+      <span style="color: var(--blue-700);">Milk</span><span style="color: var(--green-700);">Book</span>
+    </div>
+    <div style="font-family: var(--font-display); font-size: 28px; color: var(--text); font-style: italic; margin-bottom: 16px;">"Cuaderno de leche"</div>
+    <p style="font-size: 17px; color: var(--text); max-width: 600px; margin: 0 auto; line-height: 1.6;">
+      <strong>Milk</strong> = leche · <strong>Book</strong> = cuaderno de registro.<br>
+      MilkBook es el cuaderno de leche de los lecheros y productores andinos.<br>
+      Pero digital. Y compartido. Y sin discrepancias.
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>🥛 Identidad verbal de MilkBook · Sección 1 de 10 (nombre de marca)</p>
+  <p>Ver <a href="./README.md">README.md</a> para especificación técnica completa y reglas de uso</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Valores — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-300: #EBE3CC;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --text: #1A1F1A; --text-soft: #5C5C5C; --text-disabled: #9CA39C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-data: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; padding: 0; line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--green-100), var(--blue-100)); padding: 48px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 36px; margin: 0 0 8px; }
+header p { color: var(--text-soft); font-size: 16px; max-width: 720px; margin: 0 auto; }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-family: var(--font-ui); font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--green-500); display: inline-block; }
+h3 { font-size: 18px; margin: 24px 0 12px; }
+p { margin: 0 0 12px; }
+.intro { font-size: 16px; color: var(--text-soft); max-width: 720px; }
+
+.valores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.valor { background: white; border-radius: 16px; padding: 24px; border-top: 6px solid; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.valor-1 { border-color: var(--green-500); }
+.valor-2 { border-color: var(--blue-500); }
+.valor-3 { border-color: var(--green-700); }
+.valor-4 { border-color: var(--blue-700); }
+.valor-5 { border-color: var(--green-300); }
+.valor-6 { border-color: var(--blue-300); }
+.valor-num { font-family: var(--font-data); font-size: 32px; font-weight: 700; color: var(--text-soft); }
+.valor-name { font-family: var(--font-display); font-size: 22px; margin: 4px 0 8px; }
+.valor-frase { background: var(--cream-100); border-radius: 8px; padding: 12px; font-style: italic; margin: 12px 0; font-size: 14px; }
+.valor-regla { font-size: 13px; color: var(--text-soft); line-height: 1.5; }
+
+/* Mockup pantalla confirmación */
+.phone-mockup { width: 320px; background: #1A1F1A; border-radius: 36px; padding: 12px; margin: 24px auto; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.phone-screen { background: var(--cream-50); border-radius: 28px; padding: 16px; min-height: 480px; }
+
+/* Mockup Slack-like para retro */
+.slack-mockup { max-width: 560px; margin: 24px auto; background: white; border: 1px solid var(--cream-300); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.slack-header { background: #4A154B; color: white; padding: 12px 16px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; }
+.slack-channel { background: var(--cream-100); padding: 8px 16px; font-size: 12px; color: var(--text-soft); border-bottom: 1px solid var(--cream-300); }
+.slack-message { padding: 12px 16px; border-bottom: 1px solid var(--cream-100); display: flex; gap: 12px; }
+.slack-avatar { width: 36px; height: 36px; border-radius: 4px; flex-shrink: 0; }
+.slack-avatar.maria { background: linear-gradient(135deg, #FF6B6B, #FFA500); }
+.slack-avatar.pedro { background: linear-gradient(135deg, var(--blue-500), var(--green-500)); }
+.slack-name { font-weight: 700; font-size: 14px; }
+.slack-time { font-size: 11px; color: var(--text-soft); margin-left: 8px; }
+.slack-body { font-size: 14px; line-height: 1.5; margin-top: 4px; }
+
+/* Mockup error UX */
+.error-state { background: var(--cream-100); border-radius: 12px; padding: 20px; margin: 12px 0; }
+.error-state.bad { background: #FCE8E6; }
+.error-state.good { background: var(--green-100); }
+.error-title { font-weight: 700; margin-bottom: 8px; font-size: 14px; }
+
+.anti-valores { background: #1A1F1A; color: #FAF8F3; border-radius: 16px; padding: 32px; margin: 24px 0; }
+.anti-valores h3 { color: #E15850; }
+.anti-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-top: 16px; }
+.anti-item { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; font-size: 13px; }
+.anti-item strong { color: #FF8580; }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🧭 Valores — MilkBook</h1>
+  <p>Los 6 principios que guían cada decisión de MilkBook. No son frases bonitas: son reglas operativas que usamos para decidir entre opciones difíciles.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. Los 6 valores</h2>
+
+  <div class="valores-grid">
+    <div class="valor valor-1">
+      <div class="valor-num">01</div>
+      <div class="valor-name">Respeto por el usuario</div>
+      <div class="valor-frase">"El usuario es el jefe. Si no entiende algo, fallamos nosotros, no ellos."</div>
+      <div class="valor-regla">Si Carlos o Juan no entienden algo, fallamos nosotros. Confirmaciones explícitas, soporte humano, cero culpar al usuario.</div>
+    </div>
+
+    <div class="valor valor-2">
+      <div class="valor-num">02</div>
+      <div class="valor-name">Pragmatismo andino</div>
+      <div class="valor-frase">"Funciona en el campo o no funciona."</div>
+      <div class="valor-regla">Si no funciona en el Xiaomi de Carlos bajo sol, no se lanza. Probamos en gama baja, con red 3G, con guantes, con poca batería.</div>
+    </div>
+
+    <div class="valor valor-3">
+      <div class="valor-num">03</div>
+      <div class="valor-name">Honestidad operativa</div>
+      <div class="valor-frase">"Prometemos lo que cumplimos."</div>
+      <div class="valor-regla">Mejor prometer poco y entregar mucho. No inflamos features en marketing. Si hay bug, lo decimos abiertamente.</div>
+    </div>
+
+    <div class="valor valor-4">
+      <div class="valor-num">04</div>
+      <div class="valor-name">Disciplina del detalle</div>
+      <div class="valor-frase">"El detalle es la marca."</div>
+      <div class="valor-regla">Cada pixel, cada coma, cada palabra importa. Manual de marca aplicado consistentemente. Code reviews con atención al detalle.</div>
+    </div>
+
+    <div class="valor valor-5">
+      <div class="valor-num">05</div>
+      <div class="valor-name">Humildad rural</div>
+      <div class="valor-frase">"Venimos a aprender, no a enseñar."</div>
+      <div class="valor-regla">Carlos y Juan saben más de leche que nosotros. Escuchamos antes de proponer. Construimos con, no para.</div>
+    </div>
+
+    <div class="valor valor-6">
+      <div class="valor-num">06</div>
+      <div class="valor-name">Pensamiento a 5 años</div>
+      <div class="valor-frase">"Construimos infraestructura, no features."</div>
+      <div class="valor-regla">Cada decisión se evalúa en horizonte de 5 años. Si una feature no aporta a la visión 2030, se difiere.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Cómo se manifiestan los valores en producto</h2>
+  <p class="intro">Los valores no son abstractos: se traducen en decisiones concretas de producto y equipo. Tres ejemplos:</p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+
+    <!-- Respeto por el usuario: error UX -->
+    <div>
+      <h3>Valor 1: Respeto por el usuario → UX de errores</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div>
+          <div class="error-state bad">
+            <div class="error-title">❌ Forma antigua</div>
+            <div style="font-family: var(--font-data); font-size: 12px; color: #B3261E;">"Error 500: Internal Server Error. Code: SYNC_001."</div>
+          </div>
+        </div>
+        <div>
+          <div class="error-state good">
+            <div class="error-title">✅ Forma MilkBook</div>
+            <div style="font-family: var(--font-data); font-size: 12px; color: var(--green-700);">"Algo no salió bien. Vuelve a intentarlo. Si sigue, escríbenos."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pragmatismo andino: offline banner -->
+    <div>
+      <h3>Valor 2: Pragmatismo andino → Offline mode</h3>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div style="background: #FFF4E0; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+            <div style="font-size: 11px; font-weight: 700; color: #B26A00; margin-bottom: 4px;">⚠ MODO OFFLINE</div>
+            <div style="font-size: 13px; color: var(--text);">Cambios guardados localmente. Sincronizamos cuando haya señal.</div>
+          </div>
+          <div class="app-list-item" style="background: white; border: 1px solid var(--cream-300); border-radius: 12px; padding: 12px;">
+            <div style="font-family: var(--font-data); font-weight: 700; font-size: 17px;">Juan Mamani</div>
+            <div style="font-family: var(--font-data); font-size: 14px; color: var(--text-soft);">18.5 L · pendiente sync 🔵</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Honestidad: release notes -->
+    <div>
+      <h3>Valor 3: Honestidad operativa → Release notes</h3>
+      <div class="slack-mockup">
+        <div class="slack-header">
+          <span>#releases</span>
+          <span style="opacity: 0.8; font-weight: 400; font-size: 12px;">María · hace 2 horas</span>
+        </div>
+        <div class="slack-channel">Versión 2.3.0 · Publicada</div>
+        <div class="slack-message">
+          <div class="slack-avatar maria"></div>
+          <div>
+            <div><span class="slack-name">María</span><span class="slack-time">15:32</span></div>
+            <div class="slack-body">
+              ✅ <strong>Lo que sí está listo:</strong><br>
+              · Cierre de contrato offline<br>
+              · Sincronización automática al recuperar señal<br>
+              · Boleta PDF con RUC<br><br>
+              ⚠️ <strong>Lo que NO está listo y por qué:</strong><br>
+              · Mini-crédito rural — pospuesto para v2.4. Requería integración con SUNAT que está en revisión legal.<br>
+              · Foto de perfil — descubierto bug en Android 9. Lo arreglamos la próxima semana.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. Anti-valores: lo que NO somos</h2>
+  <div class="anti-valores">
+    <h3>🚫 Lo que MilkBook NO es</h3>
+    <div class="anti-grid">
+      <div class="anti-item"><strong>Movimiento rápido y romper cosas</strong> — Rompemos cosas en campo que afectan a Carlos. No.</div>
+      <div class="anti-item"><strong>Escala sobre calidad</strong> — Preferimos 200 lecheros felices que 2,000 frustrados.</div>
+      <div class="anti-item"><strong>First mover advantage</strong> — No nos importa ser primeros, sino ser los mejores para Carlos.</div>
+      <div class="anti-item"><strong>Tech bro culture</strong> — Somos un equipo que respeta el contexto rural, no SV.</div>
+      <div class="anti-item"><strong>Disruption</strong> — No queremos "disrumpir" la leche andina. Queremos poner orden.</div>
+      <div class="anti-item"><strong>Growth at all costs</strong> — Si para crecer hay que descuidar calidad, no crecemos.</div>
+      <div class="anti-item"><strong>Founder worship</strong> — Las decisiones se toman por el equipo, no por carisma del fundador.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4. El test de los valores</h2>
+  <p class="intro">Cuando el equipo duda sobre una feature o decisión, debe poder responder: <strong>"¿esto evita que un productor pierda plata?"</strong>. Si no, se difiere. Tres escenarios donde los valores guían la decisión:</p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+    <div style="background: var(--cream-100); border-radius: 12px; padding: 20px;">
+      <h3 style="margin-top: 0;">🎯 Escenario 1</h3>
+      <p style="font-size: 14px; margin: 0 0 8px;"><strong>Situación:</strong> Una feature pide 6 semanas pero el lechero solo la usará 1 vez al año.</p>
+      <p style="font-size: 14px; margin: 0;"><strong>Test:</strong> ¿Carlos la pidió o la asumimos? Si la pidió y la necesita, hacerla bien. Si no, no.</p>
+    </div>
+    <div style="background: var(--cream-100); border-radius: 12px; padding: 20px;">
+      <h3 style="margin-top: 0;">🎯 Escenario 2</h3>
+      <p style="font-size: 14px; margin: 0 0 8px;"><strong>Situación:</strong> Un banco nos pide una integración custom que requiere 3 meses.</p>
+      <p style="font-size: 14px; margin: 0;"><strong>Test:</strong> ¿Es partnership de largo plazo o proyecto de 3 meses? Si largo plazo, hacerlo. Si no, proponer alternativa.</p>
+    </div>
+    <div style="background: var(--cream-100); border-radius: 12px; padding: 20px;">
+      <h3 style="margin-top: 0;">🎯 Escenario 3</h3>
+      <p style="font-size: 14px; margin: 0 0 8px;"><strong>Situación:</strong> El equipo detecta un bug crítico 2 días antes del release grande.</p>
+      <p style="font-size: 14px; margin: 0;"><strong>Test:</strong> ¿Afecta a Carlos? Si sí, es P0. Retrasamos el release. Sin excepciones.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>🧭 Identidad verbal de MilkBook · Sección 6 de 10 (valores)</p>
+  <p>Ver <a href="./README.md">README.md</a> para especificación completa y criterios de hiring</p>
+</footer>
+
+</body>
+</html>

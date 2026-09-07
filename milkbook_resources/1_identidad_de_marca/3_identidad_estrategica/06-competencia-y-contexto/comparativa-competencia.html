@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Competencia y contexto — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-300: #EBE3CC;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --text: #1A1F1A; --text-soft: #5C5C5C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--cream-100), var(--blue-100)); padding: 48px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 36px; margin: 0 0 8px; }
+header p { color: var(--text-soft); font-size: 16px; max-width: 720px; margin: 0 auto; }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--blue-500); display: inline-block; }
+h3 { font-size: 18px; margin: 24px 0 12px; }
+
+.competitors { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.competitor { background: white; border-radius: 12px; padding: 20px; border-left: 4px solid var(--blue-500); }
+.competitor-name { font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+.competitor-tag { display: inline-block; background: var(--cream-100); padding: 2px 8px; border-radius: 12px; font-size: 11px; margin-bottom: 8px; color: var(--text-soft); }
+.competitor-table { width: 100%; font-size: 13px; margin-top: 8px; }
+.competitor-table td { padding: 4px 0; }
+.competitor-table td:first-child { color: var(--text-soft); }
+.competitor-table td:last-child { font-weight: 600; text-align: right; }
+
+.swot { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 24px 0; }
+.swot-cell { border-radius: 12px; padding: 20px; }
+.swot-s { background: var(--green-100); border-left: 4px solid var(--green-500); }
+.swot-w { background: #FFF4E0; border-left: 4px solid #B26A00; }
+.swot-o { background: var(--blue-100); border-left: 4px solid var(--blue-500); }
+.swot-t { background: #FCE8E6; border-left: 4px solid #B3261E; }
+.swot-cell h3 { margin: 0 0 12px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+.swot-cell ul { margin: 0; padding-left: 20px; font-size: 13px; }
+.swot-cell li { margin: 4px 0; }
+
+.porter { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 24px 0; }
+.porter-cell { background: var(--cream-100); border-radius: 12px; padding: 16px; }
+.porter-cell .label { font-size: 11px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; }
+.porter-cell .level { font-family: var(--font-display); font-size: 24px; font-weight: 700; margin: 4px 0; }
+.porter-cell .desc { font-size: 12px; color: var(--text-soft); }
+.porter-cell.high { border-left: 4px solid #B3261E; }
+.porter-cell.medium { border-left: 4px solid #B26A00; }
+.porter-cell.low { border-left: 4px solid var(--green-500); }
+
+.timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+.timeline-step { background: var(--cream-100); border-radius: 12px; padding: 16px; border-top: 4px solid var(--blue-500); }
+.timeline-step .years { font-family: 'Atkinson Hyperlegible', system-ui; font-size: 18px; font-weight: 700; color: var(--blue-700); }
+.timeline-step h3 { margin: 8px 0 4px; font-size: 14px; }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🥊 Competencia y contexto — MilkBook</h1>
+  <p>Quiénes son los competidores reales (3 capas), qué están haciendo, y cómo MilkBook se diferencia en cada uno.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. Las 3 capas de competencia</h2>
+  <p>MilkBook compite en <strong>3 capas distintas</strong> que se solapan:</p>
+
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+    <div style="background: var(--cream-100); border-radius: 12px; padding: 20px; border-top: 4px solid var(--blue-500);">
+      <h3 style="margin: 0 0 8px;">📱 Capa 1: Funcional</h3>
+      <p style="font-size: 13px; margin: 0;">Apps que hacen algo similar: AgriPredict, Yape, SAP, WhatsApp Business.</p>
+    </div>
+    <div style="background: var(--cream-100); border-radius: 12px; padding: 20px; border-top: 4px solid var(--green-500);">
+      <h3 style="margin: 0 0 8px;">📓 Capa 2: Cultural</h3>
+      <p style="font-size: 13px; margin: 0;">Lo que el usuario hace HOY: cuaderno físico, memoria, WhatsApp informal.</p>
+    </div>
+    <div style="background: var(--cream-100); border-radius: 12px; padding: 20px; border-top: 4px solid var(--cream-500);">
+      <h3 style="margin: 0 0 8px;">⏰ Capa 3: Atención</h3>
+      <p style="font-size: 13px; margin: 0;">Apps que disputan el tiempo del usuario: WhatsApp, Facebook, TikTok.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Los 6 competidores principales</h2>
+
+  <div class="competitors">
+    <div class="competitor">
+      <div class="competitor-name">📓 El cuaderno físico</div>
+      <div class="competitor-tag">Capa 2 — alternativa dominante</div>
+      <p style="font-size: 13px;"><strong>Por qué lo eligen:</strong> Gratis, 100% offline, familiar.</p>
+      <p style="font-size: 13px;"><strong>Por qué pierden con MilkBook:</strong> Se pierde, no genera boleta, sin sync.</p>
+      <p style="font-size: 13px;"><strong>Estrategia MilkBook:</strong> No atacar — reemplazar.</p>
+    </div>
+
+    <div class="competitor">
+      <div class="competitor-name">💬 WhatsApp + Yape/Plin</div>
+      <div class="competitor-tag">Capa 1 + Capa 3</div>
+      <p style="font-size: 13px;"><strong>Por qué lo eligen:</strong> Ya las conocen, gratis, útiles.</p>
+      <p style="font-size: 13px;"><strong>Por qué NO reemplazan a MilkBook:</strong> No registran, no calculan, no generan boleta.</p>
+      <p style="font-size: 13px;"><strong>Estrategia MilkBook:</strong> Integrarse, no competir.</p>
+    </div>
+
+    <div class="competitor">
+      <div class="competitor-name">🌾 Apps agrícolas genéricas</div>
+      <div class="competitor-tag">Capa 1 — AgriPredict, CropX</div>
+      <p style="font-size: 13px;"><strong>Por qué las usan:</strong> Big data, AI, predicción.</p>
+      <p style="font-size: 13px;"><strong>Por qué NO sirven:</strong> Para commodities grandes, no para leche andina.</p>
+      <p style="font-size: 13px;"><strong>Estrategia MilkBook:</strong> Diferenciarse por vertical y contexto rural.</p>
+    </div>
+
+    <div class="competitor">
+      <div class="competitor-name">🏢 Sistemas ERP</div>
+      <div class="competitor-tag">Capa 1 — SAP, Oracle</div>
+      <p style="font-size: 13px;"><strong>Por qué los usan:</strong> Grandes empresas agrícolas.</p>
+      <p style="font-size: 13px;"><strong>Por qué NO aplican:</strong> Pricing de miles de USD, implementación de meses.</p>
+      <p style="font-size: 13px;"><strong>Estrategia MilkBook:</strong> Competir en cuadrante opuesto.</p>
+    </div>
+
+    <div class="competitor">
+      <div class="competitor-name">🐄 Apps de gestión ganadera</div>
+      <div class="competitor-tag">Capa 1 — BovControl, CattleMax</div>
+      <p style="font-size: 13px;"><strong>Por qué las usan:</strong> Gestión de hatos grandes.</p>
+      <p style="font-size: 13px;"><strong>Por qué NO aplican:</strong> Para el productor (Juan), no para la cadena (Carlos-Juan).</p>
+      <p style="font-size: 13px;"><strong>Estrategia MilkBook:</strong> Diferenciarse por transacción lechero-productor.</p>
+    </div>
+
+    <div class="competitor">
+      <div class="competitor-name">📋 WhatsApp Business</div>
+      <div class="competitor-tag">Capa 1 + Capa 3</div>
+      <p style="font-size: 13px;"><strong>Por qué lo usan:</strong> Comunicación con clientes.</p>
+      <p style="font-size: 13px;"><strong>Por qué NO aplica:</strong> Mensajería, no registro.</p>
+      <p style="font-size: 13px;"><strong>Estrategia MilkBook:</strong> Integración como canal de distribución.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. Análisis Porter (5 Fuerzas)</h2>
+
+  <div class="porter">
+    <div class="porter-cell high">
+      <div class="label">Amenaza de nuevos entrantes</div>
+      <div class="level">MEDIA</div>
+      <div class="desc">Pocos competidores directos. Empresas grandes (Yape, bancos, SAP) podrían entrar. Defensa: D3 codiseño + D6 baja-alfabetización son difíciles de copiar.</div>
+    </div>
+    <div class="porter-cell high">
+      <div class="label">Poder de los sustitutos</div>
+      <div class="level">ALTO</div>
+      <div class="desc">Sustituto #1: el cuaderno (gratis, familiar, 100% offline). Sustituto #2: WhatsApp + memoria. Defensa: pérdida de plata + boleta automática es difícil de replicar.</div>
+    </div>
+    <div class="porter-cell medium">
+      <div class="label">Poder de los compradores</div>
+      <div class="level">MEDIO</div>
+      <div class="desc">Carlos puede volver al cuaderno. Juan no compra directo. Bancos tienen alternativas. Defensa: lock-in por datos + red.</div>
+    </div>
+    <div class="porter-cell low">
+      <div class="label">Poder de los proveedores</div>
+      <div class="level">BAJO</div>
+      <div class="desc">Cloud, SMS, devs: commodity. No hay proveedor crítico.</div>
+    </div>
+    <div class="porter-cell low">
+      <div class="label">Rivalidad entre competidores</div>
+      <div class="level">BAJA</div>
+      <div class="desc">Pocos competidores directos en el nicho. Espacio para crecer.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4. Análisis FODA</h2>
+
+  <div class="swot">
+    <div class="swot-cell swot-s">
+      <h3>🟢 Fortalezas</h3>
+      <ul>
+        <li>Equipo con conocimiento del dominio rural andino</li>
+        <li>Producto validado con usuarios reales</li>
+        <li>Tracción inicial (200 lecheros)</li>
+        <li>Diferenciadores defendibles</li>
+        <li>Arquetipo claro (Cuidador)</li>
+      </ul>
+    </div>
+    <div class="swot-cell swot-w">
+      <h3>🟡 Debilidades</h3>
+      <ul>
+        <li>Equipo pequeño</li>
+        <li>Recursos financieros limitados</li>
+        <li>Sin track record en escala masiva</li>
+        <li>Marca desconocida fuera de Cajamarca</li>
+        <li>Sin integración bancaria todavía</li>
+      </ul>
+    </div>
+    <div class="swot-cell swot-o">
+      <h3>🔵 Oportunidades</h3>
+      <ul>
+        <li>Expansión geográfica (Bolivia, Ecuador, Colombia)</li>
+        <li>Integraciones financieras</li>
+        <li>Política pública favorable al agro digital</li>
+        <li>Crecimiento e-commerce rural</li>
+        <li>Demanda de trazabilidad</li>
+      </ul>
+    </div>
+    <div class="swot-cell swot-t">
+      <h3>🔴 Amenazas</h3>
+      <ul>
+        <li>Empresas grandes entran al nicho</li>
+        <li>Cambios regulatorios</li>
+        <li>Crisis económica</li>
+        <li>Pérdida de talento clave</li>
+        <li>Cambios en comportamiento de Carlos/Juan</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>5. Estrategia por horizonte</h2>
+
+  <div class="timeline">
+    <div class="timeline-step">
+      <div class="years">2026-2027</div>
+      <h3>Corto plazo</h3>
+      <p style="font-size: 13px; margin: 0;"><strong>Dominio en Cajamarca.</strong> Product-led growth, referidos, alianzas con cooperativas. Meta: 1,000 lecheros, 8,000 productores.</p>
+    </div>
+    <div class="timeline-step">
+      <div class="years">2027-2028</div>
+      <h3>Mediano plazo</h3>
+      <p style="font-size: 13px; margin: 0;"><strong>Expansión nacional.</strong> Otras regiones del Perú, alianzas con bancos nacionales. Meta: 3,000 lecheros, 25,000 productores.</p>
+    </div>
+    <div class="timeline-step">
+      <div class="years">2028-2030</div>
+      <h3>Largo plazo</h3>
+      <p style="font-size: 13px; margin: 0;"><strong>Plataforma regional.</strong> Bolivia, Ecuador, Colombia. Partnerships internacionales. Meta: 5,000 lecheros, 50,000 productores, USD 5M crédito.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>🥊 Identidad estratégica · Sección 6 de 7 (competencia y contexto)</p>
+  <p>Ver <a href="./README.md">README.md</a> para análisis Porter detallado, FODA completo y benchmarks internacionales</p>
+</footer>
+
+</body>
+</html>

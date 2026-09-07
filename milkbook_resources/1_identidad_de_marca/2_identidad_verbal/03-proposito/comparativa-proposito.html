@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Propósito — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-300: #EBE3CC;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --text: #1A1F1A; --text-soft: #5C5C5C; --text-disabled: #9CA39C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-data: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; padding: 0; line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--green-100), var(--blue-100)); padding: 48px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 36px; margin: 0 0 8px; }
+.proposito-main { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--green-700); margin: 24px auto; max-width: 760px; line-height: 1.3; }
+header p { color: var(--text-soft); font-size: 16px; max-width: 720px; margin: 0 auto; }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-family: var(--font-ui); font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--green-500); display: inline-block; }
+h3 { font-size: 18px; margin: 24px 0 12px; }
+p { margin: 0 0 12px; }
+.intro { font-size: 16px; color: var(--text-soft); max-width: 720px; }
+
+/* Mockups */
+.phone-mockup { width: 320px; background: #1A1F1A; border-radius: 36px; padding: 12px; margin: 24px auto; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.phone-screen { background: var(--cream-50); border-radius: 28px; padding: 16px; min-height: 460px; }
+.web-mockup { max-width: 720px; margin: 24px auto; background: white; border: 1px solid var(--cream-300); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.web-header { background: var(--cream-100); padding: 12px 24px; border-bottom: 1px solid var(--cream-300); }
+.web-logo { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--blue-700); }
+.web-logo .accent { color: var(--green-700); }
+.about-hero { background: linear-gradient(180deg, var(--cream-100) 0%, var(--cream-50) 100%); padding: 48px 32px; text-align: center; }
+.about-quote { font-family: var(--font-display); font-style: italic; font-size: 24px; color: var(--green-700); line-height: 1.4; max-width: 560px; margin: 0 auto 16px; }
+.about-body { font-size: 16px; color: var(--text); max-width: 560px; margin: 0 auto; line-height: 1.6; }
+
+.linkeding-mockup { max-width: 560px; margin: 24px auto; background: white; border: 1px solid var(--cream-300); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.linkedin-header { background: white; padding: 16px 20px; border-bottom: 1px solid var(--cream-300); display: flex; align-items: center; gap: 12px; }
+.linkedin-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--blue-300), var(--green-300)); }
+.linkedin-name { font-size: 14px; font-weight: 600; }
+.linkedin-title { font-size: 12px; color: var(--text-soft); }
+.linkedin-body { padding: 20px; font-size: 15px; line-height: 1.6; }
+.linkedin-body strong { color: var(--green-700); }
+
+.manifesto { background: #1A1F1A; color: #FAF8F3; border-radius: 16px; padding: 32px; margin: 24px 0; font-family: var(--font-ui); }
+.manifesto h3 { color: var(--green-300); margin: 24px 0 12px; font-size: 16px; }
+.manifesto p { color: #FAF8F3; margin: 0; }
+
+.stakeholders { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.stakeholder { background: var(--cream-100); border-radius: 12px; padding: 20px; border-left: 4px solid; }
+.stakeholder.juan { border-color: var(--green-500); }
+.stakeholder.carlos { border-color: var(--blue-500); }
+.stakeholder.team { border-color: var(--green-700); }
+.stakeholder.ally { border-color: var(--blue-700); }
+.stakeholder-name { font-weight: 700; margin-bottom: 8px; }
+.stakeholder-msg { font-size: 14px; font-style: italic; color: var(--text); line-height: 1.5; }
+
+.app-card-cena { background: white; border-radius: 12px; padding: 16px; margin: 12px 0; border-left: 4px solid var(--blue-500); box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+.app-card-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.app-card-body { font-size: 13px; color: var(--text-soft); }
+.app-screen-discrepancy { background: var(--warning-bg, #FFF4E0); border-radius: 12px; padding: 16px; margin: 12px 0; }
+.discrepancy-text { font-size: 14px; color: var(--text); margin-bottom: 8px; font-weight: 600; }
+.discrepancy-detail { font-family: var(--font-data); font-size: 13px; color: var(--text-soft); }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌱 Propósito — MilkBook</h1>
+  <div class="proposito-main">"Que ningún productor de leche andino pierda plata por no tener cómo registrarla."</div>
+  <p>El porqué profundo que motiva cada decisión de producto, cada línea de código, cada visita a campo.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. El propósito en cada stakeholder</h2>
+
+  <div class="stakeholders">
+    <div class="stakeholder juan">
+      <div class="stakeholder-name">👨‍🌾 Para Juan (productor)</div>
+      <div class="stakeholder-msg">"Tu trabajo, registrado. Tu pago, claro. Sin importar si tienes 1 vaca o 15, si sabes leer una app o no, si tienes señal en el caserío o no."</div>
+    </div>
+    <div class="stakeholder carlos">
+      <div class="stakeholder-name">🛵 Para Carlos (lechero)</div>
+      <div class="stakeholder-msg">"Tu ruta sin papeles. Tu cierre sin peleas. Tu negocio, documentado."</div>
+    </div>
+    <div class="stakeholder team">
+      <div class="stakeholder-name">👥 Para el equipo MilkBook</div>
+      <div class="stakeholder-msg">"Construimos la herramienta que nos hubiera gustado tener si fuéramos Carlos o Juan."</div>
+    </div>
+    <div class="stakeholder ally">
+      <div class="stakeholder-name">🏦 Para aliados e inversionistas</div>
+      <div class="stakeholder-msg">"Construimos infraestructura digital para una industria que mueve USD 1,500M al año en Perú pero opera con cuadernos."</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Manifiesto del equipo (uso interno)</h2>
+  <div class="manifesto">
+    <h3>1.</h3>
+    <p>Resolvemos un problema real, no uno imaginado. Si no lo validamos en campo, no lo construimos.</p>
+    <h3>2.</h3>
+    <p>El productor es el centro, no el lechero. El lechero es nuestro usuario primario, pero el que más pierde es el productor. Diseñamos para él.</p>
+    <h3>3.</h3>
+    <p>La simplicidad es una feature. Si una pantalla necesita scroll, la repensamos.</p>
+    <h3>4.</h3>
+    <p>El sol del mediodía es nuestro test de calidad. Si no se ve bajo sol directo en el Xiaomi de Carlos, no se lanza.</p>
+    <h3>5.</h3>
+    <p>La baja alfabetización no es un edge case. Es el caso base. Diseñamos para Juan desde el día 1.</p>
+    <h3>6.</h3>
+    <p>El offline no es una opción. Es la condición por defecto.</p>
+    <h3>7.</h3>
+    <p>La discrepancia es nuestro campo de batalla. Si MilkBook no resuelve discrepancias, no sirve.</p>
+    <h3>8.</h3>
+    <p>No vendemos humo. Prometemos que un productor no pierda 1 litro por no tener cómo registrarlo. Eso es bastante.</p>
+    <h3>9.</h3>
+    <p>Construimos para Cajamarca primero, después escalamos. No al revés.</p>
+    <h3>10.</h3>
+    <p>Cuando dudemos, pregúntate: "¿Esto evita que un productor pierda plata?". Si sí, vamos. Si no, repensemos.</p>
+  </div>
+</section>
+
+<section>
+  <h2>3. Cómo se manifiesta en producto</h2>
+  <p class="intro">El propósito se traduce en decisiones concretas de producto. Tres pantallas reales que muestran cómo el propósito guía el diseño:</p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+
+    <!-- Confirmar litros -->
+    <div>
+      <h3>Pantalla "Confirmar litros" (Juan)</h3>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div style="padding: 8px;">
+            <div style="font-size: 12px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Confirmar litros de hoy</div>
+            <div style="font-family: var(--font-data); font-size: 40px; font-weight: 700; color: var(--green-700); text-align: center; padding: 24px 0;">18.5 L</div>
+            <div style="text-align: center; color: var(--text-soft); font-size: 14px; margin-bottom: 16px;">Carlos registró hoy a las 6:32 AM</div>
+            <div style="background: var(--green-500); color: white; padding: 14px; border-radius: 8px; text-align: center; font-weight: 700;">CONFIRMAR 18.5 L</div>
+            <div style="background: transparent; color: var(--text-soft); padding: 12px; text-align: center; font-size: 14px; margin-top: 8px;">Era otra cantidad</div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-soft); text-align: center; margin-top: 8px;"><em>→ Juan nunca pierde un litro sin saberlo.</em></p>
+    </div>
+
+    <!-- Adelanto registrado -->
+    <div>
+      <h3>Notificación "Adelanto registrado"</h3>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div style="background: var(--green-100); border-radius: 12px; padding: 16px; margin: 12px 0;">
+            <div style="font-size: 12px; color: var(--green-700); font-weight: 700; margin-bottom: 4px;">✓ ADELANTO REGISTRADO</div>
+            <div style="font-family: var(--font-data); font-size: 32px; font-weight: 700; color: var(--green-700); margin: 8px 0;">S/ 300</div>
+            <div style="font-size: 13px; color: var(--text);">Para Juan Mamani · 15 sept 2026</div>
+          </div>
+          <div style="font-size: 13px; color: var(--text-soft); line-height: 1.5; margin-top: 16px;">
+            Carlos te dio este adelanto. Lo descontaremos al cierre de la quincena.
+          </div>
+        </div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-soft); text-align: center; margin-top: 8px;"><em>→ Juan tiene respaldo inmediato, sin olvidos.</em></p>
+    </div>
+
+    <!-- Discrepancia -->
+    <div>
+      <h3>Discrepancia resuelta</h3>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="app-screen-discrepancy">
+            <div class="discrepancy-text">⚠ Hay diferencia</div>
+            <div class="discrepancy-detail">Carlos: 18 L · Tú confirmaste: 18.5 L</div>
+            <div style="display: flex; gap: 8px; margin-top: 12px;">
+              <div style="background: white; padding: 8px 12px; border-radius: 6px; font-size: 12px; flex: 1; text-align: center;">Discutir</div>
+              <div style="background: var(--green-500); color: white; padding: 8px 12px; border-radius: 6px; font-size: 12px; flex: 1; text-align: center; font-weight: 700;">Aceptar Carlos</div>
+            </div>
+          </div>
+          <div style="padding: 16px 8px; font-size: 14px; line-height: 1.5;">
+            <strong>Resuelto en 30 segundos.</strong><br>
+            <span style="color: var(--text-soft);">Antes esto tomaba 20 minutos de discusión al cierre.</span>
+          </div>
+        </div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-soft); text-align: center; margin-top: 8px;"><em>→ El propósito se cumple: el litro perdido vuelve a Juan.</em></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4. El propósito en la web "About us"</h2>
+  <div class="web-mockup">
+    <div class="web-header">
+      <div class="web-logo">Milk<span class="accent">Book</span></div>
+    </div>
+    <div class="about-hero">
+      <div class="about-quote">"Que ningún productor de leche andino pierda plata por no tener cómo registrarla."</div>
+      <div class="about-body">
+        Conocimos a Juan. Tiene 52 años, primaria completa, 5 vacas, vende 25 litros diarios a Carlos. Un día Carlos anotó 24 L y Juan vendió 25. Un litro perdido. S/ 1.50. Sin evidencia. Sin forma de reclamarlo.<br><br>
+        Así nació MilkBook. Una herramienta digital para que eso no vuelva a pasar.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>5. Cómo se habla del propósito en público</h2>
+
+  <div class="linkeding-mockup">
+    <div class="linkedin-header">
+      <div class="linkedin-avatar"></div>
+      <div>
+        <div class="linkedin-name">María Pérez</div>
+        <div class="linkedin-title">Co-fundadora · MilkBook</div>
+      </div>
+    </div>
+    <div class="linkedin-body">
+      Construimos el registro que el campo andino necesita para que la leche que se produce <strong>valga lo que vale.</strong><br><br>
+      Hoy 200 lecheros en Cajamarca usan MilkBook. Cada uno tiene en promedio 7 productores registrados. La tasa de discrepancias resueltas sin discusión supera el 90%.<br><br>
+      Cada productor está ahorrando en promedio S/ 25 al mes que antes perdía por errores de registro.<br><br>
+      <strong>Ese es nuestro propósito. Modesto. Concreto. Alcanzable.</strong>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>🌱 Identidad verbal de MilkBook · Sección 3 de 10 (propósito)</p>
+  <p>Ver <a href="./README.md">README.md</a> para especificación completa y criterios de decisión</p>
+</footer>
+
+</body>
+</html>

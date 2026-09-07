@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Visión — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-300: #EBE3CC;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --text: #1A1F1A; --text-soft: #5C5C5C; --text-disabled: #9CA39C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-data: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; padding: 0; line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--green-100), var(--blue-100), var(--cream-100)); padding: 56px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 36px; margin: 0 0 8px; }
+.vision-main { font-family: var(--font-display); font-size: 30px; font-weight: 700; color: var(--text); margin: 24px auto; max-width: 820px; line-height: 1.4; }
+.vision-main .accent { background: linear-gradient(90deg, var(--blue-700), var(--green-700)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+header p { color: var(--text-soft); font-size: 16px; max-width: 720px; margin: 0 auto; }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-family: var(--font-ui); font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--blue-500); display: inline-block; }
+h3 { font-size: 18px; margin: 24px 0 12px; }
+p { margin: 0 0 12px; }
+.intro { font-size: 16px; color: var(--text-soft); max-width: 720px; }
+
+.foto-2030 { background: linear-gradient(135deg, var(--green-100), var(--blue-100)); border-radius: 16px; padding: 32px; margin: 24px 0; }
+.foto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 20px; }
+.foto-card { background: white; border-radius: 12px; padding: 20px; }
+.foto-icon { font-size: 32px; margin-bottom: 8px; }
+.foto-title { font-weight: 700; margin-bottom: 8px; color: var(--green-700); }
+.foto-body { font-size: 13px; color: var(--text-soft); line-height: 1.5; }
+
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0; margin: 24px 0; position: relative; }
+.timeline-step { background: var(--cream-100); border-radius: 12px; padding: 20px; margin: 0 8px; border-top: 4px solid var(--blue-500); }
+.timeline-step.activo { border-color: var(--green-500); background: var(--green-100); }
+.timeline-year { font-family: var(--font-data); font-size: 24px; font-weight: 700; color: var(--blue-700); }
+.timeline-title { font-weight: 700; margin: 8px 0 4px; font-size: 14px; }
+.timeline-metric { font-size: 12px; color: var(--text-soft); }
+
+.pilares { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 24px 0; }
+.pilar { background: var(--cream-100); border-radius: 12px; padding: 20px; }
+.pilar-num { font-family: var(--font-data); font-size: 32px; font-weight: 700; color: var(--blue-700); }
+.pilar-title { font-weight: 700; margin: 4px 0 8px; }
+.pilar-body { font-size: 13px; color: var(--text-soft); }
+
+.escenarios { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.escenario { background: white; border-radius: 12px; padding: 20px; border-left: 4px solid; }
+.escenario.a { border-color: var(--green-500); }
+.escenario.b { border-color: var(--blue-500); }
+.escenario.c { border-color: var(--text-disabled); }
+.escenario-name { font-weight: 700; margin-bottom: 4px; }
+.escenario-prob { font-size: 11px; color: var(--text-soft); margin-bottom: 12px; }
+
+.phone-mockup { width: 320px; background: #1A1F1A; border-radius: 36px; padding: 12px; margin: 24px auto; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.phone-screen { background: var(--cream-50); border-radius: 28px; padding: 16px; min-height: 460px; }
+
+.app-screen-futuro { background: linear-gradient(180deg, var(--blue-100), var(--cream-50)); border-radius: 12px; padding: 20px; margin: 12px 0; }
+.app-icon-big { font-size: 48px; text-align: center; margin-bottom: 8px; }
+.app-screen-title { font-family: var(--font-ui); font-size: 17px; font-weight: 700; text-align: center; margin-bottom: 12px; }
+.app-screen-detail { font-size: 13px; color: var(--text-soft); text-align: center; line-height: 1.5; }
+.app-screen-action { background: var(--blue-500); color: white; padding: 12px; border-radius: 8px; text-align: center; font-weight: 700; margin-top: 12px; font-size: 14px; }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔭 Visión — MilkBook</h1>
+  <div class="vision-main">"Ser la <span class="accent">infraestructura digital</span> sobre la cual se construye la economía lechera andina."</div>
+  <p>Qué queremos ser en 2030 si cumplimos la misión cada día. Ambiciosa pero alcanzable, específica en el dominio (leche andina), temporal (5-10 años).</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. La foto del 2030</h2>
+  <p class="intro">Si MilkBook cumple su visión, así se ve el futuro. Cinco impactos concretos en cada stakeholder:</p>
+
+  <div class="foto-2030">
+    <div class="foto-grid">
+      <div class="foto-card">
+        <div class="foto-icon">👨‍🌾</div>
+        <div class="foto-title">Productores rurales (Juan)</div>
+        <div class="foto-body">
+          Abre su celular cada mañana, ve los litros que Carlos registró ayer, confirma o corrige con un toque. Al cierre firma con PIN y recibe su boleta. Va al banco con su boleta y obtiene mini-crédito en 24 horas. Su seguro se activa automáticamente si hay helada.
+        </div>
+      </div>
+      <div class="foto-card">
+        <div class="foto-icon">🛵</div>
+        <div class="foto-title">Lecheros (Carlos)</div>
+        <div class="foto-body">
+          Maneja 50 productores con la app, sin papeles. Ve reportes de ganancia por cliente. Sus productores tienen boletas históricas que muestra al banco para crédito operativo. Contrata empleados con PINs.
+        </div>
+      </div>
+      <div class="foto-card">
+        <div class="foto-icon">🏛️</div>
+        <div class="foto-title">Cooperativas y bancos</div>
+        <div class="foto-body">
+          La Cooperativa de Cajamarca usa MilkBook como base de datos de socios. El Banco Agro origina microcréditos con datos verificables. Aseguradoras calculan pólizas por productor.
+        </div>
+      </div>
+      <div class="foto-card">
+        <div class="foto-icon">🌐</div>
+        <div class="foto-title">El ecosistema</div>
+        <div class="foto-body">
+          50,000 productores registrados en Perú, Bolivia y Ecuador. 5,000 lecheros activos. 30 aliados integrados vía API. USD 5M al año en microcréditos facilitados. 200,000 litros/día registrados.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Hitos 2026-2030 (timeline)</h2>
+  <div class="timeline">
+    <div class="timeline-step activo">
+      <div class="timeline-year">2026</div>
+      <div class="timeline-title">MVP + 200 lecheros</div>
+      <div class="timeline-metric">1,500 productores en Cajamarca</div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-year">2027</div>
+      <div class="timeline-title">Estabilización</div>
+      <div class="timeline-metric">1,000 lecheros · 8,000 productores</div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-year">2028</div>
+      <div class="timeline-title">1ra integración bancaria + 3 regiones</div>
+      <div class="timeline-metric">3,000 lecheros · 25,000 productores</div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-year">2029</div>
+      <div class="timeline-title">Bolivia y Ecuador</div>
+      <div class="timeline-metric">4,000 lecheros · 40,000 productores</div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-year">2030</div>
+      <div class="timeline-title">Plataforma abierta</div>
+      <div class="timeline-metric">5,000 lecheros · 50,000 productores · USD 5M crédito</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. Los 4 pilares de la visión</h2>
+  <p class="intro">La visión se sostiene sobre 4 pilares. Si uno falla, la visión se cae.</p>
+
+  <div class="pilares">
+    <div class="pilar">
+      <div class="pilar-num">01</div>
+      <div class="pilar-title">Registro universal de leche</div>
+      <div class="pilar-body">Todos los productores andinos que venden a un comprador formal están registrados en MilkBook o en una plataforma interoperable.</div>
+    </div>
+    <div class="pilar">
+      <div class="pilar-num">02</div>
+      <div class="pilar-title">APIs abiertas y datos confiables</div>
+      <div class="pilar-body">MilkBook expone APIs documentadas y datos limpios. Aliados pueden construir sin pedir permiso. Los datos son del productor.</div>
+    </div>
+    <div class="pilar">
+      <div class="pilar-num">03</div>
+      <div class="pilar-title">Integraciones nativas con servicios rurales</div>
+      <div class="pilar-body">Cooperativas, bancos, aseguradoras, plantas tienen integraciones oficiales. Una sola app da acceso a todos los servicios.</div>
+    </div>
+    <div class="pilar">
+      <div class="pilar-num">04</div>
+      <div class="pilar-title">Modelo de negocio sostenible</div>
+      <div class="pilar-body">Revenue sin cobrar al productor: suscripciones premium, comisiones, datos, licencias API.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4. Tres escenarios posibles para 2030</h2>
+
+  <div class="escenarios">
+    <div class="escenario a">
+      <div class="escenario-name">✅ Escenario A — Visión cumplida</div>
+      <div class="escenario-prob">Probabilidad: 25%</div>
+      <p style="font-size: 13px; margin: 0;">MilkBook llega a 2030 como plataforma consolidada con 50,000 productores. Caso descrito arriba.</p>
+    </div>
+    <div class="escenario b">
+      <div class="escenario-name">🟦 Escenario B — Visión parcial</div>
+      <div class="escenario-prob">Probabilidad: 50%</div>
+      <p style="font-size: 13px; margin: 0;">MilkBook llega a 2030 como herramienta sólida en Perú con 15,000 productores, sin expansión internacional. Algunas integraciones funcionan.</p>
+    </div>
+    <div class="escenario c">
+      <div class="escenario-name">⚪ Escenario C — Pivote</div>
+      <div class="escenario-prob">Probabilidad: 25%</div>
+      <p style="font-size: 13px; margin: 0;">MilkBook pivotea hacia una capa white-label para cooperativas. Sigue siendo útil pero diferente.</p>
+    </div>
+  </div>
+
+  <p><strong>Regla:</strong> los tres escenarios son aceptables si cumplen el <strong>propósito</strong> (que ningún productor pierda plata). Si pivoteamos pero el productor sigue perdiendo, fallamos.</p>
+</section>
+
+<section>
+  <h2>5. Mockup: la app en 2030</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+
+    <!-- Mini-crédito integrado -->
+    <div>
+      <h3>Mini-crédito rural integrado</h3>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="app-screen-futuro">
+            <div class="app-icon-big">🏦</div>
+            <div class="app-screen-title">¿Necesitas plata urgente?</div>
+            <div class="app-screen-detail">Tu historial de ventas te precalifica para un mini-crédito.<br><br><strong style="color: var(--green-700);">Hasta S/ 1,500</strong> · 24h · 2% mensual</div>
+            <div class="app-screen-action">SOLICITAR</div>
+            <div style="font-size: 11px; color: var(--text-soft); text-align: center; margin-top: 8px;">En colaboración con Banco Agro</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seguro climático -->
+    <div>
+      <h3>Seguro climático automático</h3>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="app-screen-futuro" style="background: linear-gradient(180deg, #FFF4E0, var(--cream-50));">
+            <div class="app-icon-big">⛈️</div>
+            <div class="app-screen-title">Helada detectada en tu zona</div>
+            <div class="app-screen-detail">Detectamos una helada el 15 de agosto. Tu seguro climático se activó automáticamente.<br><br><strong style="color: #B26A00;">Compensación: S/ 480</strong> por 4 días sin venta</div>
+            <div class="app-screen-action" style="background: #B26A00;">VER DETALLE</div>
+            <div style="font-size: 11px; color: var(--text-soft); text-align: center; margin-top: 8px;">Póliza CampoSeguro · automática</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trazabilidad exportación -->
+    <div>
+      <h3>Trazabilidad para exportación</h3>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="app-screen-futuro" style="background: linear-gradient(180deg, var(--green-100), var(--cream-50));">
+            <div class="app-icon-big">📦</div>
+            <div class="app-screen-title">Tu leche va a exportación</div>
+            <div class="app-screen-detail">Lácteos Andinos compró 1,200 L de tu caserío para exportación a Chile.<br><br>Precio: <strong style="color: var(--green-700);">S/ 2.10/L</strong> · 30% sobre precio local</div>
+            <div class="app-screen-action">VER CONTRATO</div>
+            <div style="font-size: 11px; color: var(--text-soft); text-align: center; margin-top: 8px;">Comercio justo directo · sin intermediarios</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>🔭 Identidad verbal de MilkBook · Sección 5 de 10 (visión)</p>
+  <p>Ver <a href="./README.md">README.md</a> para especificación completa, 4 pilares y escenarios</p>
+</footer>
+
+</body>
+</html>

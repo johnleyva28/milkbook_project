@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Diferenciadores — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-300: #EBE3CC;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --text: #1A1F1A; --text-soft: #5C5C5C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; padding: 0; line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--green-100), var(--blue-100)); padding: 48px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 36px; margin: 0 0 8px; }
+header p { color: var(--text-soft); font-size: 16px; max-width: 720px; margin: 0 auto; }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--green-500); display: inline-block; }
+h3 { font-size: 18px; margin: 24px 0 12px; }
+
+.diff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin: 24px 0; }
+.diff-card { background: white; border-radius: 16px; padding: 24px; border-top: 4px solid var(--green-500); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.diff-num { font-family: var(--font-data, 'Atkinson Hyperlegible', system-ui); font-size: 32px; font-weight: 700; color: var(--green-700); }
+.diff-name { font-family: var(--font-display); font-size: 19px; margin: 4px 0 8px; font-weight: 700; }
+.diff-body { font-size: 14px; margin-bottom: 12px; }
+.diff-why { background: var(--cream-100); padding: 10px; border-radius: 6px; font-size: 13px; margin-bottom: 8px; }
+.diff-verifiable { font-size: 12px; color: var(--green-700); font-style: italic; }
+.diff-bar { margin-top: 12px; }
+.diff-bar-label { font-size: 11px; color: var(--text-soft); margin-bottom: 4px; display: flex; justify-content: space-between; }
+.diff-bar-track { height: 8px; background: var(--cream-300); border-radius: 4px; overflow: hidden; }
+.diff-bar-fill { height: 100%; background: var(--green-500); border-radius: 4px; }
+
+.matriz { width: 100%; border-collapse: collapse; margin: 16px 0; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.matriz th, .matriz td { padding: 10px; text-align: center; border: 1px solid var(--cream-300); font-size: 13px; }
+.matriz th { background: var(--cream-200); font-weight: 700; }
+.matriz td.us { background: var(--green-100); color: var(--green-700); font-weight: 700; }
+.matriz td.partial { background: #FFF4E0; color: #B26A00; }
+.matriz td.no { background: #FCE8E6; color: #B3261E; }
+.matriz .first-col { text-align: left; font-weight: 700; background: var(--cream-100); }
+
+.phone-mockup { width: 320px; background: #1A1F1A; border-radius: 36px; padding: 12px; margin: 24px auto; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.phone-screen { background: var(--cream-50); border-radius: 28px; padding: 16px; min-height: 420px; }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>✨ Diferenciadores — MilkBook</h1>
+  <p>Las 7 ventajas competitivas concretas y defendibles que justifican por qué MilkBook existe.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. Los 7 diferenciadores</h2>
+
+  <div class="diff-grid">
+    <div class="diff-card">
+      <div class="diff-num">D1</div>
+      <div class="diff-name">🌾 Vertical lechera andina</div>
+      <div class="diff-body">Diseñado exclusivamente para la cadena lechera andina. No es una app genérica de "agro".</div>
+      <div class="diff-why"><strong>Por qué importa:</strong> Apps agrícolas genéricas sirven para todo, no sirven bien para nada.</div>
+      <div class="diff-verifiable">Pregunta al usuario "¿esta app es para ti o para todos?"</div>
+      <div class="diff-bar">
+        <div class="diff-bar-label"><span>Defensibilidad</span><span>Media-alta</span></div>
+        <div class="diff-bar-track"><div class="diff-bar-fill" style="width: 70%;"></div></div>
+      </div>
+    </div>
+
+    <div class="diff-card">
+      <div class="diff-num">D2</div>
+      <div class="diff-name">📵 Offline-first por diseño</div>
+      <div class="diff-body">Funciona 100% offline. Sync cuando hay internet. No requiere conexión.</div>
+      <div class="diff-why"><strong>Por qué importa:</strong> El caserío de Juan pierde señal en zonas remotas.</div>
+      <div class="diff-verifiable">Pon el celular en modo avión. Si funciona, el diferenciador está vivo.</div>
+      <div class="diff-bar">
+        <div class="diff-bar-label"><span>Defensibilidad</span><span>Alta</span></div>
+        <div class="diff-bar-track"><div class="diff-bar-fill" style="width: 85%;"></div></div>
+      </div>
+    </div>
+
+    <div class="diff-card">
+      <div class="diff-num">D3</div>
+      <div class="diff-name">👥 Relación codiseñada</div>
+      <div class="diff-body">Dos apps interconectadas (lechero + productor). No "la app del lechero con portal web".</div>
+      <div class="diff-why"><strong>Por qué importa:</strong> La discrepancia solo se resuelve si ambos ven lo mismo.</div>
+      <div class="diff-verifiable">Pregunta a Carlos y Juan si ven lo mismo en sus apps.</div>
+      <div class="diff-bar">
+        <div class="diff-bar-label"><span>Defensibilidad</span><span>Muy alta</span></div>
+        <div class="diff-bar-track"><div class="diff-bar-fill" style="width: 95%;"></div></div>
+      </div>
+    </div>
+
+    <div class="diff-card">
+      <div class="diff-num">D4</div>
+      <div class="diff-name">⚡ Cálculo automático</div>
+      <div class="diff-body">La liquidación se calcula sola: litros, adelantos, precio, saldo.</div>
+      <div class="diff-why"><strong>Por qué importa:</strong> El sacado de cuentas es el cuello de botella de Carlos.</div>
+      <div class="diff-verifiable">Cronometra el cierre con y sin MilkBook. Diferencia 5-10x.</div>
+      <div class="diff-bar">
+        <div class="diff-bar-label"><span>Defensibilidad</span><span>Baja-media</span></div>
+        <div class="diff-bar-track"><div class="diff-bar-fill" style="width: 50%;"></div></div>
+      </div>
+    </div>
+
+    <div class="diff-card">
+      <div class="diff-num">D5</div>
+      <div class="diff-name">📄 Boleta formal con firma</div>
+      <div class="diff-body">PDF descargable con firma digital, RUC, QR. Comprobante legal.</div>
+      <div class="diff-why"><strong>Por qué importa:</strong> Sin boleta, Juan no puede ir al banco ni formalizarse.</div>
+      <div class="diff-verifiable">Pregunta a Juan si su boleta le sirve para algo más allá del cierre.</div>
+      <div class="diff-bar">
+        <div class="diff-bar-label"><span>Defensibilidad</span><span>Media</span></div>
+        <div class="diff-bar-track"><div class="diff-bar-fill" style="width: 60%;"></div></div>
+      </div>
+    </div>
+
+    <div class="diff-card">
+      <div class="diff-num">D6</div>
+      <div class="diff-name">🇵🇪 Baja alfabetización digital</div>
+      <div class="diff-body">Diseñado desde el día 1 para usuarios de baja alfabetización. Botones 60dp, texto 16sp+.</div>
+      <div class="diff-why"><strong>Por qué importa:</strong> Las apps urbanas asumen contexto de oficina. MilkBook asume caserío.</div>
+      <div class="diff-verifiable">Dale la app a alguien con baja alfabetización. Si la usa sin ayuda, OK.</div>
+      <div class="diff-bar">
+        <div class="diff-bar-label"><span>Defensibilidad</span><span>Alta</span></div>
+        <div class="diff-bar-track"><div class="diff-bar-fill" style="width: 85%;"></div></div>
+      </div>
+    </div>
+
+    <div class="diff-card">
+      <div class="diff-num">D7</div>
+      <div class="diff-name">🤝 Sync eventual + resolución de conflictos</div>
+      <div class="diff-body">Datos viven PRIMERO en el celular. Sync cuando hay señal. Conflictos resueltos en app.</div>
+      <div class="diff-why"><strong>Por qué importa:</strong> Cloud-only falla en zonas rurales. Sync básico tiene conflictos.</div>
+      <div class="diff-verifiable">Crea una discrepancia intencional. Verifica que la app la marca y la resuelve.</div>
+      <div class="diff-bar">
+        <div class="diff-bar-label"><span>Defensibilidad</span><span>Alta</span></div>
+        <div class="diff-bar-track"><div class="diff-bar-fill" style="width: 85%;"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Matriz de diferenciadores vs. competencia</h2>
+  <table class="matriz">
+    <thead>
+      <tr>
+        <th>Diferenciador</th>
+        <th>Cuaderno</th>
+        <th>Apps agrícolas</th>
+        <th>SAP/ERP</th>
+        <th>Yape/Plin</th>
+        <th>MilkBook</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="first-col">D1 Vertical lechera</td><td class="us">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="us">✅</td></tr>
+      <tr><td class="first-col">D2 Offline-first</td><td class="us">✅</td><td class="partial">⚠️</td><td class="no">❌</td><td class="no">❌</td><td class="us">✅</td></tr>
+      <tr><td class="first-col">D3 Codiseño 2 apps</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="us">✅</td></tr>
+      <tr><td class="first-col">D4 Cálculo automático</td><td class="no">❌</td><td class="partial">⚠️</td><td class="us">✅</td><td class="no">❌</td><td class="us">✅</td></tr>
+      <tr><td class="first-col">D5 Boleta formal</td><td class="no">❌</td><td class="partial">⚠️</td><td class="us">✅</td><td class="no">❌</td><td class="us">✅</td></tr>
+      <tr><td class="first-col">D6 Baja alfabetización</td><td class="us">✅</td><td class="no">❌</td><td class="no">❌</td><td class="partial">⚠️</td><td class="us">✅</td></tr>
+      <tr><td class="first-col">D7 Sync eventual</td><td class="no">❌</td><td class="partial">⚠️</td><td class="no">❌</td><td class="partial">⚠️</td><td class="us">✅</td></tr>
+    </tbody>
+  </table>
+
+  <p style="background: var(--green-100); padding: 16px; border-radius: 8px; font-size: 14px; margin-top: 16px; text-align: center;">
+    <strong>Conclusión:</strong> MilkBook es la ÚNICA alternativa que combina los 7 diferenciadores.
+  </p>
+</section>
+
+<section>
+  <h2>3. Test de un diferenciador en pantalla real</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+    <div>
+      <h3>📵 D2 — Modo offline en la app</h3>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div style="background: #FFF4E0; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+            <div style="font-size: 11px; font-weight: 700; color: #B26A00; margin-bottom: 4px;">⚠ MODO OFFLINE</div>
+            <div style="font-size: 13px;">Cambios guardados localmente. Sincronizamos cuando haya señal.</div>
+          </div>
+          <div style="background: white; border: 1px solid var(--cream-300); border-radius: 12px; padding: 12px;">
+            <div style="font-family: 'Atkinson Hyperlegible', system-ui; font-weight: 700; font-size: 17px;">Juan Mamani</div>
+            <div style="font-family: 'Atkinson Hyperlegible', system-ui; font-size: 14px; color: var(--text-soft);">18.5 L · pendiente sync 🔵</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3>⚡ D4 — Cálculo automático en cierre</h3>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div style="padding: 12px;">
+            <div style="font-size: 11px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px;">Cierre automático</div>
+            <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; border-bottom: 1px solid var(--cream-300);"><span>287 L × S/ 1.50</span><strong style="font-family: 'Atkinson Hyperlegible', system-ui;">S/ 430.50</strong></div>
+            <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; border-bottom: 1px solid var(--cream-300);"><span>(−) Adelantos</span><strong style="font-family: 'Atkinson Hyperlegible', system-ui;">−S/ 500</strong></div>
+            <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px;"><span>(−) Encargos</span><strong style="font-family: 'Atkinson Hyperlegible', system-ui;">−S/ 80</strong></div>
+            <div style="background: var(--green-100); padding: 12px; border-radius: 8px; margin-top: 12px; text-align: center;">
+              <div style="font-size: 11px; color: var(--green-700);">A pagar</div>
+              <div style="font-family: 'Atkinson Hyperlegible', system-ui; font-size: 26px; font-weight: 700; color: var(--green-700);">S/ 350.50</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>✨ Identidad estratégica · Sección 4 de 7 (diferenciadores)</p>
+  <p>Ver <a href="./README.md">README.md</a> para análisis completo de defensibilidad y barreras de entrada</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Voz de marca — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&family=Lexend:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-300: #EBE3CC;
+  --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC; --green-700: #184318;
+  --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA; --blue-700: #003965;
+  --text: #1A1F1A; --text-soft: #5C5C5C; --text-disabled: #9CA39C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-data: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; padding: 0; line-height: 1.6; }
+header { background: linear-gradient(135deg, var(--cream-100), var(--green-100)); padding: 48px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 42px; margin: 0 0 8px; }
+header p { color: var(--text-soft); font-size: 17px; margin: 0; max-width: 700px; margin: 0 auto; }
+main { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+section { margin-bottom: 48px; }
+h2 { font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--green-500); display: inline-block; }
+
+/* Rules */
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin: 20px 0; }
+.rule { background: var(--cream-100); border-radius: 12px; padding: 16px; border-left: 4px solid var(--green-500); }
+.rule-num { font-family: var(--font-data); font-size: 24px; font-weight: 700; color: var(--green-700); line-height: 1; }
+.rule-title { font-weight: 700; margin: 4px 0 8px; font-size: 13px; }
+.rule-example { background: white; border-radius: 6px; padding: 8px; font-family: var(--font-data); font-size: 12px; margin: 4px 0; }
+.rule-bad { color: #B3261E; }
+
+/* Dictionary */
+.dictionary { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin: 20px 0; }
+.dict-card { background: var(--cream-100); border-radius: 12px; padding: 20px; }
+.dict-title { font-weight: 700; margin-bottom: 12px; color: var(--green-700); font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+.dict-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--cream-300); font-family: var(--font-data); font-size: 13px; }
+.dict-row:last-child { border: none; }
+.dict-yes { color: var(--green-700); font-weight: 600; }
+.dict-no { color: var(--text-disabled); text-decoration: line-through; }
+
+/* Comparison table */
+.comparison { width: 100%; border-collapse: collapse; margin: 16px 0; background: var(--cream-100); border-radius: 12px; overflow: hidden; font-family: var(--font-data); font-size: 13px; }
+.comparison th, .comparison td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--cream-300); }
+.comparison th { background: var(--cream-200); font-size: 12px; }
+.comparison td.col-mb { background: var(--green-100); }
+.comparison td.col-bank { background: #F5F5F5; }
+.comparison td.col-startup { background: #FFF4E0; }
+.comparison td.col-ong { background: #F0F4FF; }
+
+/* Mockups */
+.mockup-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 24px 0; }
+.phone { width: 280px; background: #1A1F1A; border-radius: 36px; padding: 12px; margin: 0 auto; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.phone-screen { background: var(--cream-50); border-radius: 28px; padding: 20px; min-height: 460px; }
+.phone-label { text-align: center; font-size: 12px; color: var(--text-soft); margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.email-mock { background: white; border-radius: 12px; border: 1px solid var(--cream-300); overflow: hidden; }
+.email-header { background: var(--cream-100); padding: 12px 16px; border-bottom: 1px solid var(--cream-300); font-size: 12px; color: var(--text-soft); }
+.email-header .from { font-weight: 700; color: var(--text); }
+.email-body { padding: 16px 20px; font-size: 13px; line-height: 1.6; }
+
+/* Examples */
+.examples { background: var(--cream-100); border-radius: 16px; padding: 32px; margin: 24px 0; }
+.example-block { background: white; border-radius: 12px; padding: 20px; margin: 16px 0; border-left: 4px solid var(--blue-500); }
+.example-title { font-weight: 700; font-size: 13px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.example-body { font-family: var(--font-data); font-size: 14px; line-height: 1.6; white-space: pre-wrap; }
+
+/* Code */
+.code-block { background: #1A1F1A; color: #FAF8F3; border-radius: 12px; padding: 20px; font-family: var(--font-data); font-size: 13px; overflow-x: auto; margin: 16px 0; }
+.code-block .c-key { color: #FFA500; }
+.code-block .c-str { color: #98FB98; }
+.code-block .c-com { color: #888; }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🗣️ Voz de marca — MilkBook</h1>
+  <p>La voz de MilkBook es la de alguien que te explica algo importante con respeto, en español claro, sin hacerte perder el tiempo.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. Las 12 reglas lingüísticas</h2>
+  <p>Estas reglas se mantienen siempre. Son el esqueleto de la voz de MilkBook.</p>
+
+  <div class="rules">
+    <div class="rule">
+      <div class="rule-num">01</div>
+      <div class="rule-title">Español claro y concreto</div>
+      <div class="rule-example">✓ "Confirmar 18.5 L"</div>
+      <div class="rule-example rule-bad">✗ "Proceder a confirmar la cantidad de litros"</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">02</div>
+      <div class="rule-title">Verbos en voz activa</div>
+      <div class="rule-example">✓ "Carlos registró 18.5 L"</div>
+      <div class="rule-example rule-bad">✗ "Han sido registrados 18.5 L"</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">03</div>
+      <div class="rule-title">Segunda persona (tú)</div>
+      <div class="rule-example">✓ "Confirma los litros"</div>
+      <div class="rule-example rule-bad">✗ "El usuario debe confirmar"</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">04</div>
+      <div class="rule-title">Léxico del usuario</div>
+      <div class="rule-example">✓ "Litros"</div>
+      <div class="rule-example rule-bad">✗ "Volumen en unidades métricas"</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">05</div>
+      <div class="rule-title">Números sin adornos</div>
+      <div class="rule-example">✓ "S/ 300" · "18.5 L"</div>
+      <div class="rule-example rule-bad">✗ "S/300.00 PEN"</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">06</div>
+      <div class="rule-title">Decimales con punto, miles con coma</div>
+      <div class="rule-example">✓ 18.5 · S/ 1,250.50 · 1,500</div>
+      <div class="rule-example rule-bad">✗ 18,5 · 1.250,50</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">07</div>
+      <div class="rule-title">MAYÚSCULAS donde suma</div>
+      <div class="rule-example">✓ CONFIRMAR · DNI · SUNAT</div>
+      <div class="rule-example rule-bad">✗ MAYÚSCULAS EN TEXTO DIGITAL</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">08</div>
+      <div class="rule-title">Frases cortas</div>
+      <div class="rule-example">✓ "Confirmar 18.5 L"</div>
+      <div class="rule-example rule-bad">✗ 15 palabras en una sola línea</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">09</div>
+      <div class="rule-title">Imperativo para CTAs</div>
+      <div class="rule-example">✓ CONFIRMAR · REGISTRAR · ENVIAR</div>
+      <div class="rule-example rule-bad">✗ "Confirmación" · "Registrarse"</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">10</div>
+      <div class="rule-title">Pronombres claros</div>
+      <div class="rule-example">✓ "Tú registras, nosotros guardamos"</div>
+      <div class="rule-example rule-bad">✗ "El usuario debe almacenar"</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">11</div>
+      <div class="rule-title">Beneficio → Acción</div>
+      <div class="rule-example">✓ "Registra sin internet. Se sincroniza luego."</div>
+      <div class="rule-example rule-bad">✗ "Sincronización bidireccional con CRDT"</div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">12</div>
+      <div class="rule-title">Sin anglicismos innecesarios</div>
+      <div class="rule-example">✓ "Empezar" · "Guardar"</div>
+      <div class="rule-example rule-bad">✗ "Onboarding" · "Sign-up"</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Diccionario oficial MilkBook</h2>
+
+  <div class="dictionary">
+    <div class="dict-card">
+      <div class="dict-title">Términos del producto</div>
+      <div class="dict-row"><span class="dict-yes">Litro (L)</span><span class="dict-no">Volumen, Unidad</span></div>
+      <div class="dict-row"><span class="dict-yes">Cliente / Productor</span><span class="dict-no">Usuario final, Proveedor</span></div>
+      <div class="dict-row"><span class="dict-yes">Lechero</span><span class="dict-no">Recolector, Acopiador</span></div>
+      <div class="dict-row"><span class="dict-yes">Adelanto</span><span class="dict-no">Anticipo, Préstamo</span></div>
+      <div class="dict-row"><span class="dict-yes">Encargo</span><span class="dict-no">Pedido, Comisión</span></div>
+      <div class="dict-row"><span class="dict-yes">Contrato</span><span class="dict-no">Período, Ciclo</span></div>
+      <div class="dict-row"><span class="dict-yes">Liquidación</span><span class="dict-no">Cierre, Saldo</span></div>
+      <div class="dict-row"><span class="dict-yes">Boleta</span><span class="dict-no">Recibo, Factura</span></div>
+      <div class="dict-row"><span class="dict-yes">Discrepancia</span><span class="dict-no">Conflicto, Error</span></div>
+    </div>
+
+    <div class="dict-card">
+      <div class="dict-title">Verbos de acción (botones)</div>
+      <div class="dict-row"><span class="dict-yes">CONFIRMAR</span><span class="dict-no">Validar, Aprobar</span></div>
+      <div class="dict-row"><span class="dict-yes">REGISTRAR</span><span class="dict-no">Ingresar, Cargar</span></div>
+      <div class="dict-row"><span class="dict-yes">CERRAR CONTRATO</span><span class="dict-no">Finalizar, Liquidar</span></div>
+      <div class="dict-row"><span class="dict-yes">GENERAR LIQUIDACIÓN</span><span class="dict-no">Crear, Calcular</span></div>
+      <div class="dict-row"><span class="dict-yes">TOMAR FOTO</span><span class="dict-no">Capturar, Escanear</span></div>
+      <div class="dict-row"><span class="dict-yes">SINCRONIZAR</span><span class="dict-no">Actualizar, Refrescar</span></div>
+      <div class="dict-row"><span class="dict-yes">EDITAR</span><span class="dict-no">Modificar, Cambiar</span></div>
+      <div class="dict-row"><span class="dict-yes">ELIMINAR</span><span class="dict-no">Borrar, Remover</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. Comparación de voces (mockup de UI)</h2>
+  <p>Cómo suena MilkBook comparado con voces típicas en distintos contextos. Mockup de UI en la app:</p>
+
+  <table class="comparison">
+    <thead>
+      <tr>
+        <th>Contexto</th>
+        <th>🟠 Startup típica</th>
+        <th>🔵 ONG típica</th>
+        <th>⚫ Banco típico</th>
+        <th style="background: var(--green-100);">🟢 MilkBook</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Confirmación</strong></td>
+        <td class="col-startup">"¡Genial! Has confirmado exitosamente 🎉"</td>
+        <td class="col-ong">"Estimado beneficiario, su solicitud ha sido procesada"</td>
+        <td class="col-bank">"Se ha procedido conforme al protocolo"</td>
+        <td class="col-mb">"Confirmado. 18.5 L para Juan."</td>
+      </tr>
+      <tr>
+        <td><strong>Error</strong></td>
+        <td class="col-startup">"¡Oops! Algo salió mal 😅"</td>
+        <td class="col-ong">"Disculpe las molestias ocasionadas"</td>
+        <td class="col-bank">"Error. Código: ERR_001"</td>
+        <td class="col-mb">"Algo no salió bien. Vuelve a intentarlo."</td>
+      </tr>
+      <tr>
+        <td><strong>Anuncio</strong></td>
+        <td class="col-startup">"🚀 ¡Thrill de anunciar feature!"</td>
+        <td class="col-ong">"Con mucho placer les compartimos"</td>
+        <td class="col-bank">"Nos complace informar v2.0"</td>
+        <td class="col-mb">"Ya puedes registrar sin internet."</td>
+      </tr>
+      <tr>
+        <td><strong>Ayuda</strong></td>
+        <td class="col-startup">"Hable con nuestro customer success"</td>
+        <td class="col-ong">"Acérquese a nuestra oficina"</td>
+        <td class="col-bank">"Comuníquese con nuestro centro"</td>
+        <td class="col-mb">"Escríbenos. Te respondemos en 4h."</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>4. Mockups de la voz en canales reales</h2>
+
+  <div class="mockup-grid">
+    <div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div style="text-align: center; padding: 24px 0;">
+            <div style="font-size: 56px;">📊</div>
+            <div style="font-family: var(--font-display); font-size: 22px; margin: 8px 0;">Saqué las cuentas</div>
+            <div style="font-family: var(--font-data); font-size: 32px; font-weight: 700; color: var(--green-700); margin: 8px 0;">S/ 180.50</div>
+            <div style="font-size: 13px; color: var(--text-soft);">287 L × S/ 1.50 · menos 2 adelantos · menos 1 encargo</div>
+          </div>
+          <button style="background: var(--green-500); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 700; font-size: 16px; width: 100%;">CONFIRMAR</button>
+          <div style="text-align: center; margin-top: 8px; font-size: 12px; color: var(--blue-500); font-weight: 600;">Discutir</div>
+        </div>
+      </div>
+      <div class="phone-label">📱 Pantalla de cierre · voz directa</div>
+    </div>
+
+    <div>
+      <div class="email-mock">
+        <div class="email-header">
+          <div class="from">De: María · Equipo MilkBook</div>
+        </div>
+        <div class="email-body">
+          <div>Hola Juan,</div>
+          <br>
+          <div>Carlos ya tiene la app. Desde hoy cada litro que le vendas queda registrado aquí.</div>
+          <br>
+          <div><strong>Eso significa que al cierre ya no van a discutir por los números.</strong> Los dos ven lo mismo.</div>
+          <br>
+          <div>Cuando estés listo, toca EMPEZAR.</div>
+          <div style="font-size: 11px; color: var(--text-soft); margin-top: 12px;">María · MilkBook</div>
+        </div>
+      </div>
+      <div class="phone-label">📧 Email al productor · voz cálida</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>5. Ejemplo completo · voz en email + push + firma</h2>
+
+  <div class="examples">
+    <div class="example-block">
+      <div class="example-title">📧 Email de bienvenida al productor</div>
+      <div class="example-body">Asunto: Bienvenido a MilkBook
+
+Hola Juan,
+
+Soy María del equipo MilkBook. Carlos ya tiene la app, y desde hoy cada litro que le vendas va a quedar registrado aquí.
+
+Eso significa que al cierre de quincena ya no van a discutir por los números. Los dos van a ver lo mismo.
+
+Cuando estés listo, toca EMPEZAR. Son 3 pasitos.
+
+Si necesitas ayuda, escríbeme a soporte@milkbook.com.
+
+María
+Equipo MilkBook</div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-title">📱 Tres mensajes push</div>
+      <div class="example-body">✅ 18.5 L confirmados para Juan
+
+⚠️ Hay diferencia: tú anotaste 18.5, Juan dice 18. Toca para resolver.
+
+📶 Sin internet. Guardado localmente. Sincronizamos cuando haya señal.</div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-title">❌ Mensaje de error accionable</div>
+      <div class="example-body">No pudimos guardar el registro.
+
+Posibles causas:
+- Sin internet y la app no terminó de sincronizar.
+- El celular se quedó sin batería.
+
+Tus datos están seguros. Inténtalo de nuevo cuando tengas señal o batería.</div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-title">📝 Pie de firma del equipo</div>
+      <div class="example-body">María Pérez
+Equipo MilkBook
+milkbook.com
+
+Tu leche, en orden.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>6. La voz en código · cómo se escribe MilkBook en cada lenguaje</h2>
+
+  <div class="code-block">
+<span class="c-com">// TypeScript / JS</span>
+<span class="c-key">const</span> milkBookUser = { ... };
+<span class="c-key">class</span> MilkBookAuth { }
+<span class="c-key">import</span> { MilkBookAPI } <span class="c-key">from</span> <span class="c-str">'@milkbook/sdk'</span>;
+
+<span class="c-com">// Dart / Flutter</span>
+<span class="c-key">final</span> milkBookUser = ...;
+
+<span class="c-com">// CSS</span>
+--milkbook-green-500: #2A782A;
+.milkbook-button { ... }
+
+<span class="c-com">// iOS Bundle</span>
+MilkBook.app
+
+<span class="c-com">// Android Package</span>
+com.milkbook.lechero
+
+<span class="c-com">// DB tables (snake_case)</span>
+milkbook_users, milkbook_contracts
+
+<span class="c-com">// API endpoints (kebab-case)</span>
+/api/v1/milkbook-contracts</div>
+</section>
+
+</main>
+
+<footer>
+  <p>🗣️ Identidad verbal de MilkBook · Sección 9 de 10 (voz de marca)</p>
+  <p>Ver <a href="./README.md">README.md</a> para especificación completa del diccionario oficial</p>
+</footer>
+
+</body>
+</html>

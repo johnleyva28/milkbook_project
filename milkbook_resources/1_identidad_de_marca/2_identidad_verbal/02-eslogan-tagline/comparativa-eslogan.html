@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Eslogan / Tagline — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-200: #F5F0E1; --cream-300: #EBE3CC;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --text: #1A1F1A; --text-soft: #5C5C5C; --text-disabled: #9CA39C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-data: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; padding: 0; line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--cream-100), var(--green-100)); padding: 48px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 36px; margin: 0 0 8px; }
+header .slogan-main { font-family: var(--font-display); font-size: 56px; font-weight: 700; margin: 24px 0 12px; color: var(--green-700); }
+header .slogan-main .accent { color: var(--blue-700); }
+header p { color: var(--text-soft); font-size: 16px; max-width: 720px; margin: 0 auto; }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-family: var(--font-ui); font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--green-500); display: inline-block; }
+h3 { font-size: 18px; margin: 24px 0 12px; }
+p { margin: 0 0 12px; }
+.intro { font-size: 16px; color: var(--text-soft); max-width: 720px; }
+
+/* MOCKUPS */
+
+/* App mockup */
+.phone-mockup { width: 320px; background: #1A1F1A; border-radius: 36px; padding: 12px; margin: 24px auto; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.phone-screen { background: var(--cream-50); border-radius: 28px; padding: 16px; min-height: 520px; position: relative; }
+.status-bar { display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; padding: 4px 8px; color: var(--text); }
+.app-bar { background: var(--cream-50); padding: 12px 8px; border-bottom: 1px solid var(--cream-300); margin-bottom: 12px; }
+.app-bar-title { font-family: var(--font-ui); font-size: 18px; font-weight: 700; }
+.app-bar-subtitle { font-family: var(--font-data); font-size: 32px; font-weight: 700; color: var(--green-700); margin: 8px 0 4px; }
+.splash-content { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 480px; padding: 24px; text-align: center; }
+.splash-logo { width: 160px; margin-bottom: 24px; }
+.splash-wordmark { font-family: var(--font-display); font-size: 32px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+.splash-slogan { font-family: var(--font-ui); font-size: 22px; font-weight: 700; color: var(--green-700); line-height: 1.3; }
+.splash-slogan .accent { color: var(--blue-700); }
+.onboarding-welcome { padding: 24px 8px; text-align: center; }
+.onboarding-h1 { font-family: var(--font-display); font-size: 26px; color: var(--text); margin-bottom: 16px; }
+.onboarding-p { font-size: 16px; color: var(--text-soft); margin-bottom: 24px; line-height: 1.5; }
+.btn-primary { background: var(--green-500); color: white; padding: 14px 24px; border-radius: 8px; font-weight: 700; font-size: 16px; text-align: center; margin-top: 16px; }
+.btn-secondary { background: transparent; color: var(--blue-500); padding: 12px; text-align: center; font-weight: 600; font-size: 14px; margin-top: 8px; }
+.card-list-item { background: white; border: 1px solid var(--cream-300); border-radius: 12px; padding: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--blue-300); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; }
+.card-content { flex: 1; }
+.card-name { font-family: var(--font-ui); font-size: 15px; font-weight: 600; color: var(--text); }
+.card-meta { font-family: var(--font-data); font-size: 13px; color: var(--text-soft); }
+
+/* Web admin mockup */
+.web-mockup { width: 100%; max-width: 720px; background: white; border: 1px solid var(--cream-300); border-radius: 12px; overflow: hidden; margin: 24px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.web-header { background: var(--cream-100); padding: 16px 24px; border-bottom: 1px solid var(--cream-300); display: flex; align-items: center; justify-content: space-between; }
+.web-logo { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--blue-700); }
+.web-logo .accent { color: var(--green-700); }
+.web-nav { display: flex; gap: 16px; font-size: 13px; color: var(--text-soft); }
+.web-hero { background: linear-gradient(135deg, var(--green-100), var(--blue-100)); padding: 48px 24px; text-align: center; }
+.web-hero h1 { font-family: var(--font-display); font-size: 38px; color: var(--text); margin: 0 0 12px; }
+.web-hero .slogan { font-family: var(--font-ui); font-size: 24px; font-weight: 700; color: var(--green-700); margin-bottom: 12px; }
+.web-hero .slogan .accent { color: var(--blue-700); }
+.web-hero .sub { font-size: 16px; color: var(--text-soft); margin-bottom: 24px; max-width: 480px; margin-left: auto; margin-right: auto; }
+.web-hero .btn { display: inline-block; background: var(--green-500); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 15px; text-decoration: none; }
+
+/* Email mockup */
+.email-mockup { max-width: 560px; margin: 24px auto; background: white; border: 1px solid var(--cream-300); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.email-header { background: var(--cream-100); padding: 12px 20px; border-bottom: 1px solid var(--cream-300); font-size: 12px; color: var(--text-soft); }
+.email-header strong { color: var(--text); }
+.email-subject { padding: 16px 20px; border-bottom: 1px solid var(--cream-300); font-size: 13px; color: var(--text-soft); }
+.email-subject strong { color: var(--text); font-size: 16px; display: block; margin-bottom: 4px; }
+.email-body { padding: 24px; font-size: 15px; line-height: 1.6; }
+.email-body h3 { font-family: var(--font-ui); font-size: 18px; margin: 0 0 12px; color: var(--text); }
+.email-sig { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--cream-300); font-size: 13px; color: var(--text-soft); }
+.email-sig strong { color: var(--text); display: block; }
+
+/* Push notification mockup */
+.push-mockup { max-width: 360px; margin: 24px auto; background: #1A1F1A; border-radius: 24px; padding: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.push-header { color: white; font-size: 11px; padding: 4px 12px; opacity: 0.7; margin-bottom: 8px; }
+.push-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 12px; padding: 12px; display: flex; gap: 12px; align-items: flex-start; }
+.push-icon { width: 40px; height: 40px; border-radius: 8px; background: white; padding: 4px; flex-shrink: 0; }
+.push-icon img { width: 100%; height: 100%; }
+.push-content { flex: 1; color: white; }
+.push-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.push-message { font-size: 13px; opacity: 0.9; line-height: 1.4; }
+.push-time { font-size: 11px; opacity: 0.6; margin-top: 4px; }
+
+/* Banner feria */
+.banner-feria { width: 100%; max-width: 720px; margin: 24px auto; background: linear-gradient(135deg, #FAF8F3, #DCF1DC); border: 8px solid var(--cream-500); border-radius: 8px; padding: 48px 24px; text-align: center; position: relative; }
+.banner-feria .logo { width: 120px; margin-bottom: 16px; }
+.banner-feria .wordmark { font-family: var(--font-display); font-size: 32px; color: var(--text); margin-bottom: 16px; }
+.banner-feria .wordmark .blue { color: var(--blue-700); }
+.banner-feria .wordmark .green { color: var(--green-700); }
+.banner-feria .slogan { font-family: var(--font-ui); font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: 4px; margin-bottom: 12px; }
+.banner-feria .sub { font-family: var(--font-display); font-style: italic; font-size: 18px; color: var(--text-soft); }
+
+/* Variants */
+.variants { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.variant-card { background: var(--cream-100); border: 2px solid var(--cream-300); border-radius: 12px; padding: 24px; position: relative; }
+.variant-card.official { background: linear-gradient(135deg, var(--green-100), var(--blue-100)); border-color: var(--green-500); border-width: 3px; }
+.variant-card.official::before { content: '★ OFICIAL'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--green-500); color: white; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 12px; letter-spacing: 0.5px; }
+.variant-emoji { font-size: 28px; margin-bottom: 8px; }
+.variant-title { font-family: var(--font-display); font-size: 20px; margin-bottom: 4px; }
+.variant-context { font-size: 11px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+.variant-slogan { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--green-700); margin-bottom: 12px; line-height: 1.2; }
+
+/* Banco de frases */
+.banco { background: var(--cream-100); border-radius: 16px; padding: 24px; margin: 24px 0; }
+.banco-section { margin-bottom: 20px; }
+.banco-title { font-weight: 700; font-size: 14px; color: var(--green-700); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.banco-phrase { background: white; border-radius: 8px; padding: 12px; margin: 6px 0; font-family: var(--font-data); font-size: 14px; border-left: 3px solid var(--green-500); }
+
+table { width: 100%; border-collapse: collapse; margin: 16px 0; background: var(--cream-100); border-radius: 12px; overflow: hidden; }
+th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--cream-300); }
+th { background: var(--cream-200); font-weight: 700; font-size: 13px; }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>💬 Eslogan / Tagline — MilkBook</h1>
+  <div class="slogan-main">Tu leche, <span class="accent">en orden.</span></div>
+  <p>El eslogan principal y todas sus variantes oficiales. Memo­rizable, concreto, validado con el lenguaje del usuario rural andino.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. Eslogan principal — cómo se ve en cada contexto</h2>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+    <!-- Splash screen -->
+    <div>
+      <h3>Splash screen (PWA / app)</h3>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="splash-content">
+            <img src="../9-favicon-y-app-icon/assets/pwa-splash-512.png" alt="Logo" class="splash-logo">
+            <div class="splash-wordmark"></div>
+            <div class="splash-slogan">Tu leche, <span class="accent">en orden.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Onboarding -->
+    <div>
+      <h3>Onboarding (slide 1)</h3>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="status-bar">9:41</div>
+          <div class="onboarding-welcome">
+            <h2 class="onboarding-h1">¡Bienvenido, Carlos!</h2>
+            <p class="onboarding-p">Vamos a poner <strong style="color: var(--green-700);">tu leche, en orden.</strong></p>
+            <p class="onboarding-p">4 pasos. 5 minutos. Y listo.</p>
+            <div class="btn-primary">EMPEZAR</div>
+            <div class="btn-secondary">Saltar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Web admin hero -->
+    <div>
+      <h3>Web admin hero</h3>
+      <div class="web-mockup">
+        <div class="web-header">
+          <div class="web-logo">Milk<span class="accent">Book</span></div>
+          <div class="web-nav">Dashboard · Clientes · Liquidaciones · Soporte</div>
+        </div>
+        <div class="web-hero">
+          <h1>Tu leche, <span style="color: var(--blue-700);">en orden.</span></h1>
+          <div class="slogan">La herramienta digital que usan los lecheros de Cajamarca</div>
+          <div class="sub">Registra litros, cierra contratos y cobra sin discusiones, todo desde tu celular.</div>
+          <a href="#" class="btn">Empezar gratis</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-top: 24px;">
+    <!-- Email footer -->
+    <div>
+      <h3>Email — firma</h3>
+      <div class="email-mockup">
+        <div class="email-header"><strong>María Pérez</strong> · Equipo MilkBook</div>
+        <div class="email-subject"><strong>Tu cierre con Juan está listo</strong>lechero@milkbook.com · 9:41</div>
+        <div class="email-body">
+          <p>Ey Carlos,</p>
+          <p>Ya puedes cerrar el contrato con Juan. Te resumo los números en la siguiente pantalla.</p>
+          <div class="email-sig">
+            <strong>María Pérez</strong>
+            Equipo MilkBook<br>
+            <span style="color: var(--green-700); font-weight: 600;">Tu leche, en orden.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Push notification -->
+    <div>
+      <h3>Push notification (Android)</h3>
+      <div class="push-mockup">
+        <div class="push-header">9:41 AM</div>
+        <div class="push-card">
+          <div class="push-icon"><img src="../9-favicon-y-app-icon/assets/isotype-source.png" alt="icon"></div>
+          <div class="push-content">
+            <div class="push-title">MilkBook</div>
+            <div class="push-message"><strong style="color: var(--green-300);">Tu leche, en orden.</strong> Carlos registró 18.5 L. Confirma o corrige.</div>
+            <div class="push-time">ahora</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Banner feria impreso -->
+    <div>
+      <h3>Banner de feria (impreso)</h3>
+      <div class="banner-feria">
+        <img src="../9-favicon-y-app-icon/assets/milkbook-logo-source.png" alt="Logo" class="logo">
+        <div class="wordmark"><span class="blue">Milk</span><span class="green">Book</span></div>
+        <div class="slogan">TU LECHE, EN ORDEN</div>
+        <div class="sub">La app que usan los lecheros en Cajamarca</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Variantes del eslogan por contexto</h2>
+  <div class="variants">
+    <div class="variant-card official">
+      <div class="variant-emoji">🥛</div>
+      <div class="variant-title">Principal</div>
+      <div class="variant-context">default · TODOS los contextos</div>
+      <div class="variant-slogan">Tu leche, en orden.</div>
+    </div>
+    <div class="variant-card">
+      <div class="variant-emoji">💧</div>
+      <div class="variant-title">Emocional</div>
+      <div class="variant-context">fechas especiales · marketing simbólico</div>
+      <div class="variant-slogan">Cada gota cuenta.</div>
+    </div>
+    <div class="variant-card">
+      <div class="variant-emoji">⏱️</div>
+      <div class="variant-title">Acción directa</div>
+      <div class="variant-context">ads de performance · CTAs</div>
+      <div class="variant-slogan" style="font-size: 18px;">Saca tus cuentas en 10 minutos, no en 30.</div>
+    </div>
+    <div class="variant-card">
+      <div class="variant-emoji">👨‍🌾</div>
+      <div class="variant-title">Para el productor</div>
+      <div class="variant-context">app de Juan · onboarding productor</div>
+      <div class="variant-slogan" style="font-size: 20px;">Tu trabajo, registrado.<br>Tu pago, claro.</div>
+    </div>
+    <div class="variant-card">
+      <div class="variant-emoji">🛵</div>
+      <div class="variant-title">Para el lechero</div>
+      <div class="variant-context">app de Carlos · onboarding lechero</div>
+      <div class="variant-slogan" style="font-size: 20px;">Tu ruta sin papeles.<br>Tu cierre sin peleas.</div>
+    </div>
+    <div class="variant-card">
+      <div class="variant-emoji">💼</div>
+      <div class="variant-title">Internacional</div>
+      <div class="variant-context">mercados angloparlantes futuros</div>
+      <div class="variant-slogan" style="font-size: 22px;">Dairy management,<br>made simple.</div>
+    </div>
+    <div class="variant-card">
+      <div class="variant-emoji">📈</div>
+      <div class="variant-title">Inversión</div>
+      <div class="variant-context">pitches a inversionistas</div>
+      <div class="variant-slogan" style="font-size: 20px;">El sistema operativo del lechero andino.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. Banco de frases aprobadas</h2>
+  <p class="intro">Frases alternativas curadas y aprobadas para usar en contexts específicos. NO son el eslogan principal, pero pasan el filtro de voz y tono.</p>
+
+  <div class="banco">
+    <div class="banco-section">
+      <div class="banco-title">Para marketing y ads</div>
+      <div class="banco-phrase">"Antes cuaderno. Ahora MilkBook."</div>
+      <div class="banco-phrase">"Saqué las cuentas en 10 minutos, no en 30."</div>
+      <div class="banco-phrase">"Ya no peleo con los clientes por los litros."</div>
+      <div class="banco-phrase">"Mi primer boleta, mi primer paso al banco."</div>
+      <div class="banco-phrase">"El lechero que cobra tranquilo."</div>
+      <div class="banco-phrase">"De caserío a celular, sin cambiar el oficio."</div>
+    </div>
+
+    <div class="banco-section">
+      <div class="banco-title">Para onboarding (dentro de la app)</div>
+      <div class="banco-phrase">"Bienvenido. Aquí tu leche está segura."</div>
+      <div class="banco-phrase">"Vamos a poner tu leche en orden."</div>
+      <div class="banco-phrase">"Cada litro vale. Aquí lo registramos."</div>
+      <div class="banco-phrase">"Saca tus cuentas en minutos, no en horas."</div>
+    </div>
+
+    <div class="banco-section">
+      <div class="banco-title">Para notificaciones push</div>
+      <div class="banco-phrase">"Carlos registró 18.5 L. Confirma o corrige."</div>
+      <div class="banco-phrase">"Tienes 1 discrepancia pendiente. Toca aquí."</div>
+      <div class="banco-phrase">"Cierre de quincena mañana. ¿Todo listo?"</div>
+      <div class="banco-phrase">"Adelanto registrado: S/ 300. Saldo: S/ 150."</div>
+    </div>
+
+    <div class="banco-section">
+      <div class="banco-title">Para email transaccional (subject lines)</div>
+      <div class="banco-phrase">"Tu leche, registrada."</div>
+      <div class="banco-phrase">"Confirmación lista, sigue tu ruta."</div>
+      <div class="banco-phrase">"El cierre del 15 ya está. Revisa y firma."</div>
+      <div class="banco-phrase">"Tu boleta está lista. Descárgala cuando quieras."</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4. Lo que el eslogan NO es</h2>
+  <table>
+    <thead><tr><th>❌ NO es...</th><th>Por qué</th></tr></thead>
+    <tbody>
+      <tr><td>"App para registrar litros de leche"</td><td>Descripción del producto, no claim de marca.</td></tr>
+      <tr><td>"Vamos a revolucionar el agro"</td><td>Promesa aspiracional vacía.</td></tr>
+      <tr><td>"Software de gestión láctea con OCR"</td><td>Frase técnica sin emoción.</td></tr>
+      <tr><td>"Conectando el campo con el futuro"</td><td>Tagline genérico de startup agro.</td></tr>
+      <tr><td>"Milk that works for you"</td><td>Traducción literal sin gancho cultural.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+
+<footer>
+  <p>💬 Identidad verbal de MilkBook · Sección 2 de 10 (eslogan / tagline)</p>
+  <p>Ver <a href="./README.md">README.md</a> para especificación completa y reglas tipográficas</p>
+</footer>
+
+</body>
+</html>

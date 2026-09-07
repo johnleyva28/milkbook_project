@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Posicionamiento — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-300: #EBE3CC;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --text: #1A1F1A; --text-soft: #5C5C5C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; padding: 0; line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--green-100), var(--blue-100), var(--cream-100)); padding: 48px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 36px; margin: 0 0 8px; }
+header .positioning-root { font-family: var(--font-display); font-size: 30px; color: var(--text); max-width: 760px; margin: 24px auto 0; line-height: 1.3; }
+header p { color: var(--text-soft); font-size: 16px; max-width: 720px; margin: 12px auto 0; }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--blue-500); display: inline-block; }
+h3 { font-size: 18px; margin: 24px 0 12px; }
+
+.ejes { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 24px 0; }
+.eje { background: var(--cream-100); border-radius: 12px; padding: 20px; }
+.eje-title { font-weight: 700; margin-bottom: 12px; font-size: 15px; color: var(--blue-700); }
+.eje-line { display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center; gap: 16px; }
+.eje-left, .eje-right { font-size: 13px; color: var(--text-soft); text-align: center; font-style: italic; }
+.eje-track { position: relative; height: 24px; background: linear-gradient(90deg, var(--cream-300), var(--cream-300)); border-radius: 12px; }
+.eje-marker { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 28px; height: 28px; background: var(--green-500); border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+.eje-marker-label { position: absolute; top: -32px; left: 50%; transform: translateX(-50%); font-size: 11px; color: var(--green-700); font-weight: 700; white-space: nowrap; }
+
+.mapa { width: 100%; border-collapse: collapse; margin: 16px 0; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.mapa th, .mapa td { padding: 12px; text-align: center; border: 1px solid var(--cream-300); font-size: 13px; }
+.mapa th { background: var(--cream-200); font-weight: 700; }
+.mapa td.us { background: var(--green-100); font-weight: 700; color: var(--green-700); }
+.mapa td.partial { background: #FFF4E0; color: #B26A00; }
+.mapa td.no { background: #FCE8E6; color: #B3261E; }
+
+.statement { background: #1A1F1A; color: #FAF8F3; border-radius: 16px; padding: 32px; margin: 24px 0; font-size: 16px; line-height: 1.7; }
+.statement strong { color: var(--green-300); }
+
+.cuadrante { background: linear-gradient(135deg, var(--green-100), var(--blue-100)); border-radius: 16px; padding: 32px; text-align: center; margin: 24px 0; }
+.cuadrante-title { font-family: var(--font-display); font-size: 24px; margin-bottom: 16px; }
+.cuadrante-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 480px; margin: 0 auto; }
+.cuadrante-cell { background: white; border-radius: 8px; padding: 12px; font-weight: 700; font-size: 14px; }
+.cuadrante-cell.active { background: var(--green-500); color: white; box-shadow: 0 4px 12px rgba(42, 120, 42, 0.3); }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎯 Posicionamiento — MilkBook</h1>
+  <div class="positioning-root">"El cuaderno digital de la leche andina."</div>
+  <p>Dónde vive MilkBook en la mente del usuario frente a las alternativas.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. El cuadrante único de MilkBook</h2>
+  <p>MilkBook ocupa un cuadrante específico del espacio de mercado que está VACÍO. Ningún competidor combina los 4 atributos:</p>
+
+  <div class="cuadrante">
+    <div class="cuadrante-title">🟢 Rural andino + Vertical leche + Offline-first + Transaccional</div>
+    <div class="cuadrante-grid">
+      <div class="cuadrante-cell">Rural</div>
+      <div class="cuadrante-cell">Urbano</div>
+      <div class="cuadrante-cell active">Vertical leche</div>
+      <div class="cuadrante-cell">Horizontal agro</div>
+    </div>
+    <div class="cuadrante-grid" style="margin-top: 12px;">
+      <div class="cuadrante-cell active">Offline-first</div>
+      <div class="cuadrante-cell">Solo online</div>
+      <div class="cuadrante-cell active">Transaccional</div>
+      <div class="cuadrante-cell">Marketing/CRM</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Los 4 ejes de posicionamiento</h2>
+
+  <div class="ejes">
+    <div class="eje">
+      <div class="eje-title">Eje 1: Tecnología</div>
+      <div class="eje-line">
+        <div class="eje-left">Cuaderno físico<br>(manual)</div>
+        <div class="eje-track">
+          <div class="eje-marker" style="left: 30%;">
+            <div class="eje-marker-label">MilkBook</div>
+          </div>
+        </div>
+        <div class="eje-right">Apps agrícolas<br>(alta tech)</div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-soft); margin-top: 16px; text-align: center;">Tecnología media-baja optimizada para contexto rural.</p>
+    </div>
+
+    <div class="eje">
+      <div class="eje-title">Eje 2: Alcance</div>
+      <div class="eje-line">
+        <div class="eje-left">Yape<br>(horizontal)</div>
+        <div class="eje-track">
+          <div class="eje-marker" style="left: 25%;">
+            <div class="eje-marker-label">MilkBook (vertical)</div>
+          </div>
+        </div>
+        <div class="eje-right">SAP / Oracle<br>(horizontal)</div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-soft); margin-top: 16px; text-align: center;">Vertical especializada en leche.</p>
+    </div>
+
+    <div class="eje">
+      <div class="eje-title">Eje 3: Usuario</div>
+      <div class="eje-line">
+        <div class="eje-left">WhatsApp<br>(rural)</div>
+        <div class="eje-track">
+          <div class="eje-marker" style="left: 25%;">
+            <div class="eje-marker-label">MilkBook (rural)</div>
+          </div>
+        </div>
+        <div class="eje-right">Microsoft Office<br>(urbano)</div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-soft); margin-top: 16px; text-align: center;">Rural, baja alfabetización, baja conectividad.</p>
+    </div>
+
+    <div class="eje">
+      <div class="eje-title">Eje 4: Propuesta</div>
+      <div class="eje-line">
+        <div class="eje-left">Yape<br>(transaccional)</div>
+        <div class="eje-track">
+          <div class="eje-marker" style="left: 30%;">
+            <div class="eje-marker-label">MilkBook (trans+rel)</div>
+          </div>
+        </div>
+        <div class="eje-right">Facebook<br>(red social)</div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-soft); margin-top: 16px; text-align: center;">Transaccional con componente relacional.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. Mapa de posicionamiento competitivo</h2>
+  <p>Cómo se ubica MilkBook vs. alternativas:</p>
+
+  <table class="mapa">
+    <thead>
+      <tr>
+        <th>Atributo</th>
+        <th>Cuaderno</th>
+        <th>Apps agrícolas</th>
+        <th>SAP/ERP</th>
+        <th>Yape/Plin</th>
+        <th class="us">MilkBook</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Tecnología</th>
+        <td>Manual</td>
+        <td>Media-alta</td>
+        <td>Alta</td>
+        <td>Alta</td>
+        <td class="us">Media-baja optimizada</td>
+      </tr>
+      <tr>
+        <th>Alcance</th>
+        <td>Vertical</td>
+        <td>Horizontal</td>
+        <td>Horizontal</td>
+        <td>Horizontal</td>
+        <td class="us">Vertical (leche)</td>
+      </tr>
+      <tr>
+        <th>Usuario</th>
+        <td>Rural</td>
+        <td>Mixto</td>
+        <td>Urbano B2B</td>
+        <td>Urbano</td>
+        <td class="us">Rural andino</td>
+      </tr>
+      <tr>
+        <th>Offline-first</th>
+        <td>Sí</td>
+        <td class="partial">Limitado</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+        <td class="us">Sí</td>
+      </tr>
+      <tr>
+        <th>Costo</th>
+        <td>Gratis</td>
+        <td>Medio-alto</td>
+        <td>Alto</td>
+        <td>Gratis</td>
+        <td class="us">Gratis inicial</td>
+    </tbody>
+  </table>
+
+  <p style="background: var(--green-100); padding: 12px; border-radius: 8px; font-size: 14px; margin-top: 12px; text-align: center;">
+    <strong>Conclusión:</strong> MilkBook es la ÚNICA alternativa que combina rural + vertical + offline-first + transaccional. El cuadrante está vacío.
+  </p>
+</section>
+
+<section>
+  <h2>4. UVP statement (Geoffrey Moore)</h2>
+
+  <div class="statement">
+    Para el lechero y productor rural andino que hoy cargan cuaderno, MilkBook es una herramienta digital específicamente diseñada para registrar cada transacción de leche,
+    <strong>a diferencia de las apps agrícolas genéricas</strong> que no resuelven la discrepancia lechero-productor y de los cuadernos físicos que no generan boletas.
+    MilkBook es la única solución que combina <strong>offline-first</strong>, <strong>cálculo automático de liquidación</strong> y <strong>boletas formales</strong> en un solo producto.
+  </div>
+</section>
+
+<section>
+  <h2>5. Decisiones de posicionamiento</h2>
+
+  <table class="mapa">
+    <thead>
+      <tr>
+        <th>Decisión</th>
+        <th>Por qué SÍ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>"Cuaderno digital"</strong> como claim central</td><td>El usuario ya conoce el cuaderno. Decir "es el cuaderno, pero digital" reduce la barrera.</td></tr>
+      <tr><td><strong>No "app del agro"</strong></td><td>Espacio muy competido. MilkBook se diluye.</td></tr>
+      <tr><td><strong>No "transformadores del agro"</strong></td><td>Aspiracional vacío. Los productores desconfían.</td></tr>
+      <tr><td><strong>Diferenciarnos de apps agrícolas genéricas</strong></td><td>AgriPredict, CropX son para commodities grandes. MilkBook es para el lechero de 30-50 clientes.</td></tr>
+      <tr><td><strong>No competir por precio</strong></td><td>Competir por precio en rural lleva a la ruina.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+
+<footer>
+  <p>🎯 Identidad estratégica · Sección 3 de 7 (posicionamiento)</p>
+  <p>Ver <a href="./README.md">README.md</a> para statement completo y estrategia por horizonte 2026-2030</p>
+</footer>
+
+</body>
+</html>

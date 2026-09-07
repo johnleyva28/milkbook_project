@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Misión — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-300: #EBE3CC;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --text: #1A1F1A; --text-soft: #5C5C5C; --text-disabled: #9CA39C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-data: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; padding: 0; line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--blue-100), var(--cream-100)); padding: 48px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 36px; margin: 0 0 8px; }
+.mision-main { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--blue-700); margin: 24px auto; max-width: 880px; line-height: 1.4; }
+header p { color: var(--text-soft); font-size: 16px; max-width: 720px; margin: 0 auto; }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-family: var(--font-ui); font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--blue-500); display: inline-block; }
+h3 { font-size: 18px; margin: 24px 0 12px; }
+p { margin: 0 0 12px; }
+.intro { font-size: 16px; color: var(--text-soft); max-width: 720px; }
+
+.phone-mockup { width: 320px; background: #1A1F1A; border-radius: 36px; padding: 12px; margin: 24px auto; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.phone-screen { background: var(--cream-50); border-radius: 28px; padding: 16px; min-height: 480px; }
+
+.web-mockup { max-width: 720px; margin: 24px auto; background: white; border: 1px solid var(--cream-300); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.web-header { background: var(--cream-100); padding: 12px 24px; border-bottom: 1px solid var(--cream-300); display: flex; align-items: center; justify-content: space-between; }
+.web-logo { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--blue-700); }
+.web-logo .accent { color: var(--green-700); }
+.web-tab { font-size: 13px; color: var(--text-soft); padding: 4px 8px; border-radius: 6px; }
+.web-tab.active { background: var(--blue-100); color: var(--blue-700); font-weight: 600; }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 16px; background: var(--cream-100); }
+.kpi-card { background: white; border-radius: 8px; padding: 12px; border: 1px solid var(--cream-300); }
+.kpi-label { font-size: 11px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.kpi-value { font-family: var(--font-data); font-size: 22px; font-weight: 700; color: var(--blue-700); }
+.kpi-delta { font-size: 11px; color: var(--green-700); margin-top: 2px; }
+
+.cerrar-contrato { padding: 16px 8px; }
+.cc-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--cream-300); }
+.cc-label { font-size: 14px; color: var(--text-soft); }
+.cc-value { font-family: var(--font-data); font-size: 16px; font-weight: 600; }
+.cc-total { background: var(--green-100); border-radius: 12px; padding: 16px; margin: 16px 0; text-align: center; }
+.cc-total-label { font-size: 12px; color: var(--green-700); text-transform: uppercase; letter-spacing: 0.5px; }
+.cc-total-value { font-family: var(--font-data); font-size: 32px; font-weight: 700; color: var(--green-700); margin: 8px 0; }
+.cc-btn { background: var(--green-500); color: white; padding: 14px; border-radius: 8px; text-align: center; font-weight: 700; font-size: 16px; }
+
+.app-list-item { background: white; border: 1px solid var(--cream-300); border-radius: 12px; padding: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--blue-300); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; }
+
+.boleta-pdf { max-width: 520px; margin: 24px auto; background: white; padding: 32px; border: 1px solid var(--cream-300); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); font-family: var(--font-data); }
+.boleta-header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 16px; border-bottom: 2px solid var(--green-500); margin-bottom: 16px; }
+.boleta-logo { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--blue-700); }
+.boleta-logo .accent { color: var(--green-700); }
+.boleta-meta { font-size: 11px; color: var(--text-soft); text-align: right; }
+.boleta-meta strong { color: var(--text); font-size: 13px; }
+.boleta-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; }
+.boleta-total { background: var(--green-100); padding: 12px; border-radius: 6px; margin-top: 16px; display: flex; justify-content: space-between; font-weight: 700; }
+
+.kpi-table { width: 100%; border-collapse: collapse; margin: 16px 0; background: var(--cream-100); border-radius: 12px; overflow: hidden; }
+.kpi-table th, .kpi-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--cream-300); font-size: 13px; }
+.kpi-table th { background: var(--cream-200); font-weight: 700; }
+.kpi-table .val { font-family: var(--font-data); font-weight: 700; color: var(--blue-700); text-align: right; }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎯 Misión — MilkBook</h1>
+  <div class="mision-main">"Construir y operar la herramienta digital que los lecheros y productores de Cajamarca usan a diario para registrar litros, cerrar contratos y cobrar sin discusiones."</div>
+  <p>Qué hacemos hoy, día a día, para cumplir el propósito. Concreta, operativa, medible.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. La misión se demuestra en producto</h2>
+  <p class="intro">La misión no es una frase bonita: se manifiesta en las pantallas que Carlos y Juan usan todos los días. Tres ejemplos concretos:</p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+
+    <!-- App del lechero -->
+    <div>
+      <h3>App del lechero — cerrar contrato</h3>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div style="padding: 8px;">
+            <div style="font-size: 12px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px;">Cerrar contrato</div>
+            <div style="font-size: 16px; font-weight: 700; margin: 4px 0 12px;">Juan Mamani · 15-29 sept</div>
+            <div class="cc-row"><span class="cc-label">Días con leche</span><span class="cc-value">12</span></div>
+            <div class="cc-row"><span class="cc-label">Litros total</span><span class="cc-value">287 L</span></div>
+            <div class="cc-row"><span class="cc-label">Adelantos</span><span class="cc-value">S/ 500</span></div>
+            <div class="cc-row"><span class="cc-label">Encargos</span><span class="cc-value">S/ 80</span></div>
+            <div class="cc-row"><span class="cc-label">Precio/L</span><span class="cc-value">S/ 1.50</span></div>
+            <div class="cc-total">
+              <div class="cc-total-label">A pagar</div>
+              <div class="cc-total-value">S/ 350.50</div>
+              <div style="font-size: 11px; color: var(--green-700);">(287 × 1.50 − 500 − 80)</div>
+            </div>
+            <div class="cc-btn">GENERAR LIQUIDACIÓN</div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-soft); text-align: center; margin-top: 8px;"><em>→ "Cerrar contratos" ejecutado en 30 seg, antes 20 min.</em></p>
+    </div>
+
+    <!-- Web admin dashboard -->
+    <div>
+      <h3>Web admin — KPIs mensuales</h3>
+      <div class="web-mockup">
+        <div class="web-header">
+          <div class="web-logo">Milk<span class="accent">Book</span></div>
+          <div style="display: flex; gap: 8px;">
+            <span class="web-tab active">Dashboard</span>
+            <span class="web-tab">Clientes</span>
+            <span class="web-tab">Liquidaciones</span>
+          </div>
+        </div>
+        <div style="padding: 16px; background: var(--cream-100);">
+          <div style="font-size: 12px; color: var(--text-soft); margin-bottom: 12px;">Septiembre 2026</div>
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-label">Litros</div>
+              <div class="kpi-value">12,450</div>
+              <div class="kpi-delta">↑ 8% vs ago</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Clientes</div>
+              <div class="kpi-value">23</div>
+              <div class="kpi-delta">+3 nuevos</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Boletas</div>
+              <div class="kpi-value">23</div>
+              <div class="kpi-delta">100% firmadas</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Discrepancias</div>
+              <div class="kpi-value">2</div>
+              <div class="kpi-delta">↑ 0.3%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-soft); text-align: center; margin-top: 8px;"><em>→ "Cobra sin discusiones" medido objetivamente.</em></p>
+    </div>
+
+    <!-- Boleta PDF -->
+    <div>
+      <h3>Boleta PDF generada</h3>
+      <div class="boleta-pdf">
+        <div class="boleta-header">
+          <div>
+            <div class="boleta-logo">Milk<span class="accent">Book</span></div>
+            <div style="font-size: 11px; color: var(--text-soft); margin-top: 4px;">RUC: 20XXX12345 · Cajamarca</div>
+          </div>
+          <div class="boleta-meta">
+            <strong>BOLETA DE VENTA</strong><br>
+            N° 001-00234<br>
+            29 sept 2026
+          </div>
+        </div>
+        <div style="font-size: 12px; color: var(--text-soft); margin-bottom: 12px;">Cliente</div>
+        <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px;">Juan Mamani · DNI 45678901</div>
+        <div class="boleta-row"><span>287 litros × S/ 1.50</span><span>S/ 430.50</span></div>
+        <div class="boleta-row"><span>(−) Adelantos</span><span>− S/ 500.00</span></div>
+        <div class="boleta-row"><span>(−) Encargos</span><span>− S/ 80.00</span></div>
+        <div class="boleta-total">
+          <span>A pagar</span>
+          <span>S/ 350.50</span>
+        </div>
+        <div style="font-size: 10px; color: var(--text-soft); text-align: center; margin-top: 12px;">✓ Firmado por Juan Mamani · PIN verificado · 29 sept 14:32</div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-soft); text-align: center; margin-top: 8px;"><em>→ Respaldo formal que Juan puede llevar al banco.</em></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. KPIs de la misión (medibles)</h2>
+
+  <h3>Adopción</h3>
+  <table class="kpi-table">
+    <thead><tr><th>KPI</th><th>Meta 12 meses</th><th>Meta 24 meses</th></tr></thead>
+    <tbody>
+      <tr><td>Lecheros activos (usan ≥1 vez/semana)</td><td class="val">200</td><td class="val">1,000</td></tr>
+      <tr><td>Productores activos (≥1 contrato)</td><td class="val">1,500</td><td class="val">8,000</td></tr>
+      <tr><td>Litros registrados / mes</td><td class="val">600,000</td><td class="val">3,500,000</td></tr>
+      <tr><td>Contratos cerrados / mes</td><td class="val">350</td><td class="val">2,000</td></tr>
+      <tr><td>Boletas emitidas / mes</td><td class="val">350</td><td class="val">2,000</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Impacto (alineados con el propósito)</h3>
+  <table class="kpi-table">
+    <thead><tr><th>KPI</th><th>Meta 12 meses</th><th>Meta 24 meses</th></tr></thead>
+    <tbody>
+      <tr><td>Discrepancias resueltas sin discusión</td><td class="val">&gt; 90%</td><td class="val">&gt; 95%</td></tr>
+      <tr><td>Ahorro promedio / productor</td><td class="val">S/ 25/mes</td><td class="val">S/ 45/mes</td></tr>
+      <tr><td>Horas ahorradas / lechero / quincena</td><td class="val">8h</td><td class="val">12h</td></tr>
+      <tr><td>Boletas usadas para crédito</td><td class="val">5%</td><td class="val">15%</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>3. Fuera de alcance (lo que la misión NO es)</h2>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+    <div style="background: #FCE8E6; border-radius: 12px; padding: 20px;">
+      <h3 style="margin: 0 0 8px; font-size: 16px; color: #B3261E;">❌ No es plataforma de crédito</h3>
+      <p style="font-size: 14px; margin: 0;">Las boletas abren la puerta a crédito rural, pero MilkBook no presta dinero. Otros lo harán sobre nuestros datos.</p>
+    </div>
+    <div style="background: #FCE8E6; border-radius: 12px; padding: 20px;">
+      <h3 style="margin: 0 0 8px; font-size: 16px; color: #B3261E;">❌ No es marketplace de leche</h3>
+      <p style="font-size: 14px; margin: 0;">No conectamos a Juan con un comprador distinto a Carlos. La relación ya existe; MilkBook la digitaliza.</p>
+    </div>
+    <div style="background: #FCE8E6; border-radius: 12px; padding: 20px;">
+      <h3 style="margin: 0 0 8px; font-size: 16px; color: #B3261E;">❌ No es red social</h3>
+      <p style="font-size: 14px; margin: 0;">No hay feed, likes, follows. La comunidad existe en el caserío, no en la app.</p>
+    </div>
+    <div style="background: #FCE8E6; border-radius: 12px; padding: 20px;">
+      <h3 style="margin: 0 0 8px; font-size: 16px; color: #B3261E;">❌ No es ERP lechero</h3>
+      <p style="font-size: 14px; margin: 0;">No hace contabilidad general ni emite facturas SUNAT (todavía). Es registro y cierre.</p>
+    </div>
+    <div style="background: #FCE8E6; border-radius: 12px; padding: 20px;">
+      <h3 style="margin: 0 0 8px; font-size: 16px; color: #B3261E;">❌ No es para plantas industriales</h3>
+      <p style="font-size: 14px; margin: 0;">Gloria, Nestlé, Laive tienen sus propios ERPs. MilkBook es para el lechero de 30-50 clientes.</p>
+    </div>
+    <div style="background: #FCE8E6; border-radius: 12px; padding: 20px;">
+      <h3 style="margin: 0 0 8px; font-size: 16px; color: #B3261E;">❌ No sustituye al cuaderno (aún)</h3>
+      <p style="font-size: 14px; margin: 0;">Período de transición: Carlos usa MilkBook Y su cuaderno. La misión es que el cuaderno se vuelva redundante.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4. Pitch de la misión (30 segundos)</h2>
+
+  <div class="web-mockup">
+    <div class="web-header">
+      <div class="web-logo">Milk<span class="accent">Book</span></div>
+      <div style="font-size: 12px; color: var(--text-soft);">Pitch · 30 segundos</div>
+    </div>
+    <div style="padding: 32px; background: linear-gradient(135deg, var(--cream-100), var(--green-100));">
+      <p style="font-size: 18px; line-height: 1.6; margin: 0; font-family: var(--font-display); font-style: italic;">
+        "MilkBook es la herramienta digital que los lecheros de Cajamarca usan para registrar litros, cerrar contratos y cobrar sin discusiones. Hoy 200 lecheros y 1,500 productores ya la usan; en 2 años apuntamos a 1,000 lecheros y 8,000 productores."
+      </p>
+      <div style="margin-top: 16px; font-size: 12px; color: var(--text-soft); text-align: right;">— María Pérez, Co-fundadora · Pitch a inversionista</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>🎯 Identidad verbal de MilkBook · Sección 4 de 10 (misión)</p>
+  <p>Ver <a href="./README.md">README.md</a> para KPIs completos, roadmap por fases y criterios de éxito</p>
+</footer>
+
+</body>
+</html>
