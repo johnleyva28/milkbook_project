@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Favicon y App Icon — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-200: #F5F0E1;
+  --cream-300: #EBE3CC; --cream-400: #D9CCA8; --cream-500: #B89766;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --warning: #B26A00; --error: #B3261E;
+  --text: #1A1F1A; --text-soft: #5C5C5C; --text-disabled: #9CA39C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-data: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+[data-theme="dark"] {
+  --bg: #1A1814; --surface: #25211B; --surface-2: #2F2A22;
+  --border: #3A332A; --border-strong: #524838;
+  --text: #FAF8F3; --text-soft: #C7BFAE; --text-disabled: #6E6655;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; padding: 0; line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--blue-100), var(--green-100)); color: #1A1F1A; padding: 32px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 36px; font-weight: 700; margin: 0 0 8px; }
+header p { margin: 0; opacity: 0.9; font-size: 16px; }
+.toolbar { display: flex; gap: 12px; justify-content: center; padding: 16px; background: var(--cream-100); border-bottom: 1px solid var(--cream-300); position: sticky; top: 0; z-index: 10; }
+.toolbar button { font-family: var(--font-ui); font-weight: 600; font-size: 14px; padding: 8px 16px; border-radius: 8px; border: 2px solid var(--cream-400); background: var(--cream-50); color: var(--text); cursor: pointer; }
+.toolbar button.active { background: var(--blue-500); color: white; border-color: var(--blue-500); }
+.toolbar button:hover:not(.active) { background: var(--cream-200); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+section { margin-bottom: 48px; }
+h2 { font-family: var(--font-ui); font-size: 24px; font-weight: 700; color: var(--text); margin: 0 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--blue-500); display: inline-block; }
+h3 { font-family: var(--font-ui); font-size: 18px; font-weight: 600; margin: 24px 0 12px; color: var(--text); }
+p { margin: 0 0 12px; }
+.intro { font-size: 16px; color: var(--text-soft); max-width: 720px; }
+.icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; margin: 24px 0; }
+.icon-card { background: var(--cream-100); border: 1px solid var(--cream-300); border-radius: 12px; padding: 20px; text-align: center; }
+.icon-card.dark { background: #1A1F1A; border-color: #3A332A; color: #FAF8F3; }
+.icon-card .preview-area { background: var(--cream-50); border-radius: 12px; height: 120px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.icon-card.dark .preview-area { background: #2F2A22; }
+.icon-card .preview-area.small { height: 64px; padding: 8px; }
+.icon-card .preview-area.tab { height: 32px; width: 96px; margin: 8px auto; padding: 0 4px; }
+.icon-card .preview-area.home { height: 96px; width: 96px; border-radius: 22px; margin: 0 auto 12px; }
+.icon-card .preview-area.notif { height: 48px; width: 48px; margin: 0 auto 8px; background: #2F2A22; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.icon-card .preview-area.tile { height: 80px; width: 80px; border-radius: 6px; margin: 0 auto 8px; }
+.icon-card .preview-area.tile-wide { height: 60px; width: 124px; border-radius: 6px; margin: 0 auto 8px; }
+.icon-card img { display: block; }
+.icon-label { font-size: 13px; color: var(--text-soft); font-weight: 500; }
+.icon-card.dark .icon-label { color: #C7BFAE; }
+.icon-size { font-size: 11px; color: var(--text-disabled); font-family: var(--font-data); margin-top: 4px; }
+.icon-card.dark .icon-size { color: #6E6655; }
+
+.variants { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0; }
+.variant-card { background: var(--cream-100); border: 2px solid var(--cream-300); border-radius: 12px; padding: 24px; text-align: center; position: relative; }
+.variant-card.dark { background: #1A1F1A; border-color: #3A332A; color: #FAF8F3; }
+.variant-card.selected { border-color: var(--blue-500); background: var(--blue-100); }
+.variant-card .check { position: absolute; top: 12px; right: 12px; width: 24px; height: 24px; background: var(--blue-500); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+.variant-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.variant-meta { font-size: 12px; color: var(--text-soft); margin-bottom: 12px; }
+.variant-card.dark .variant-meta { color: #C7BFAE; }
+
+.sizes-row { display: flex; align-items: flex-end; gap: 24px; margin: 24px 0; padding: 24px; background: var(--cream-100); border-radius: 12px; flex-wrap: wrap; }
+.size-item { text-align: center; }
+.size-item img { display: block; margin: 0 auto 8px; }
+.size-label { font-size: 11px; color: var(--text-soft); font-family: var(--font-data); }
+
+.phone-mockup { width: 320px; background: #1A1F1A; border-radius: 36px; padding: 12px; margin: 24px auto; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.phone-screen { background: var(--cream-50); border-radius: 28px; padding: 16px; min-height: 460px; }
+.phone-screen h4 { margin: 0 0 12px; font-size: 12px; color: var(--text-soft); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.app-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 12px 0; }
+.app-item { text-align: center; }
+.app-icon-mock { width: 56px; height: 56px; border-radius: 12px; margin: 0 auto 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: white; font-weight: 700; }
+.app-icon-mock.other1 { background: #25D366; }
+.app-icon-mock.other2 { background: #FF0000; }
+.app-icon-mock.other3 { background: #1877F2; }
+.app-icon-mock.other4 { background: #7289DA; }
+.app-icon-mock.other5 { background: #FFA500; }
+.app-icon-mock.other6 { background: #9C27B0; }
+.app-icon-mock.other7 { background: #1DA1F2; }
+.app-icon-mock.other8 { background: #4CAF50; }
+.app-icon-mock.other9 { background: #FF9800; }
+.app-icon-mock.other10 { background: #2196F3; }
+.app-icon-mock.other11 { background: #E91E63; }
+.app-name { font-size: 9px; color: var(--text); }
+
+.decision { background: var(--blue-100); border-left: 4px solid var(--blue-500); padding: 20px 24px; border-radius: 0 12px 12px 0; margin: 24px 0; }
+.decision strong { color: var(--blue-700); font-size: 16px; }
+
+table { width: 100%; border-collapse: collapse; margin: 16px 0; background: var(--cream-100); border-radius: 12px; overflow: hidden; }
+th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--cream-300); }
+th { background: var(--cream-200); font-weight: 700; font-size: 13px; }
+td { font-size: 14px; }
+code { font-family: var(--font-data); font-size: 12px; background: var(--cream-200); padding: 2px 6px; border-radius: 4px; }
+
+.rule-box { background: var(--cream-100); border: 2px solid var(--cream-300); border-radius: 12px; padding: 16px; margin: 12px 0; }
+.rule-box.do { border-left: 6px solid var(--blue-500); }
+.rule-box.dont { border-left: 6px solid var(--error); }
+.rule-box h4 { margin: 0 0 8px; font-size: 14px; font-weight: 700; }
+.rule-box ul { margin: 4px 0 0 20px; padding: 0; font-size: 14px; }
+.rule-box li { margin: 4px 0; }
+
+.splash-mockup { width: 320px; height: 568px; background: linear-gradient(180deg, #FFFDF7 0%, #FAF8F3 100%); border-radius: 24px; margin: 24px auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.splash-mockup img { width: 180px; }
+.splash-mockup .loading { font-size: 12px; color: #5C5C5C; margin-top: 8px; }
+
+footer { text-align: center; padding: 24px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>📱 Favicon y App Icon — MilkBook</h1>
+  <p>Versión compacta del isotipo oficial generado desde el logo MilkBook</p>
+</header>
+
+<div class="toolbar">
+  <button onclick="setTheme('light')" id="btn-light" class="active">☀️ Light</button>
+  <button onclick="setTheme('dark')" id="btn-dark">🌙 Dark</button>
+</div>
+
+<main>
+
+<section>
+  <h2>1. Logo oficial — la fuente</h2>
+  <p class="intro">El favicon y app icon de MilkBook se derivan del <strong>logo oficial</strong>: botella azul con leche cremosa + cabeza de vaca azul con cuernos y manchas verdes + wordmark "MilkBook" en azul y verde. Se usa la misma paleta de marca para mantener coherencia visual.</p>
+
+  <div class="icon-grid">
+    <div class="icon-card">
+      <div class="preview-area" style="height: 240px; background: var(--cream-50);">
+        <img src="./assets/milkbook-logo-source.png" alt="Logo MilkBook" style="max-width: 220px; max-height: 220px;">
+      </div>
+      <div class="icon-label">Logo completo</div>
+      <div class="icon-size">637 × 637 px · fuente</div>
+    </div>
+    <div class="icon-card">
+      <div class="preview-area" style="height: 240px; background: var(--cream-50);">
+        <img src="./assets/isotype-source.png" alt="Isotipo MilkBook" style="max-width: 220px; max-height: 220px;">
+      </div>
+      <div class="icon-label">Isotipo solo (sin wordmark)</div>
+      <div class="icon-size">386 × 312 px · base del favicon</div>
+    </div>
+  </div>
+
+  <div class="decision">
+    <strong>📌 Decisión MilkBook</strong>
+    <p>El <strong>wordmark "MilkBook"</strong> solo aparece en: logo completo, PWA splash, marketing impreso y onboarding. <strong>El isotipo solo</strong> (botella + cabeza de vaca) es el que se usa en favicon y app icon porque la palabra es ilegible a 16 px y compite con el isotipo en tamaños grandes.</p>
+  </div>
+</section>
+
+<section>
+  <h2>2. Favicon web (16-512 px)</h2>
+  <p class="intro">El favicon es el icon que se ve en la pestaña del navegador, marcador, history, PWA install. Sobrevive muchos tamaños y fondos. Generado directamente desde el isotipo con Pillow.</p>
+
+  <h3>Tamaños reales generados (assets/)</h3>
+  <div class="sizes-row">
+    <div class="size-item">
+      <img src="./assets/favicon-16.png" width="16" height="16" alt="favicon 16">
+      <div class="size-label">16 × 16 · favicon-16.png</div>
+    </div>
+    <div class="size-item">
+      <img src="./assets/favicon-32.png" width="32" height="32" alt="favicon 32">
+      <div class="size-label">32 × 32 · favicon-32.png</div>
+    </div>
+    <div class="size-item">
+      <img src="./assets/favicon-48.png" width="48" height="48" alt="favicon 48">
+      <div class="size-label">48 × 48 · favicon-48.png</div>
+    </div>
+    <div class="size-item">
+      <img src="./assets/apple-touch-icon.png" width="96" height="96" alt="apple touch 180">
+      <div class="size-label">180 × 180 · apple-touch-icon.png</div>
+    </div>
+    <div class="size-item">
+      <img src="./assets/icon-192.png" width="96" height="96" alt="icon 192">
+      <div class="size-label">192 × 192 · icon-192.png</div>
+    </div>
+    <div class="size-item">
+      <img src="./assets/icon-512.png" width="96" height="96" alt="icon 512">
+      <div class="size-label">512 × 512 · icon-512.png</div>
+    </div>
+    <div class="size-item">
+      <img src="./assets/AppIcon-1024.png" width="96" height="96" alt="AppIcon 1024">
+      <div class="size-label">1024 × 1024 · AppIcon-1024.png</div>
+    </div>
+  </div>
+
+  <h3>Cómo se ve en contextos reales</h3>
+  <div class="icon-grid">
+    <div class="icon-card">
+      <div class="preview-area tab">
+        <img src="./assets/favicon-32.png" width="32" height="32" alt="favicon">
+        <span style="margin-left: 8px; font-size: 13px; color: #5C5C5C;">MilkBook — Gestión lechera</span>
+      </div>
+      <div class="icon-label">Pestaña del navegador</div>
+      <div class="icon-size">Favicon 32 px + título</div>
+    </div>
+    <div class="icon-card dark">
+      <div class="preview-area tab" style="background: #2F2A22;">
+        <img src="./assets/favicon-32.png" width="32" height="32" alt="favicon">
+        <span style="margin-left: 8px; font-size: 13px; color: #C7BFAE;">MilkBook — Gestión lechera</span>
+      </div>
+      <div class="icon-label">Pestaña dark mode</div>
+      <div class="icon-size">Fondo crema se mantiene</div>
+    </div>
+    <div class="icon-card">
+      <div class="preview-area small">
+        <img src="./assets/icon-192.png" width="48" height="48" alt="icon">
+      </div>
+      <div class="icon-label">Marcador / Bookmark</div>
+      <div class="icon-size">Mostrado a 48 px</div>
+    </div>
+    <div class="icon-card">
+      <div class="preview-area home">
+        <img src="./assets/icon-512.png" width="96" height="96" alt="home icon">
+      </div>
+      <div class="icon-label">Apple touch icon (home screen)</div>
+      <div class="icon-size">180 px (mostrado a 96 px)</div>
+    </div>
+  </div>
+
+  <h3>Test de reconocimiento: MilkBook vs otras apps</h3>
+  <p class="intro">Test crítico: ¿se reconoce MilkBook en una grid de apps mezcladas, en el celular de Carlos (Xiaomi con MIUI)? El isotipo botella+vaca es único en el ecosistema android.</p>
+  <div class="phone-mockup">
+    <div class="phone-screen">
+      <h4>Cajón de apps · Mi launcher</h4>
+      <div class="app-grid">
+        <div class="app-item"><div class="app-icon-mock other1">WA</div><div class="app-name">WhatsApp</div></div>
+        <div class="app-item"><img src="./assets/icon-192.png" width="56" height="56" style="border-radius: 12px;"><div class="app-name">MilkBook</div></div>
+        <div class="app-item"><div class="app-icon-mock other2">YT</div><div class="app-name">YouTube</div></div>
+        <div class="app-item"><div class="app-icon-mock other3">FB</div><div class="app-name">Facebook</div></div>
+        <div class="app-item"><div class="app-icon-mock other4">DS</div><div class="app-name">Discord</div></div>
+        <div class="app-item"><div class="app-icon-mock other5">GP</div><div class="app-name">Maps</div></div>
+        <div class="app-item"><div class="app-icon-mock other6">IG</div><div class="app-name">Instagram</div></div>
+        <div class="app-item"><div class="app-icon-mock other7">TW</div><div class="app-name">Twitter</div></div>
+        <div class="app-item"><div class="app-icon-mock other8">YP</div><div class="app-name">Yape</div></div>
+        <div class="app-item"><div class="app-icon-mock other9">PL</div><div class="app-name">Plin</div></div>
+        <div class="app-item"><div class="app-icon-mock other10">TT</div><div class="app-name">TikTok</div></div>
+        <div class="app-item"><div class="app-icon-mock other11">TL</div><div class="app-name">Telegram</div></div>
+      </div>
+    </div>
+  </div>
+
+  <p><strong>Observación:</strong> el isotipo MilkBook (botella azul cremosa + vaca azul con verde) contrasta bien con apps de iconos sólidos coloreados. El <strong>doble azul claro</strong> del isotipo (botella + cabeza de vaca) es distintivo — no hay otra app de gestión rural con esa combinación específica.</p>
+</section>
+
+<section>
+  <h2>3. App icon iOS (apple-touch-icon)</h2>
+  <p class="intro">Apple aplica máscara automática (squircle) al PNG. NO incluir esquinas redondeadas en el asset. Fondo siempre <code>#FFFDF7</code> (cream-50).</p>
+
+  <div class="icon-grid">
+    <div class="icon-card">
+      <div class="preview-area home">
+        <img src="./assets/apple-touch-icon.png" width="96" height="96" alt="apple touch icon">
+      </div>
+      <div class="icon-label">iPhone home · 180 px</div>
+      <div class="icon-size">iOS aplica squircle</div>
+    </div>
+    <div class="icon-card dark">
+      <div class="preview-area home" style="background: #1A1814;">
+        <img src="./assets/apple-touch-icon.png" width="96" height="96" alt="apple touch icon">
+      </div>
+      <div class="icon-label">Dark mode · fondo se mantiene</div>
+      <div class="icon-size">Icon NO cambia en dark</div>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Asset</th><th>Tamaño</th><th>Uso</th></tr></thead>
+    <tbody>
+      <tr><td><code>apple-touch-icon.png</code></td><td>180 × 180</td><td>iPhone home, PWA install iOS</td></tr>
+      <tr><td><code>AppIcon-1024.png</code></td><td>1024 × 1024</td><td>App Store marketing</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>4. App icon Android (adaptive + legacy)</h2>
+  <p class="intro">Android 8+ separa el icon en background (color) + foreground (isotipo centrado en safe zone). MilkBook provee <strong>icon-512-maskable.png</strong> con safe zone del 55% del lado (lo que garantiza visibilidad en todos los launchers).</p>
+
+  <div class="icon-grid">
+    <div class="icon-card">
+      <div class="preview-area home">
+        <img src="./assets/icon-192.png" width="96" height="96" alt="Android icon 192">
+      </div>
+      <div class="icon-label">Android legacy</div>
+      <div class="icon-size">192 × 192 · density xxxhdpi</div>
+    </div>
+    <div class="icon-card">
+      <div class="preview-area home">
+        <img src="./assets/icon-512-maskable.png" width="96" height="96" alt="Android maskable 512">
+      </div>
+      <div class="icon-label">Android adaptive (maskable)</div>
+      <div class="icon-size">512 × 512 · safe zone 55%</div>
+    </div>
+    <div class="icon-card">
+      <div class="preview-area notif">
+        <img src="./assets/ic_notification_24.png" width="24" height="24" alt="notification">
+      </div>
+      <div class="icon-label">Push notification (Android)</div>
+      <div class="icon-size">24 dp · silueta blanca</div>
+    </div>
+  </div>
+
+  <h3>Comparación: launcher Pixel vs MIUI vs Samsung</h3>
+  <div class="variants">
+    <div class="variant-card">
+      <div class="variant-title">📱 Pixel Launcher</div>
+      <div class="variant-meta">Círculo perfecto</div>
+      <div style="width: 96px; height: 96px; border-radius: 50%; overflow: hidden; margin: 0 auto;">
+        <img src="./assets/icon-512.png" width="96" height="96" alt="Pixel">
+      </div>
+    </div>
+    <div class="variant-card">
+      <div class="variant-title">📱 Xiaomi MIUI</div>
+      <div class="variant-meta">Squircle (similar a iOS)</div>
+      <img src="./assets/icon-192.png" width="96" height="96" alt="MIUI" style="border-radius: 22px;">
+    </div>
+    <div class="variant-card">
+      <div class="variant-title">📱 Samsung One UI</div>
+      <div class="variant-meta">Cuadrado con esquinas suaves</div>
+      <img src="./assets/icon-192.png" width="96" height="96" alt="Samsung" style="border-radius: 16px;">
+    </div>
+  </div>
+
+  <div class="decision">
+    <strong>📌 Adaptive icon MilkBook</strong>
+    <p>Background: <code>#FFFDF7</code> (cream-50). Foreground: isotipo centrado en safe zone (55%). El icon respeta el safe zone para verse bien en TODOS los launchers (Pixel, MIUI, One UI, EMUI).</p>
+  </div>
+</section>
+
+<section>
+  <h2>5. PWA splash screen (con wordmark)</h2>
+  <p class="intro">Cuando un usuario "instala" la PWA en iOS/Android, ve un splash mientras la app carga. Aquí <strong>sí incluimos el wordmark "MilkBook"</strong> (es un momento branding de alto impacto).</p>
+
+  <div class="splash-mockup">
+    <img src="./assets/pwa-splash-512.png" alt="Splash">
+    <div class="loading">Cargando...</div>
+  </div>
+
+  <p><strong>Nota:</strong> el splash usa <code>pwa-splash-512.png</code>, que es el logo completo (isotipo + wordmark "MilkBook"). Solo en este momento aparece el wordmark completo dentro de la experiencia app.</p>
+</section>
+
+<section>
+  <h2>6. Variante dark vs light</h2>
+  <p class="intro">Decisión MilkBook: <strong>el app icon NO cambia entre light y dark</strong>. Siempre fondo crema <code>#FFFDF7</code>.</p>
+
+  <div class="variants">
+    <div class="variant-card selected">
+      <span class="check">✓</span>
+      <div class="variant-title">☀️ Light mode · siempre cream</div>
+      <img src="./assets/icon-512.png" width="120" height="120" alt="light">
+      <p class="icon-size">Default en TODOS los contextos</p>
+    </div>
+    <div class="variant-card">
+      <div class="variant-title">🌙 Dark variant · NO SE USA</div>
+      <div style="width: 120px; height: 120px; background: #1A1814; border-radius: 12px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+        <img src="./assets/icon-512.png" width="96" height="96" alt="dark preview">
+      </div>
+      <p class="icon-size">El icon se ve igual sobre fondo oscuro del launcher</p>
+    </div>
+  </div>
+
+  <p><strong>Por qué no invertir:</strong> el fondo crema evoca la leche, la identidad láctea. Si fuera negro, se vería como cualquier app genérica. Cuando Carlos abre su cajón de apps y ve MilkBook, debe reconocer <em>"ahí está la app de mi leche"</em>, no <em>"ahí está otra app oscura más"</em>.</p>
+</section>
+
+<section>
+  <h2>7. Microsoft tile (Windows)</h2>
+  <p class="intro">Microsoft tile icon para cuando MilkBook se "ancla" al menú inicio de Windows. Se proveen variantes cuadradas y wide.</p>
+
+  <div class="icon-grid">
+    <div class="icon-card">
+      <div class="preview-area tile"><img src="./assets/mstile-70x70.png" width="70" height="70" alt="mstile 70"></div>
+      <div class="icon-label">Tile pequeño</div>
+      <div class="icon-size">70 × 70</div>
+    </div>
+    <div class="icon-card">
+      <div class="preview-area tile"><img src="./assets/mstile-150x150.png" width="96" height="96" alt="mstile 150"></div>
+      <div class="icon-label">Tile medio</div>
+      <div class="icon-size">150 × 150</div>
+    </div>
+    <div class="icon-card">
+      <div class="preview-area tile"><img src="./assets/mstile-310x310.png" width="96" height="96" alt="mstile 310"></div>
+      <div class="icon-label">Tile grande</div>
+      <div class="icon-size">310 × 310</div>
+    </div>
+    <div class="icon-card">
+      <div class="preview-area tile-wide"><img src="./assets/mstile-310x150.png" width="124" height="60" alt="mstile wide"></div>
+      <div class="icon-label">Tile ancho</div>
+      <div class="icon-size">310 × 150</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>8. Inventario completo de assets</h2>
+  <p class="intro">Todos los archivos PNG generados a partir del logo oficial. Carpeta <code>assets/</code>:</p>
+  <table>
+    <thead><tr><th>Archivo</th><th>Tamaño</th><th>Uso</th></tr></thead>
+    <tbody>
+      <tr><td><code>milkbook-logo-source.png</code></td><td>637 × 637</td><td>Fuente · logo oficial completo</td></tr>
+      <tr><td><code>isotype-source.png</code></td><td>386 × 312</td><td>Fuente · isotipo sin wordmark</td></tr>
+      <tr><td><code>favicon-16.png</code></td><td>16 × 16</td><td>Pestaña del navegador legacy</td></tr>
+      <tr><td><code>favicon-32.png</code></td><td>32 × 32</td><td>Pestaña del navegador moderno</td></tr>
+      <tr><td><code>favicon-48.png</code></td><td>48 × 48</td><td>Windows tile pequeño</td></tr>
+      <tr><td><code>apple-touch-icon.png</code></td><td>180 × 180</td><td>iOS home screen, PWA iOS</td></tr>
+      <tr><td><code>icon-192.png</code></td><td>192 × 192</td><td>Android Chrome, PWA</td></tr>
+      <tr><td><code>icon-512.png</code></td><td>512 × 512</td><td>PWA splash, Android store</td></tr>
+      <tr><td><code>icon-512-maskable.png</code></td><td>512 × 512</td><td>Android adaptive (safe zone 55%)</td></tr>
+      <tr><td><code>AppIcon-1024.png</code></td><td>1024 × 1024</td><td>App Store marketing</td></tr>
+      <tr><td><code>pwa-splash-512.png</code></td><td>512 × 512</td><td>PWA splash con wordmark</td></tr>
+      <tr><td><code>mstile-70x70.png</code></td><td>70 × 70</td><td>Microsoft tile pequeño</td></tr>
+      <tr><td><code>mstile-150x150.png</code></td><td>150 × 150</td><td>Microsoft tile medio</td></tr>
+      <tr><td><code>mstile-310x310.png</code></td><td>310 × 310</td><td>Microsoft tile grande</td></tr>
+      <tr><td><code>mstile-310x150.png</code></td><td>310 × 150</td><td>Microsoft tile ancho</td></tr>
+      <tr><td><code>ic_notification_24.png</code></td><td>24 × 24</td><td>Android push notification (silueta blanca)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>9. Reglas duras</h2>
+  <div class="rule-box do">
+    <h4>✅ Lo que SIEMPRE</h4>
+    <ul>
+      <li>Usar el isotipo del logo oficial como fuente — <code>../1-logo/logo_milkbook.png</code></li>
+      <li>Fondo siempre <code>#FFFDF7</code> (cream-50) en todos los iconos</li>
+      <li>Usar el isotipo del logo oficial (no el wordmark) para favicon y app icon</li>
+      <li>Padding interno del 10% — el isotipo nunca toca el borde</li>
+      <li>Maskable icon con safe zone del 55% del lado (Android 8+)</li>
+      <li>PNG sin transparencias para iOS</li>
+      <li>Wordmark SOLO en PWA splash, NUNCA en el app icon</li>
+      <li>Notificación Android 24dp blanco sobre transparente</li>
+    </ul>
+  </div>
+  <div class="rule-box dont">
+    <h4>❌ Lo que NUNCA</h4>
+    <ul>
+      <li>NUNCA usar el logo oficial (<code>logo_milkbook.png</code>) — está descartado</li>
+      <li>NUNCA el logo completo (con wordmark) en el app icon — no se lee a 16 px</li>
+      <li>NUNCA fondo negro en el app icon — rompe la identidad láctea</li>
+      <li>NUNCA el isotipo tocando el borde del icono (sin padding)</li>
+      <li>NUNCA cambiar el icon entre light y dark — siempre crema</li>
+      <li>NUNCA ícono cuadrado perfecto en iOS — Apple aplica máscara</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>📋 Resumen: decisión final</h2>
+  <div class="decision">
+    <strong>🥛 MilkBook app icon · la versión final</strong>
+    <p>
+      <strong>Fuente:</strong> logo oficial (<code>logo_milkbook.png</code>) · isotipo recortado · 15 tamaños generados automáticamente.<br>
+      <strong>Fondo:</strong> <code>#FFFDF7</code> (cream-50) · siempre, en light y dark.<br>
+      <strong>Isotipo:</strong> centrado, ocupa 80% del lado (padding 10%).<br>
+      <strong>Wordmark:</strong> solo en PWA splash, nunca en icon.<br>
+      <strong>Notificación:</strong> silueta blanca sobre transparente (24 dp).<br>
+      <strong>Variante dark:</strong> no se usa en ningún contexto.
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>📱 Identidad visual de MilkBook · Sección 9 de 9 (favicon y app icon) · Generado desde <code>../1-logo/logo_milkbook.png</code></p>
+  <p>Ver <a href="./README.md">README.md</a> para especificación técnica y <a href="./assets/">assets/</a> para descargar los PNG</p>
+</footer>
+
+<script>
+function setTheme(theme) {
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.body.style.background = '#1A1814';
+    document.body.style.color = '#FAF8F3';
+    document.getElementById('btn-dark').classList.add('active');
+    document.getElementById('btn-light').classList.remove('active');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.body.style.background = '';
+    document.body.style.color = '';
+    document.getElementById('btn-light').classList.add('active');
+    document.getElementById('btn-dark').classList.remove('active');
+  }
+}
+</script>
+</body>
+</html>

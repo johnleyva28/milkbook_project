@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Arquetipo de marca — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-300: #EBE3CC;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --text: #1A1F1A; --text-soft: #5C5C5C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--green-100), var(--blue-100)); padding: 48px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 36px; margin: 0 0 8px; }
+.arquetivo-root { font-family: var(--font-display); font-size: 60px; margin: 24px 0; }
+.arquetivo-name { font-family: var(--font-display); font-size: 32px; color: var(--green-700); margin: 8px 0; }
+.arquetivo-en { font-size: 14px; color: var(--text-soft); letter-spacing: 1px; }
+header p { color: var(--text-soft); font-size: 16px; max-width: 720px; margin: 16px auto 0; }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--green-500); display: inline-block; }
+
+.archetype-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; margin: 24px 0; }
+.archetype-cell { background: white; border-radius: 8px; padding: 12px; text-align: center; font-size: 12px; border: 2px solid var(--cream-300); }
+.archetype-cell.us { background: var(--green-100); border-color: var(--green-500); font-weight: 700; color: var(--green-700); transform: scale(1.05); }
+.archetype-cell .emoji { font-size: 28px; display: block; margin-bottom: 4px; }
+
+.manifesto { background: linear-gradient(135deg, var(--green-100), var(--blue-100)); border-radius: 16px; padding: 32px; margin: 24px 0; }
+.manifesto-row { display: grid; grid-template-columns: 200px 1fr; gap: 16px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+.manifesto-row strong { color: var(--green-700); }
+
+.brand-refs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 20px 0; }
+.brand-ref { background: white; border-radius: 8px; padding: 16px; border-left: 4px solid var(--green-500); }
+.brand-ref strong { display: block; margin-bottom: 4px; }
+
+.cuidador-actions { background: white; border-radius: 12px; padding: 20px; margin: 16px 0; }
+.cuidador-actions h3 { margin-top: 0; }
+.cuidador-actions table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+.cuidador-actions td { padding: 8px; border-bottom: 1px solid var(--cream-300); font-size: 14px; }
+.cuidador-actions td.do { color: var(--green-700); font-weight: 600; }
+.cuidador-actions td.dont { color: #B3261E; }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="arquetivo-root">🌿</div>
+  <div class="arquetivo-en">EL CUIDADOR · THE CAREGIVER</div>
+  <h1>Arquetipo de marca — MilkBook</h1>
+  <p>Si MilkBook fuera un personaje mitológico: el que protege, cuida, nutre y vela por el bienestar del otro.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. Los 12 arquetipos — dónde está MilkBook</h2>
+  <p>De los 12 arquetipos clásicos de Carl Jung / Margaret Mark / Carol Pearson, MilkBook es <strong>El Cuidador</strong>.</p>
+
+  <div class="archetype-grid">
+    <div class="archetype-cell"><span class="emoji">🦸</span>Héroe</div>
+    <div class="archetype-cell"><span class="emoji">🌟</span>Mago</div>
+    <div class="archetype-cell"><span class="emoji">👑</span>Gobernante</div>
+    <div class="archetype-cell us"><span class="emoji">🌿</span><strong>Cuidador</strong></div>
+    <div class="archetype-cell"><span class="emoji">🎭</span>Persona Común</div>
+    <div class="archetype-cell"><span class="emoji">😂</span>Bufón</div>
+    <div class="archetype-cell"><span class="emoji">💕</span>Amante</div>
+    <div class="archetype-cell"><span class="emoji">🚀</span>Explorador</div>
+    <div class="archetype-cell"><span class="emoji">⚔️</span>Forajido</div>
+    <div class="archetype-cell"><span class="emoji">✨</span>Inocente</div>
+    <div class="archetype-cell"><span class="emoji">🎨</span>Creador</div>
+    <div class="archetype-cell"><span class="emoji">🧠</span>Sabio</div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Por qué El Cuidador</h2>
+
+  <div class="manifesto">
+    <div class="manifesto-row">
+      <strong>Nutre y protege</strong>
+      <div>MilkBook protege a Juan de perder plata por errores de registro.</div>
+    </div>
+    <div class="manifesto-row">
+      <strong>Vela por el bienestar</strong>
+      <div>MilkBook existe para que el productor no sufra por falta de herramientas.</div>
+    </div>
+    <div class="manifesto-row">
+      <strong>Es empático y servicial</strong>
+      <div>El equipo escucha antes de proponer. Construye con, no para.</div>
+    </div>
+    <div class="manifesto-row">
+      <strong>Genera confianza</strong>
+      <div>Juan confía en MilkBook porque sabe que su plata está segura.</div>
+    </div>
+    <div class="manifesto-row">
+      <strong>Trabaja en silencio</strong>
+      <div>No es disruptivo. Es constante. Es infraestructura.</div>
+    </div>
+    <div class="manifesto-row">
+      <strong>Tiene valores firmes</strong>
+      <div>Respeto, honestidad, humildad rural.</div>
+    </div>
+    <div class="manifesto-row">
+      <strong>Se enfoca en el largo plazo</strong>
+      <div>"Construimos para 5 años, no para 5 sprints".</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. Marcas Cuidador (referencia cultural)</h2>
+  <p>Marcas reales que también son Cuidador. Nos ayudan a entender el arquetipo en acción:</p>
+
+  <div class="brand-refs">
+    <div class="brand-ref"><strong>🧴 Johnson & Johnson</strong>"Cuidamos de tu familia". Farmacéutica.</div>
+    <div class="brand-ref"><strong>👟 TOMS</strong>"Por cada par, donamos uno".</div>
+    <div class="brand-ref"><strong>🏔️ Patagonia</strong>"Estamos en el negocio para salvar el planeta".</div>
+    <div class="brand-ref"><strong>🪞 Dove</strong>"Belleza real para todas".</div>
+    <div class="brand-ref"><strong>👶 UNICEF</strong>"Por cada niño".</div>
+    <div class="brand-ref"><strong>➕ Cruz Roja</strong>"Alivio en la catastrophe".</div>
+    <div class="brand-ref"><strong>📱 M-Pesa</strong>"Dinero para todos, sin importar dónde estés".</div>
+  </div>
+
+  <p style="background: var(--cream-100); padding: 12px; border-radius: 8px; font-size: 13px; margin-top: 12px;">
+    <strong>Diferencia MilkBook:</strong> el Cuidador MilkBook es más concreto y operativo. No promete "salvar el planeta"; promete que un productor no pierda 1 litro.
+  </p>
+</section>
+
+<section>
+  <h2>4. Cuidador en momentos difíciles</h2>
+
+  <div class="cuidador-actions">
+    <h3>Escenario: Hay un bug crítico que afecta a 50 productores</h3>
+    <table>
+      <tr><td class="do">✅ Comunica inmediatamente</td><td>❌ Esconderse detrás de comunicado legal</td></tr>
+      <tr><td class="do">✅ Pide disculpas personalmente</td><td>❌ Comunicado impersonal genérico</td></tr>
+      <tr><td class="do">✅ Compensa a cada uno</td><td>❌ Esperar a que el usuario se dé cuenta</td></tr>
+      <tr><td class="do">✅ Comunica públicamente qué pasó</td><td>❌ Negar el problema</td></tr>
+      <tr><td class="do">✅ Audita el sistema</td><td>❌ Solo arreglar y olvidar</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>5. Cuidador en momentos del journey</h2>
+
+  <div class="cuidador-actions">
+    <table>
+      <tr><th>Momento</th><th>Cómo se manifiesta el Cuidador</th></tr>
+      <tr><td><strong>Awareness</strong></td><td>"Sabemos lo que estás viviendo. Te escuchamos."</td></tr>
+      <tr><td><strong>Consideración</strong></td><td>"No tienes que confiar ciegamente. Prueba, y si no funciona, te devolvemos el tiempo."</td></tr>
+      <tr><td><strong>Activación</strong></td><td>"Aquí te guiamos paso a paso. Si te atascas, te ayudamos."</td></tr>
+      <tr><td><strong>Retención</strong></td><td>"Llevas X días sin perder un litro. Sigue así."</td></tr>
+      <tr><td><strong>Conflicto</strong></td><td>"Tienes razón en estar molesto. Vamos a resolverlo ya."</td></tr>
+      <tr><td><strong>Churn</strong></td><td>"Lamento que te vayas. ¿Qué podemos aprender?"</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>6. Lo que el Cuidador NO hace</h2>
+
+  <div class="cuidador-actions">
+    <table>
+      <tr><td class="dont">❌ Ser paternalista</td><td>"Mire, don Juan, usted que no sabe..."</td></tr>
+      <tr><td class="dont">❌ Asumir que el usuario es débil</td><td>Juan es fuerte, solo necesita herramientas.</td></tr>
+      <tr><td class="dont">❌ Hacer todo por el usuario</td><td>Construimos CON, no PARA.</td></tr>
+      <tr><td class="dont">❌ Ser condescendiente</td><td>"Tenga paciencia, esto es complicado"</td></tr>
+      <tr><td class="dont">❌ Victimizar al productor</td><td>"Pobre Juan, no tiene nada" — Juan tiene 5 vacas.</td></tr>
+      <tr><td class="dont">❌ Ser NGO</td><td>MilkBook es empresa con propósito, no ONG.</td></tr>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>🌿 Identidad estratégica · Sección 5 de 7 (arquetipo de marca)</p>
+  <p>Ver <a href="./README.md">README.md</a> para análisis completo de los 12 arquetipos y cuándo activar el Sabio/Mago como secundarios</p>
+</footer>
+
+</body>
+</html>

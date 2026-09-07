@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Propuesta de valor — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-300: #EBE3CC;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --text: #1A1F1A; --text-soft: #5C5C5C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-data: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; padding: 0; line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--blue-100), var(--green-100)); padding: 48px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 32px; margin: 0 0 12px; }
+header .vp-root { font-family: var(--font-display); font-size: 26px; color: var(--text); max-width: 760px; margin: 24px auto 0; line-height: 1.3; font-style: italic; }
+header p { color: var(--text-soft); font-size: 16px; max-width: 720px; margin: 12px auto 0; }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--blue-500); display: inline-block; }
+h3 { font-size: 18px; margin: 24px 0 12px; }
+
+/* VP por audiencia */
+.audiencias { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.audiencia { background: white; border-radius: 16px; padding: 24px; border-top: 4px solid; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.aud-carlos { border-color: var(--blue-500); }
+.aud-juan { border-color: var(--green-500); }
+.aud-banco { border-color: var(--blue-700); }
+.aud-coop { border-color: var(--green-700); }
+.aud-inv { border-color: var(--text-soft); }
+.aud-name { font-weight: 700; font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.aud-vp-principal { background: var(--cream-100); border-radius: 8px; padding: 12px; font-style: italic; font-size: 14px; margin-bottom: 12px; }
+.aud-vp-secundaria { font-size: 13px; color: var(--text-soft); margin-bottom: 12px; }
+.aud-beneficios { font-size: 13px; }
+.aud-beneficios li { margin: 4px 0; padding-left: 16px; position: relative; }
+.aud-beneficios li::before { content: '✓'; color: var(--green-500); position: absolute; left: 0; font-weight: 700; }
+
+/* Canvas */
+.canvas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+.canvas-card { background: var(--cream-100); border-radius: 12px; padding: 20px; }
+.canvas-card h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 12px; color: var(--green-700); }
+.canvas-card .canvas-block { background: white; border-radius: 6px; padding: 10px; margin: 6px 0; font-size: 13px; border-left: 3px solid var(--blue-500); }
+
+/* UVP statement */
+.uvp-statement { background: #1A1F1A; color: #FAF8F3; border-radius: 16px; padding: 32px; margin: 24px 0; font-size: 17px; line-height: 1.6; }
+.uvp-statement em { color: var(--green-300); font-style: normal; font-weight: 700; }
+
+/* Mockup: beneficios en pantallas reales */
+.phone-mockup { width: 320px; background: #1A1F1A; border-radius: 36px; padding: 12px; margin: 24px auto; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.phone-screen { background: var(--cream-50); border-radius: 28px; padding: 16px; min-height: 420px; }
+.benefit-callout { background: var(--green-100); border-radius: 12px; padding: 12px; margin-bottom: 12px; text-align: center; }
+.benefit-number { font-family: var(--font-data); font-size: 32px; font-weight: 700; color: var(--green-700); }
+.benefit-label { font-size: 12px; color: var(--green-700); }
+
+table { width: 100%; border-collapse: collapse; margin: 16px 0; background: var(--cream-100); border-radius: 12px; overflow: hidden; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--cream-300); font-size: 13px; }
+th { background: var(--cream-200); font-weight: 700; }
+.val-good { color: var(--green-700); font-weight: 700; }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>💎 Propuesta de valor — MilkBook</h1>
+  <div class="vp-root">"Registramos cada litro de leche entre el lechero y el productor para que ninguno pierda plata por errores de registro."</div>
+  <p>El valor concreto que MilkBook entrega a cada persona — y por qué ese valor importa.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. La propuesta de valor raíz</h2>
+  <p>De esta frase se derivan todas las demás propuestas específicas para cada audiencia. Es la traducción concreta del propósito en beneficios medibles.</p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+    <div>
+      <h3>Pantalla de cierre (mockup)</h3>
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div style="font-size: 11px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px;">Beneficio medible</div>
+          <div class="benefit-callout">
+            <div class="benefit-number">10 min</div>
+            <div class="benefit-label">vs. 30 min antes de MilkBook</div>
+          </div>
+          <div class="benefit-callout">
+            <div class="benefit-number">90%</div>
+            <div class="benefit-label">de cierres sin discusión</div>
+          </div>
+          <div class="benefit-callout">
+            <div class="benefit-number">100%</div>
+            <div class="benefit-label">de contratos con boleta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3>Landing con propuesta</h3>
+      <div style="background: linear-gradient(135deg, var(--blue-100), var(--green-100)); border-radius: 12px; padding: 24px;">
+        <h3 style="font-family: var(--font-display); font-size: 26px; margin: 0 0 12px;">Tu leche, en orden.</h3>
+        <p style="font-size: 14px; margin: 0 0 16px;">Registramos cada litro entre el lechero y el productor. Saque las cuentas en 10 min, no en 30. Con boleta formal.</p>
+        <a style="display: inline-block; background: var(--green-500); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 700;">Empezar gratis</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Propuesta de valor por audiencia</h2>
+
+  <div class="audiencias">
+    <div class="audiencia aud-carlos">
+      <div class="aud-name">🛵 Carlos (lechero)</div>
+      <div class="aud-vp-principal">"Saqué las cuentas en 10 minutos, no en 30. Y sin peleas con los clientes por los litros."</div>
+      <div class="aud-vp-secundaria">Tu cuaderno, pero digital. Cálculo automático. Boleta en un toque.</div>
+      <ul class="aud-beneficios">
+        <li>Ahorro 10-12 horas por quincena</li>
+        <li>90% de discrepancias resueltas en 30 seg</li>
+        <li>Boletas históricas para el banco</li>
+        <li>Cero errores aritméticos</li>
+      </ul>
+    </div>
+
+    <div class="audiencia aud-juan">
+      <div class="aud-name">👨‍🌾 Juan (productor)</div>
+      <div class="aud-vp-principal">"Tu leche, registrada. Tu pago, claro. Sin sorpresas al cierre de quincena."</div>
+      <div class="aud-vp-secundaria">Confirmas cada entrega. Ves el cierre antes de firmar. Boleta descargable.</div>
+      <ul class="aud-beneficios">
+        <li>Respaldo de cada venta</li>
+        <li>Cero plata perdida por errores</li>
+        <li>Boleta formal (banco, SUNAT)</li>
+        <li>Acceso a microcrédito futuro</li>
+      </ul>
+    </div>
+
+    <div class="audiencia aud-banco">
+      <div class="aud-name">🏦 Bancos rurales</div>
+      <div class="aud-vp-principal">"Datos verificables de cada productor lechero andino. Crédito rural con menos riesgo."</div>
+      <ul class="aud-beneficios">
+        <li>Reducción de riesgo</li>
+        <li>Menor costo de originación</li>
+        <li>Acceso a 50K productores</li>
+        <li>API REST documentada</li>
+      </ul>
+    </div>
+
+    <div class="audiencia aud-coop">
+      <div class="aud-name">🏛️ Cooperativas</div>
+      <div class="aud-vp-principal">"Visibilidad real de tu membresía. Tus socios digitalizados sin perder identidad."</div>
+      <ul class="aud-beneficios">
+        <li>Datos agregados de socios</li>
+        <li>Fidelización de socios</li>
+        <li>Trazabilidad para exportación</li>
+        <li>Socio no pierde su identidad</li>
+      </ul>
+    </div>
+
+    <div class="audiencia aud-inv">
+      <div class="aud-name">💼 Inversionistas</div>
+      <div class="aud-vp-principal">"Construimos la infraestructura digital del crédito rural andino. La leche es nuestro wedge."</div>
+      <ul class="aud-beneficios">
+        <li>Mercado USD 1,500M/año en Perú</li>
+        <li>Wedge: leche → crédito → seguros → exportación</li>
+        <li>Tracción validada (200 lecheros)</li>
+        <li>Equipo con conocimiento del dominio</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. Value Proposition Canvas — Carlos</h2>
+  <div class="canvas">
+    <div class="canvas-card">
+      <h3>👤 Perfil del cliente</h3>
+      <div class="canvas-block"><strong>Trabajos:</strong> Registrar litros sin retrasar la ruta. Cerrar contratos sin pelear. Resolver discrepancias.</div>
+      <div class="canvas-block"><strong>Dolores:</strong> Discrepancias con clientes. Errores aritméticos. Olvido de adelantos. Sin historial.</div>
+      <div class="canvas-block"><strong>Alegrías:</strong> Tener 50 clientes organizados. Cobrar sin discusiones. Que su banco le preste.</div>
+    </div>
+    <div class="canvas-card">
+      <h3>🛠️ Mapa de valor</h3>
+      <div class="canvas-block"><strong>Productos:</strong> App móvil del lechero. Cálculo automático. Cierre con firma digital. Boletas PDF.</div>
+      <div class="canvas-block"><strong>Aliviadores:</strong> Confirmación inmediata. Cálculo automático. Cero errores. Cero discusiones.</div>
+      <div class="canvas-block"><strong>Creadores:</strong> Histórico ordenado. Reportes automáticos. Boleta con RUC. Respaldo SUNAT.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4. UVP statement (Geoffrey Moore)</h2>
+
+  <div class="uvp-statement">
+    <strong style="color: var(--green-300);">PARA</strong> el lechero de 20-50 clientes que carga moto y libreta,<br>
+    <strong style="color: var(--green-300);">QUE</strong> pierde plata por discrepancias y dedica 20h por quincena al cierre,<br>
+    <em>MilkBook</em> <strong style="color: var(--green-300);">ES</strong> la herramienta de registro y cierre<br>
+    <strong style="color: var(--green-300);">QUE</strong> calcula la liquidación automáticamente y resuelve discrepancias en 30 segundos,<br>
+    <strong style="color: var(--green-300);">A DIFERENCIA DE</strong> el cuaderno físico,<br>
+    <strong style="color: var(--green-300);">QUE</strong> se pierde y no genera boletas.
+  </div>
+</section>
+
+<section>
+  <h2>5. Beneficios cuantificados</h2>
+  <table>
+    <thead><tr><th>Beneficio</th><th>Para quién</th><th>Métrica MilkBook</th><th>Antes (cuaderno)</th></tr></thead>
+    <tbody>
+      <tr><td>Tiempo de sacado de cuentas</td><td>Carlos</td><td class="val-good">8h/quincena</td><td>20h/quincena</td></tr>
+      <tr><td>Discrepancias resueltas sin discusión</td><td>Ambos</td><td class="val-good">90%</td><td>30-50%</td></tr>
+      <tr><td>Errores aritméticos</td><td>Carlos</td><td class="val-good">0%</td><td>5-10% por cierre</td></tr>
+      <tr><td>Litros perdidos por mala anotación</td><td>Juan</td><td class="val-good">&lt;1%</td><td>3-5% por mes</td></tr>
+      <tr><td>Boletas formales emitidas</td><td>Ambos</td><td class="val-good">100%</td><td>0%</td></tr>
+      <tr><td>Tiempo para confirmar un registro</td><td>Juan</td><td class="val-good">1 toque</td><td>Memoria + palabra</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+
+<footer>
+  <p>💎 Identidad estratégica · Sección 2 de 7 (propuesta de valor)</p>
+  <p>Ver <a href="./README.md">README.md</a> para Value Proposition Canvas completo y UVP por audiencia</p>
+</footer>
+
+</body>
+</html>

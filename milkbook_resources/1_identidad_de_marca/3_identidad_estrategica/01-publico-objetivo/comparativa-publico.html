@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Público objetivo — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-300: #EBE3CC;
+  --green-700: #184318; --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC;
+  --blue-700: #003965; --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA;
+  --text: #1A1F1A; --text-soft: #5C5C5C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-data: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; padding: 0; line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--green-100), var(--cream-100)); padding: 48px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 36px; margin: 0 0 8px; }
+header p { color: var(--text-soft); font-size: 16px; max-width: 720px; margin: 0 auto; }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--green-500); display: inline-block; }
+h3 { font-size: 18px; margin: 24px 0 12px; }
+
+/* Personas */
+.personas { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
+.persona-card { background: white; border-radius: 16px; padding: 24px; border-top: 6px solid; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.persona-carlos { border-color: var(--blue-500); }
+.persona-juan { border-color: var(--green-500); }
+.persona-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.persona-avatar { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 700; }
+.persona-carlos .persona-avatar { background: linear-gradient(135deg, var(--blue-100), var(--blue-300)); color: var(--blue-700); }
+.persona-juan .persona-avatar { background: linear-gradient(135deg, var(--green-100), var(--green-300)); color: var(--green-700); }
+.persona-name { font-family: var(--font-display); font-size: 24px; margin: 0; }
+.persona-role { font-size: 12px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; }
+.persona-detail { font-size: 13px; margin: 4px 0; }
+.persona-detail strong { color: var(--text); }
+.persona-jtbd { background: var(--cream-100); border-radius: 8px; padding: 12px; margin-top: 12px; font-size: 12px; font-style: italic; color: var(--text-soft); }
+
+table { width: 100%; border-collapse: collapse; margin: 16px 0; background: var(--cream-100); border-radius: 12px; overflow: hidden; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--cream-300); font-size: 13px; }
+th { background: var(--cream-200); font-weight: 700; }
+
+.anti { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 20px 0; }
+.anti-card { background: #FCE8E6; border-radius: 12px; padding: 16px; border-left: 4px solid var(--error, #B3261E); }
+.anti-card .anti-name { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.anti-card .anti-why { font-size: 12px; color: var(--text-soft); }
+
+.criterios { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 20px 0; }
+.criterio { background: white; border-radius: 12px; padding: 16px; border-left: 4px solid var(--green-500); }
+.criterio-q { font-weight: 700; margin-bottom: 6px; font-size: 14px; }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>👥 Público objetivo — MilkBook</h1>
+  <p>Las dos personas específicas para las que existe MilkBook. Carlos (lechero, 38) y Juan (productor, 52). Más los públicos secundarios B2B.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. Las 2 personas primarias</h2>
+  <p>MilkBook NO es para "todos los del agro". Es para dos personas específicas con perfiles muy definidos.</p>
+
+  <div class="personas">
+    <div class="persona-card persona-carlos">
+      <div class="persona-header">
+        <div class="persona-avatar">C</div>
+        <div>
+          <h3 class="persona-name">Carlos</h3>
+          <div class="persona-role">El Lechero · Comprador</div>
+        </div>
+      </div>
+      <div class="persona-detail"><strong>Edad:</strong> 38 años</div>
+      <div class="persona-detail"><strong>Ubicación:</strong> Distrito rural de Cajamarca</div>
+      <div class="persona-detail"><strong>Educación:</strong> Secundaria completa</div>
+      <div class="persona-detail"><strong>Dispositivo:</strong> Xiaomi Redmi, Android 11+</div>
+      <div class="persona-detail"><strong>Cartera:</strong> 20-50 clientes activos</div>
+      <div class="persona-detail"><strong>Ruta:</strong> 8-15 clientes/día en moto</div>
+      <div class="persona-detail"><strong>Herramienta actual:</strong> Cuaderno físico + WhatsApp + Yape</div>
+      <div class="persona-jtbd">
+        <strong>JTBD principal (L3):</strong> "Cuando llega el cierre de quincena, quiero ver TODO en una sola pantalla y cerrar el contrato en 5 minutos en lugar de 20-40."
+      </div>
+    </div>
+
+    <div class="persona-card persona-juan">
+      <div class="persona-header">
+        <div class="persona-avatar">J</div>
+        <div>
+          <h3 class="persona-name">Juan</h3>
+          <div class="persona-role">El Productor · Vendedor</div>
+        </div>
+      </div>
+      <div class="persona-detail"><strong>Edad:</strong> 52 años</div>
+      <div class="persona-detail"><strong>Ubicación:</strong> Caserío rural a 20-40 km</div>
+      <div class="persona-detail"><strong>Educación:</strong> Primaria completa</div>
+      <div class="persona-detail"><strong>Dispositivo:</strong> Xiaomi Redmi 9A, gama baja</div>
+      <div class="persona-detail"><strong>Hato:</strong> 3-8 vacas (5-60 L/día)</div>
+      <div class="persona-detail"><strong>Ingreso:</strong> S/ 800-1,500/mes</div>
+      <div class="persona-detail"><strong>Herramienta actual:</strong> Libreta de mano + memoria</div>
+      <div class="persona-jtbd">
+        <strong>JTBD principal (C2):</strong> "Cuando Carlos me paga la liquidación, quiero ver el detalle completo, firmar con mi PIN, y tener un comprobante."
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. JTBDs documentados</h2>
+  <table>
+    <thead><tr><th>Persona</th><th>ID</th><th>JTBD</th><th>Criticidad</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="7"><strong>Carlos (lechero)</strong></td><td>L1</td><td>Registrar litros en menos de 30 seg sin tipear más</td><td>Crítico</td></tr>
+      <tr><td>L2</td><td>Registrar adelanto con confirmación inmediata</td><td>Crítico</td></tr>
+      <tr><td>L3</td><td>Cerrar contrato con TODO en una pantalla, en 5 min</td><td>Crítico</td></tr>
+      <tr><td>L4</td><td>Registrar encargo de ciudad con descripción y precio</td><td>Alto</td></tr>
+      <tr><td>L5</td><td>Resolver discrepancia editando ambos valores, sin pelear</td><td>Alto</td></tr>
+      <tr><td>L6</td><td>Ver gráficos de litros, ingresos, adelantos del mes</td><td>Medio</td></tr>
+      <tr><td>L7</td><td>Actualizar precio para nuevos contratos</td><td>Medio</td></tr>
+      <tr><td rowspan="7"><strong>Juan (productor)</strong></td><td>C1</td><td>Ver confirmación de litros que Carlos registró</td><td>Crítico</td></tr>
+      <tr><td>C2</td><td>Ver liquidación completa, firmar con PIN, tener boleta</td><td>Crítico</td></tr>
+      <tr><td>C3</td><td>Ver registro inmediato cuando le dan adelanto</td><td>Crítico</td></tr>
+      <tr><td>C4</td><td>Saber cuánto le queda disponible para pedir adelanto</td><td>Alto</td></tr>
+      <tr><td>C5</td><td>Ver qué es el encargo, cuánto costó, confirmar recepción</td><td>Alto</td></tr>
+      <tr><td>C6</td><td>Enterarse por push del cambio de precio</td><td>Medio</td></tr>
+      <tr><td>C7</td><td>Marcar "no vendí" en un toque</td><td>Medio</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>3. Anti-personas</h2>
+  <p>MilkBook NO está diseñado para:</p>
+  <div class="anti">
+    <div class="anti-card">
+      <div class="anti-name">Roberto — lechero con pickup y 80 productores</div>
+      <div class="anti-why">Ya está digitalizado. Tiene su propio sistema.</div>
+    </div>
+    <div class="anti-card">
+      <div class="anti-name">Gloria / Nestlé</div>
+      <div class="anti-why">Plantas industriales con ERP propio.</div>
+    </div>
+    <div class="anti-card">
+      <div class="anti-name">Quesero grande</div>
+      <div class="anti-why">Tiene varios lecheros empleados, sistema propio.</div>
+    </div>
+    <div class="anti-card">
+      <div class="anti-name">Caficultores, paperos, ganadero de carne</div>
+      <div class="anti-why">No son productores de leche.</div>
+    </div>
+    <div class="anti-card">
+      <div class="anti-name">Productores de Lima / ciudad</div>
+      <div class="anti-why">MilkBook es rural, offline-first.</div>
+    </div>
+    <div class="anti-card">
+      <div class="anti-name">Cooperativas industriales</div>
+      <div class="anti-why">Tienen su propio sistema de gestión.</div>
+    </div>
+    <div class="anti-card">
+      <div class="anti-name">Distribuidores de insumos</div>
+      <div class="anti-why">No son productores ni compradores de leche.</div>
+    </div>
+    <div class="anti-card">
+      <div class="anti-name">Inversionistas como target principal</div>
+      <div class="anti-why">Audience secundaria B2B, no target de producto.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4. Criterios de inclusión para features</h2>
+  <p>Cada feature nueva debe pasar este filtro:</p>
+  <div class="criterios">
+    <div class="criterio">
+      <div class="criterio-q">¿Sirve a Carlos?</div>
+      <div>¿Resuelve al menos un JTBD-L# documentado?</div>
+    </div>
+    <div class="criterio">
+      <div class="criterio-q">¿Sirve a Juan?</div>
+      <div>¿Resuelve al menos un JTBD-C# documentado?</div>
+    </div>
+    <div class="criterio">
+      <div class="criterio-q">¿Sirve offline?</div>
+      <div>¿Funciona sin internet en el caserío de Juan?</div>
+    </div>
+    <div class="criterio">
+      <div class="criterio-q">¿Funciona al sol?</div>
+      <div>¿Se ve bien bajo sol directo en el Xiaomi de Carlos?</div>
+    </div>
+    <div class="criterio">
+      <div class="criterio-q">¿Baja alfabetización?</div>
+      <div>¿Es entendible para Juan (52, primaria)?</div>
+    </div>
+    <div class="criterio">
+      <div class="criterio-q">¿Cabe en el horizonte?</div>
+      <div>¿Aporta a la visión 2030?</div>
+    </div>
+  </div>
+  <p style="background: var(--cream-100); padding: 12px; border-radius: 8px; font-size: 14px; margin-top: 12px;"><strong>Si una feature NO pasa al menos 5 de 6 criterios, no entra al MVP.</strong></p>
+</section>
+
+</main>
+
+<footer>
+  <p>👥 Identidad estratégica · Sección 1 de 7 (público objetivo)</p>
+  <p>Ver <a href="./README.md">README.md</a> para especificación completa de las 2 personas, JTBDs y anti-personas</p>
+</footer>
+
+</body>
+</html>

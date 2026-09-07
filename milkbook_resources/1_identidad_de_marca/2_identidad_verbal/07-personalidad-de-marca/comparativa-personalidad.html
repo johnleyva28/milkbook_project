@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Personalidad de marca — MilkBook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;700&family=Lexend:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream-50: #FFFDF7; --cream-100: #FAF8F3; --cream-300: #EBE3CC;
+  --green-500: #2A782A; --green-300: #88D088; --green-100: #DCF1DC; --green-700: #184318;
+  --blue-500: #0064B1; --blue-300: #78C0F8; --blue-100: #D9ECFA; --blue-700: #003965;
+  --warning: #B26A00;
+  --text: #1A1F1A; --text-soft: #5C5C5C;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--font-ui); background: var(--cream-50); color: var(--text); margin: 0; padding: 0; line-height: 1.6; }
+header { background: linear-gradient(135deg, var(--green-100), var(--blue-100)); padding: 56px 24px; text-align: center; }
+header h1 { font-family: var(--font-display); font-size: 42px; margin: 0 0 12px; }
+header p { color: var(--text-soft); font-size: 17px; max-width: 760px; margin: 12px auto 0; }
+main { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+section { margin-bottom: 56px; }
+h2 { font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--green-500); display: inline-block; }
+
+/* Sliders */
+.sliders { background: var(--cream-100); border-radius: 16px; padding: 32px; margin: 24px 0; }
+.slider-row { display: grid; grid-template-columns: 120px 1fr 120px; align-items: center; gap: 16px; margin: 20px 0; }
+.slider-label { font-size: 13px; color: var(--text-soft); font-weight: 600; text-align: center; }
+.slider-track { position: relative; height: 24px; background: var(--cream-300); border-radius: 12px; }
+.slider-track::before { content: ''; position: absolute; left: var(--pos, 30%); right: calc(100% - var(--pos, 30%) - 4px); top: 50%; height: 3px; background: var(--green-500); transform: translateY(-50%); border-radius: 2px; }
+.slider-marker { position: absolute; left: var(--pos, 30%); top: 50%; transform: translate(-50%, -50%); width: 32px; height: 32px; background: var(--green-500); border-radius: 50%; border: 4px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 700; }
+
+/* Archetypes */
+.archetypes { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin: 24px 0; }
+.archetype { background: var(--cream-100); border-radius: 16px; padding: 24px; border-top: 6px solid; }
+.archetype.primo { border-color: var(--green-500); }
+.archetype.aliado { border-color: var(--blue-500); }
+.archetype.defensor { border-color: var(--green-700); }
+.archetype-icon { font-size: 36px; margin-bottom: 12px; }
+.archetype-title { font-family: var(--font-display); font-size: 22px; margin: 0 0 4px; }
+.archetype-context { font-size: 12px; color: var(--text-soft); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--cream-300); }
+.archetype-voice { background: white; border-radius: 12px; padding: 14px; margin: 12px 0; font-style: italic; border-left: 3px solid; font-size: 14px; }
+.archetype.primo .archetype-voice { border-color: var(--green-500); }
+.archetype.aliado .archetype-voice { border-color: var(--blue-500); }
+.archetype.defensor .archetype-voice { border-color: var(--green-700); }
+.archetype-example { background: var(--cream-50); border-radius: 8px; padding: 12px; margin-top: 12px; font-size: 13px; }
+
+/* Mockups */
+.mockup-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 24px 0; }
+.phone { width: 280px; background: #1A1F1A; border-radius: 36px; padding: 12px; margin: 0 auto; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.phone-screen { background: var(--cream-50); border-radius: 28px; padding: 20px; min-height: 460px; }
+.phone-label { text-align: center; font-size: 12px; color: var(--text-soft); margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Email */
+.email-mock { background: white; border-radius: 12px; border: 1px solid var(--cream-300); overflow: hidden; }
+.email-header { background: var(--cream-100); padding: 12px 16px; border-bottom: 1px solid var(--cream-300); font-size: 12px; color: var(--text-soft); }
+.email-header .from { font-weight: 700; color: var(--text); }
+.email-header .subj { font-family: var(--font-data); font-size: 13px; color: var(--text); margin-top: 4px; }
+.email-body { padding: 16px 20px; font-size: 14px; line-height: 1.6; }
+
+/* Push */
+.push-mock { background: var(--cream-100); border-radius: 24px; padding: 16px; max-width: 320px; margin: 0 auto; }
+.push-item { background: white; border-radius: 10px; padding: 10px 12px; margin: 4px 0; display: flex; gap: 10px; align-items: flex-start; }
+.push-content { flex: 1; }
+.push-app { font-size: 10px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.push-text { font-size: 13px; margin-top: 2px; line-height: 1.3; }
+
+/* Channel grid */
+.channel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.channel { background: var(--cream-100); border-radius: 12px; padding: 20px; border-left: 4px solid; }
+.channel.primo { border-color: var(--green-500); }
+.channel.aliado { border-color: var(--blue-500); }
+.channel.defensor { border-color: var(--green-700); }
+.channel-name { font-weight: 700; margin-bottom: 4px; }
+.channel-archetype { font-size: 11px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+.channel-example { background: white; border-radius: 8px; padding: 12px; font-size: 13px; }
+
+/* Anti */
+.anti { background: #FCE8E6; border-radius: 12px; padding: 20px; margin: 24px 0; }
+.anti h4 { margin: 0 0 12px; }
+.anti-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.anti-item { background: white; padding: 12px; border-radius: 8px; font-size: 13px; }
+
+footer { text-align: center; padding: 32px; color: var(--text-soft); font-size: 13px; border-top: 1px solid var(--cream-300); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎭 Personalidad de marca — MilkBook</h1>
+  <p>Si MilkBook fuera una persona, sería un primo mayor que sabe del campo, te ayuda con la tecnología sin hacerte sentir tonto, y siempre tiene un chiste a mano cuando las cosas se ponen difíciles.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>1. Las 8 dimensiones de la personalidad</h2>
+  <p>La personalidad se define en 8 ejes opuestos. La posición de MilkBook en cada eje define su carácter.</p>
+
+  <div class="sliders">
+    <div class="slider-row" style="--pos: 30%;">
+      <div class="slider-label">SERIEDAD</div>
+      <div class="slider-track"><div class="slider-marker">30</div></div>
+      <div class="slider-label">CERCANÍA</div>
+    </div>
+    <div class="slider-row" style="--pos: 75%;">
+      <div class="slider-label">TRADICIONAL</div>
+      <div class="slider-track"><div class="slider-marker">75</div></div>
+      <div class="slider-label">MODERNO</div>
+    </div>
+    <div class="slider-row" style="--pos: 80%;">
+      <div class="slider-label">FORMAL</div>
+      <div class="slider-track"><div class="slider-marker">80</div></div>
+      <div class="slider-label">CASUAL</div>
+    </div>
+    <div class="slider-row" style="--pos: 85%;">
+      <div class="slider-label">TÉCNICO</div>
+      <div class="slider-track"><div class="slider-marker">85</div></div>
+      <div class="slider-label">SIMPLE</div>
+    </div>
+    <div class="slider-row" style="--pos: 85%;">
+      <div class="slider-label">FRÍO</div>
+      <div class="slider-track"><div class="slider-marker">85</div></div>
+      <div class="slider-label">CÁLIDO</div>
+    </div>
+    <div class="slider-row" style="--pos: 40%;">
+      <div class="slider-label">JOVEN</div>
+      <div class="slider-track"><div class="slider-marker">40</div></div>
+      <div class="slider-label">MADURO</div>
+    </div>
+    <div class="slider-row" style="--pos: 20%;">
+      <div class="slider-label">AUTORITARIO</div>
+      <div class="slider-track"><div class="slider-marker">20</div></div>
+      <div class="slider-label">COLABORATIVO</div>
+    </div>
+    <div class="slider-row" style="--pos: 60%;">
+      <div class="slider-label">SOLEMNE</div>
+      <div class="slider-track"><div class="slider-marker">60</div></div>
+      <div class="slider-label">HUMOR SUTIL</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Los 3 arquetipos operativos</h2>
+
+  <div class="archetypes">
+    <div class="archetype primo">
+      <div class="archetype-icon">🧑‍🌾</div>
+      <div class="archetype-title">El Primo del Campo</div>
+      <div class="archetype-context">ACTIVADO EN: onboarding · soporte · comunicación cotidiana · redes sociales</div>
+      <p style="font-size: 14px;">Cercano, paciente, con humor sutil. Habla como el familiar que sabe del campo.</p>
+      <div class="archetype-voice">"Ey Carlos, ya quedó registrado el anticipo de 300 soles que le diste a Juan. La próxima vez que él abra su app, lo va a ver. Un saludo del equipo MilkBook."</div>
+      <div class="archetype-example"><strong>Cuándo se usa:</strong> onboarding inicial, soporte, posts en redes, errores menores.</div>
+    </div>
+
+    <div class="archetype aliado">
+      <div class="archetype-icon">🧑‍💼</div>
+      <div class="archetype-title">El Aliado Profesional</div>
+      <div class="archetype-context">ACTIVADO EN: comunicación B2B · documentos legales · reportes · presentaciones a inversionistas</div>
+      <p style="font-size: 14px;">Serio pero accesible. Tiene datos y casos de estudio listos.</p>
+      <div class="archetype-voice">"MilkBook es la capa de registro digital para la cadena lechera andina. Nuestros datos validan que el 90% de las discrepancias se resolvieron sin intervención presencial."</div>
+      <div class="archetype-example"><strong>Cuándo se usa:</strong> emails a bancos, decks de inversión, alianzas con cooperativas.</div>
+    </div>
+
+    <div class="archetype defensor">
+      <div class="archetype-icon">👨‍🍳</div>
+      <div class="archetype-title">El Defensor del Productor</div>
+      <div class="archetype-context">ACTIVADO EN: momentos difíciles · crisis · temas sensibles · política pública</div>
+      <p style="font-size: 14px;">Firme pero respetuoso. Toma partido por el usuario sin agresividad.</p>
+      <div class="archetype-voice">"Hemos detectado que el sistema de un aliado no registró 3 litros en la liquidación de Don Juan. Ya hablamos con él. La discrepancia está corregida."</div>
+      <div class="archetype-example"><strong>Cuándo se usa:</strong> bugs críticos, problemas públicos, defensa del productor ante terceros.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3. Mockups por arquetipo en canales reales</h2>
+
+  <div class="mockup-grid">
+    <div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div style="text-align: center; padding: 16px 0;">
+            <div style="font-size: 48px;">👋</div>
+            <div style="font-family: var(--font-display); font-size: 22px; margin: 8px 0;">¡Bienvenido, Carlos!</div>
+            <div style="font-size: 13px; color: var(--text-soft); line-height: 1.5;">Vamos a poner tu leche en orden en 4 pasos.</div>
+          </div>
+          <button style="background: var(--green-500); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 700; font-size: 16px; width: 100%; margin-top: 16px;">EMPEZAR</button>
+          <div style="background: var(--green-100); border-radius: 8px; padding: 12px; margin-top: 16px; font-size: 11px; color: var(--green-700); font-style: italic; text-align: center;">Arquetipo: 🧑‍🌾 Primo del Campo</div>
+        </div>
+      </div>
+      <div class="phone-label">📱 Onboarding · Primo del Campo</div>
+    </div>
+
+    <div>
+      <div class="email-mock">
+        <div class="email-header">
+          <div class="from">De: María · Equipo MilkBook</div>
+          <div class="subj">Asunto: <strong>Adjunto: resultados piloto MilkBook Q4 2026</strong></div>
+        </div>
+        <div class="email-body">
+          <div>Estimado equipo del Banco X,</div>
+          <br>
+          <div>Adjuntamos los resultados del piloto Q1-Q4 2026. Los datos clave:</div>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>200 lecheros activos</li>
+            <li>1,500 productores registrados</li>
+            <li>600K litros de data limpia</li>
+            <li>90% discrepancias resueltas sin discusión</li>
+          </ul>
+          <div>Solicitamos una reunión para evaluar la integración API.</div>
+          <div style="font-size: 12px; color: var(--text-soft); margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--cream-200);"><strong>Pedro Ramírez</strong> · Equipo MilkBook</div>
+        </div>
+        <div style="background: var(--blue-100); padding: 8px 16px; text-align: center; font-size: 11px; color: var(--blue-700); font-weight: 600;">Arquetipo: 🧑‍💼 Aliado Profesional</div>
+      </div>
+      <div class="phone-label">📧 Email a banco · Aliado Profesional</div>
+    </div>
+
+    <div>
+      <div class="phone">
+        <div class="phone-screen" style="background: var(--cream-50);">
+          <div style="background: var(--warning-bg); border-radius: 12px; padding: 16px; margin-bottom: 16px; border-left: 4px solid var(--warning);">
+            <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">⚠️ Sobre el reporte del 15 de septiembre</div>
+            <div style="font-size: 12px; line-height: 1.4; color: var(--text-soft);">A los productores afectados: el problema está corregido. Vamos a reembolsar los S/ X.X que perdieron.</div>
+          </div>
+          <div style="font-size: 12px; line-height: 1.6;">Esto no debió pasar. Estamos auditando el sistema para que no vuelva a ocurrir. Detalles abajo.</div>
+        </div>
+        <div style="background: var(--green-700); padding: 8px 16px; text-align: center; font-size: 11px; color: white; font-weight: 600; border-radius: 8px; margin-top: 12px;">Arquetipo: 👨‍🍳 Defensor del Productor</div>
+      </div>
+      <div class="phone-label">📱 Push crisis · Defensor del Productor</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4. Personalidad por canal (matriz operativa)</h2>
+
+  <div class="channel-grid">
+    <div class="channel primo">
+      <div class="channel-name">📱 Push notification</div>
+      <div class="channel-archetype">Primo del Campo</div>
+      <div class="channel-example">"Carlos registró 18.5 L. Confirma o corrige."</div>
+    </div>
+    <div class="channel primo">
+      <div class="channel-name">❌ Mensaje de error</div>
+      <div class="channel-archetype">Primo del Campo</div>
+      <div class="channel-example">"Algo no salió bien. Vuelve a intentarlo en unos segundos."</div>
+    </div>
+    <div class="channel primo">
+      <div class="channel-name">🎓 Onboarding</div>
+      <div class="channel-archetype">Primo del Campo</div>
+      <div class="channel-example">"¡Bienvenido, Carlos! Vamos a poner tu leche en orden."</div>
+    </div>
+    <div class="channel aliado">
+      <div class="channel-name">📊 Web admin</div>
+      <div class="channel-archetype">Aliado Profesional</div>
+      <div class="channel-example">"Has facturado S/ 12,450 este mes, un 8% más que el mes anterior."</div>
+    </div>
+    <div class="channel aliado">
+      <div class="channel-name">🏦 Banca / seguros</div>
+      <div class="channel-archetype">Aliado Profesional</div>
+      <div class="channel-example">"Datos verificables de 1,500 productores. Microcréditos con menos riesgo."</div>
+    </div>
+    <div class="channel primo">
+      <div class="channel-name">🐦 Twitter / X</div>
+      <div class="channel-archetype">Primo del Campo</div>
+      <div class="channel-example">"Hoy Carlos nos escribió: 'Saqué las cuentas en 12 min, no en 30'. 🥛"</div>
+    </div>
+    <div class="channel primo">
+      <div class="channel-name">💬 Soporte</div>
+      <div class="channel-archetype">Primo del Campo 100%</div>
+      <div class="channel-example">"Hola Carlos, soy María. Cuéntame qué pasó y lo vemos juntos."</div>
+    </div>
+    <div class="channel defensor">
+      <div class="channel-name">🚨 Crisis / bug grave</div>
+      <div class="channel-archetype">Defensor del Productor</div>
+      <div class="channel-example">"Esto no debió pasar. Vamos a reembolsarte los S/ X.X."</div>
+    </div>
+    <div class="channel aliado">
+      <div class="channel-name">📑 Documentos legales</div>
+      <div class="channel-archetype">Aliado Profesional</div>
+      <div class="channel-example">"MilkBook Tecnologías S.A.C. — RUC 20XXX..."</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>5. Mockup · tono emocional ajustado</h2>
+  <p>El mismo MilkBook habla distinto según el estado emocional del usuario. Aquí se ve cómo el arquetipo del Primo del Campo modula su voz.</p>
+
+  <div class="mockup-grid">
+    <div>
+      <div class="push-mock">
+        <div style="background: white; padding: 8px 12px; margin-bottom: 8px; border-radius: 6px; font-size: 10px; color: var(--text-soft); text-align: center;">😐 Neutral</div>
+        <div class="push-item">
+          <div class="push-content">
+            <div class="push-app">MilkBook · ahora</div>
+            <div class="push-text">Confirmado. 18.5 L para Juan.</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">😐 Neutral · cotidiano</div>
+    </div>
+
+    <div>
+      <div class="push-mock">
+        <div style="background: white; padding: 8px 12px; margin-bottom: 8px; border-radius: 6px; font-size: 10px; color: var(--text-soft); text-align: center;">😕 Confundido</div>
+        <div class="push-item">
+          <div class="push-content">
+            <div class="push-app">Soporte MilkBook</div>
+            <div class="push-text">Tranqui. Mira, ese botón es para guardar. Tócalo y listo. ¿Lo ves?</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">😕 Confundido · paciencia</div>
+    </div>
+
+    <div>
+      <div class="push-mock">
+        <div style="background: white; padding: 8px 12px; margin-bottom: 8px; border-radius: 6px; font-size: 10px; color: var(--text-soft); text-align: center;">😤 Frustrado</div>
+        <div class="push-item">
+          <div class="push-content">
+            <div class="push-app">Soporte MilkBook</div>
+            <div class="push-text">Uf, eso es molesto. Ya lo arreglamos, prometo. Mientras tanto, aquí está el workaround.</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">😤 Frustrado · empático</div>
+    </div>
+
+    <div>
+      <div class="push-mock">
+        <div style="background: var(--error); color: white; padding: 8px 12px; margin-bottom: 8px; border-radius: 6px; font-size: 10px; text-align: center; font-weight: 700;">😡 Enojado · DEFENSOR</div>
+        <div class="push-item">
+          <div class="push-content">
+            <div class="push-app">María · MilkBook</div>
+            <div class="push-text">Tienes razón en estar molesto. Esto no debió pasar. Vamos a resolverlo ya.</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">😡 Enojado · Defensor</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>6. Lo que MilkBook NO es</h2>
+  <div class="anti">
+    <h4>🚫 Anti-personalidad: lo que MilkBook evita</h4>
+    <div class="anti-grid">
+      <div class="anti-item"><strong>❌ El startup disruptivo</strong> — no presumimos de innovar por innovar.</div>
+      <div class="anti-item"><strong>❌ El coach motivacional</strong> — no usamos frases vacías tipo "tú puedes con todo".</div>
+      <div class="anti-item"><strong>❌ El asistente servil</strong> — nunca "¡por supuesto, señor usuario!".</div>
+      <div class="anti-item"><strong>❌ El técnico frío</strong> — no hablamos como un manual.</div>
+      <div class="anti-item"><strong>❌ El viejo conocido</strong> — no somos paternalistas con Carlos.</div>
+      <div class="anti-item"><strong>❌ La ONG</strong> — no hablamos de "empoderar al pequeño productor".</div>
+      <div class="anti-item"><strong>❌ El vendedor agresivo</strong> — no usamos urgencia falsa.</div>
+      <div class="anti-item"><strong>❌ El influencer</strong> — no somos lifestyle. Somos herramienta de trabajo.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>📋 Resumen: la personalidad operativa</h2>
+  <div style="background: linear-gradient(135deg, var(--green-100), var(--blue-100)); border-radius: 16px; padding: 40px; text-align: center;">
+    <p style="font-family: var(--font-display); font-size: 28px; line-height: 1.4; margin: 0;">
+      MilkBook es un <strong style="color: var(--green-700);">primo mayor</strong> que conoce el campo<br>
+      y te ayuda con la tecnología sin hacerte sentir tonto.<br>
+      <span style="font-size: 22px; color: var(--text-soft);">— Y un aliado profesional cuando toca ser serio.</span>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>🎭 Identidad verbal de MilkBook · Sección 7 de 10 (personalidad de marca)</p>
+  <p>Ver <a href="./README.md">README.md</a> para especificación completa de los 3 arquetipos</p>
+</footer>
+
+</body>
+</html>
