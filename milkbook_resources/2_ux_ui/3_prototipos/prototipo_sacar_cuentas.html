@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MilkBook — Prototipo interactivo: Sacar Cuentas (Carlos)</title>
+<link rel="stylesheet" href="../2_mockups/shared_styles.css">
+<style>
+  .stage {
+    background: #E8E2D5;
+    min-height: 100vh;
+    padding: 24px;
+    font-family: var(--font-ui);
+  }
+  .stage-header {
+    max-width: 1200px;
+    margin: 0 auto 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .stage-header h1 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    margin: 0;
+  }
+  .stage-nav {
+    display: flex;
+    gap: 8px;
+  }
+  .stage-nav button {
+    background: var(--text);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .stage-nav button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .stage-nav button.primary {
+    background: var(--green-500);
+  }
+  .stage-content {
+    display: flex;
+    justify-content: center;
+  }
+  .step-label {
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--text-soft);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .step-label strong { color: var(--green-700); }
+  .helper-banner {
+    background: white;
+    border: 1px solid var(--cream-300);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin: 16px auto 0;
+    max-width: 600px;
+    font-size: 13px;
+    color: var(--text-soft);
+    text-align: center;
+  }
+  .helper-banner strong { color: var(--text); }
+
+  /* Resolver discrepancia overlay */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal-content {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    width: 360px;
+    max-width: 90vw;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .modal-content h3 { font-size: 18px; margin-bottom: 12px; }
+  .modal-content .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--cream-200);
+    font-size: 14px;
+  }
+  .modal-content .row.warning { background: var(--warning-bg); margin: 0 -24px; padding: 8px 24px; border: none; }
+  .modal-content .quick-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 16px 0;
+  }
+  .modal-content .quick-buttons button {
+    background: var(--cream-100);
+    border: 2px solid var(--cream-300);
+    border-radius: 8px;
+    padding: 12px;
+    font-family: var(--font-data);
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .modal-content .quick-buttons button.selected {
+    background: var(--green-100);
+    border-color: var(--green-500);
+    color: var(--green-700);
+  }
+  .modal-content .modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 8px;
+  }
+
+  /* Confirmation success screen */
+  .success-screen {
+    text-align: center;
+    padding: 48px 24px;
+    background: white;
+    border-radius: 16px;
+    margin: 16px;
+  }
+  .success-screen .big-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+  }
+  .success-screen h2 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--green-700);
+    margin-bottom: 16px;
+  }
+  .success-screen .summary {
+    background: var(--cream-100);
+    padding: 16px;
+    border-radius: 12px;
+    margin: 16px 0;
+    text-align: left;
+  }
+  .success-screen .summary .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 14px;
+  }
+  .success-screen .summary .row.total {
+    border-top: 2px solid var(--text);
+    margin-top: 8px;
+    padding-top: 8px;
+    font-weight: 700;
+    color: var(--green-700);
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="stage-header">
+    <div>
+      <h1>Prototipo interactivo: Sacar Cuentas</h1>
+      <div style="font-size: 13px; color: var(--text-soft); margin-top: 4px;">
+        ⭐ La pantalla más importante de toda la app · Simula el flujo de cierre de quincena
+      </div>
+    </div>
+    <div class="stage-nav">
+      <button onclick="irAtras()" id="btn-atras">← Atrás</button>
+      <span style="align-self: center; color: var(--text-soft); font-size: 13px; padding: 0 8px;">
+        Paso <span id="paso-num">1</span>/5
+      </span>
+      <button onclick="irAdelante()" id="btn-adelante" class="primary">Siguiente →</button>
+    </div>
+  </div>
+
+  <div class="step-label" id="step-label">
+    Paso <strong>1</strong>: Vista principal de cerrar contrato
+  </div>
+
+  <div class="stage-content">
+    <div id="screen-container">
+      <!-- Aquí va el contenido de cada paso -->
+    </div>
+  </div>
+
+  <div class="helper-banner">
+    💡 <strong>Cómo usar:</strong> navega con los botones de arriba. En cada paso puedes hacer click en las zonas interactivas
+    (filas de discrepancia, métodos de pago) para ver los flujos secundarios.
+  </div>
+</div>
+
+<!-- Modal para resolver discrepancia -->
+<div class="modal-overlay" id="modal-discrepancia">
+  <div class="modal-content">
+    <h3>⚠ Resolver discrepancia</h3>
+    <div class="row"><span>Carlos registró:</span><strong>18.5 L</strong></div>
+    <div class="row"><span>Juan confirmó:</span><strong>19.0 L</strong></div>
+    <div class="row warning">
+      <span>Diferencia:</span>
+      <strong>+0.5 L (Juan > Carlos)</strong>
+    </div>
+    <div style="margin-top: 16px; font-size: 14px; color: var(--text-soft);">
+      ¿Cuántos litros se vendieron realmente?
+    </div>
+    <div class="quick-buttons">
+      <button onclick="selectDiscrepancia(this, '18.0')">18.0</button>
+      <button class="selected" onclick="selectDiscrepancia(this, '18.5')">18.5</button>
+      <button onclick="selectDiscrepancia(this, '19.0')">19.0</button>
+      <button onclick="selectDiscrepancia(this, '19.5')">19.5</button>
+      <button onclick="selectDiscrepancia(this, '20.0')">20.0</button>
+      <button onclick="selectDiscrepancia(this, '21.0')">21.0</button>
+    </div>
+    <div style="background: var(--blue-100); padding: 10px; border-radius: 8px; font-size: 12px; margin: 12px 0;">
+      💡 <strong>Tip:</strong> si no se acuerdan, anoten el balde, pesen al día siguiente.
+    </div>
+    <div class="modal-actions">
+      <button onclick="cerrarModal()" style="background: white; border: 2px solid var(--cream-300); border-radius: 8px; padding: 14px; font-weight: 600;">Cancelar</button>
+      <button onclick="cerrarModal()" style="background: var(--green-500); color: white; border: none; border-radius: 8px; padding: 14px; font-weight: 700;">Guardar 18.5 L</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let pasoActual = 1;
+  const pasoTotal = 5;
+
+  const screens = {
+    1: {
+      label: 'Vista principal de cerrar contrato',
+      html: renderPantallaCerrar()
+    },
+    2: {
+      label: 'Resolver discrepancia (modal)',
+      html: renderPantallaCerrar()
+    },
+    3: {
+      label: 'Forma de pago (mixto)',
+      html: renderPantallaPago()
+    },
+    4: {
+      label: 'Confirmación con firma digital',
+      html: renderPantallaFirma()
+    },
+    5: {
+      label: 'Cierre exitoso + boleta',
+      html: renderPantallaExito()
+    }
+  };
+
+  function renderPantallaCerrar() {
+    return `
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="status-bar"><span class="time">11:42</span><div class="right"><span>📶 3G</span><span style="font-size: 11px;">45%</span><div class="battery-icon"><div class="level"></div></div></div></div>
+          <div class="app-bar"><div class="back">←</div><div class="title">Cerrar contrato</div><div class="action">❓</div></div>
+          <div class="content">
+            <div style="background: white; border: 1px solid var(--cream-300); border-radius: 8px; padding: 10px 14px; display: flex; justify-content: space-between; font-size: 12px; color: var(--text-soft); margin-bottom: 16px;">
+              <div>Quincena: <strong>15 - 29 sept</strong></div>
+              <div style="font-weight: 700; color: var(--text);">Juan Pérez</div>
+            </div>
+            <div style="background: var(--warning-bg); border-left: 4px solid var(--warning); padding: 10px 14px; border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; font-size: 13px;">
+              <span style="font-size: 22px;">⚠️</span>
+              <div style="flex: 1;">
+                <strong>2 discrepancias por resolver</strong><br>
+                <span style="font-size: 12px;">18 sept y 25 sept · toca cada fila</span>
+              </div>
+            </div>
+            <div style="background: white; border: 1px solid var(--cream-300); border-radius: 12px; margin-bottom: 12px; overflow: hidden;">
+              <div style="padding: 12px 14px; background: var(--cream-200); display: flex; justify-content: space-between; border-bottom: 1px solid var(--cream-300);">
+                <div style="font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">📋 Registros</div>
+                <div style="font-size: 12px; color: var(--text-soft);">12 con leche</div>
+              </div>
+              <div style="padding: 10px 14px; border-bottom: 1px solid var(--cream-200); display: grid; grid-template-columns: 50px 1fr 70px; align-items: center; font-size: 13px; gap: 8px; background: var(--green-100);">
+                <div style="font-family: var(--font-data); font-weight: 700; color: var(--text-soft); font-size: 12px;">15 L</div>
+                <div style="font-size: 11px; color: var(--text-soft);"><strong>18.5 L</strong> · ambos coinciden</div>
+                <div style="font-family: var(--font-data); font-weight: 700; text-align: right; color: var(--green-700);">18.5</div>
+              </div>
+              <div style="padding: 10px 14px; border-bottom: 1px solid var(--cream-200); display: grid; grid-template-columns: 50px 1fr 70px; align-items: center; font-size: 13px; gap: 8px; background: var(--warning-bg); cursor: pointer;" onclick="abrirModalDiscrepancia()">
+                <div style="font-family: var(--font-data); font-weight: 700; color: var(--text-soft); font-size: 12px;">18 J</div>
+                <div style="font-size: 11px; color: var(--text-soft);"><strong>18.5 / 19.0</strong> · ⚠ discrepancia <span style="color: var(--blue-500); font-weight: 700;">[Resolver]</span></div>
+                <div style="font-family: var(--font-data); font-weight: 700; text-align: right; color: var(--warning);">18.5</div>
+              </div>
+              <div style="padding: 10px 14px; border-bottom: 1px solid var(--cream-200); display: grid; grid-template-columns: 50px 1fr 70px; align-items: center; font-size: 13px; gap: 8px; background: var(--warning-bg); cursor: pointer;" onclick="abrirModalDiscrepancia()">
+                <div style="font-family: var(--font-data); font-weight: 700; color: var(--text-soft); font-size: 12px;">25 J</div>
+                <div style="font-size: 11px; color: var(--text-soft);"><strong>20 / 19.5</strong> · ⚠ discrepancia <span style="color: var(--blue-500); font-weight: 700;">[Resolver]</span></div>
+                <div style="font-family: var(--font-data); font-weight: 700; text-align: right; color: var(--warning);">20.0</div>
+              </div>
+              <div style="padding: 10px 14px; border-bottom: 1px solid var(--cream-200); display: grid; grid-template-columns: 50px 1fr 70px; align-items: center; font-size: 13px; gap: 8px; background: var(--green-100);">
+                <div style="font-family: var(--font-data); font-weight: 700; color: var(--text-soft); font-size: 12px;">29 L</div>
+                <div style="font-size: 11px; color: var(--text-soft);"><strong>18.0 L</strong> · coinciden</div>
+                <div style="font-family: var(--font-data); font-weight: 700; text-align: right; color: var(--green-700);">18.0</div>
+              </div>
+              <div style="padding: 12px 14px; text-align: center; font-size: 12px; color: var(--text-soft);">+ 9 más registros (ver todos)</div>
+            </div>
+            <div style="background: white; border: 1px solid var(--cream-300); border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; font-size: 14px;"><span style="color: var(--text-soft);">Total litros</span><span style="font-family: var(--font-data); font-weight: 700;">253.5 L</span></div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; font-size: 14px;"><span style="color: var(--text-soft);">Precio × L</span><span style="font-family: var(--font-data); font-weight: 700;">S/ 1.50</span></div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; font-size: 14px; border-top: 2px solid var(--text); margin-top: 8px; padding-top: 8px; color: var(--green-700);"><span><strong>A pagar</strong></span><span style="font-family: var(--font-data); font-weight: 700; font-size: 20px;">S/ 120.25</span></div>
+            </div>
+          </div>
+          <div style="background: white; border-top: 1px solid var(--cream-300); padding: 12px 16px; padding-bottom: 20px; display: grid; grid-template-columns: 1fr 2fr; gap: 8px;">
+            <button class="btn btn-secondary" style="margin: 0;">Cancelar</button>
+            <button onclick="irAdelante()" class="btn btn-primary" style="margin: 0;">📄 Generar boleta →</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPantallaPago() {
+    return `
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="status-bar"><span class="time">11:48</span><div class="right"><span>📶 3G</span><span style="font-size: 11px;">43%</span><div class="battery-icon"><div class="level"></div></div></div></div>
+          <div class="app-bar"><div class="back">←</div><div class="title">Forma de pago</div></div>
+          <div class="content">
+            <div style="background: white; border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+              <h3 style="margin-bottom: 12px;">💵 ¿Cómo paga Juan?</h3>
+              <div style="background: var(--cream-100); padding: 10px; border-radius: 8px; margin-bottom: 12px;">
+                <div style="font-size: 11px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Total a pagar</div>
+                <div style="font-family: var(--font-data); font-weight: 700; font-size: 28px; color: var(--green-700);">S/ 120.25</div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0;">
+                <span style="flex: 1;">💵 Efectivo</span>
+                <input type="text" value="100.00" style="width: 90px; height: 36px; border: 1px solid var(--cream-300); border-radius: 8px; padding: 0 10px; text-align: right; font-family: var(--font-data); font-weight: 700; font-size: 14px;" />
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0;">
+                <span style="flex: 1;">📱 Yape</span>
+                <input type="text" value="20.25" style="width: 90px; height: 36px; border: 1px solid var(--cream-300); border-radius: 8px; padding: 0 10px; text-align: right; font-family: var(--font-data); font-weight: 700; font-size: 14px;" />
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0;">
+                <span style="flex: 1;">🏦 Transferencia</span>
+                <input type="text" value="0.00" style="width: 90px; height: 36px; border: 1px solid var(--cream-300); border-radius: 8px; padding: 0 10px; text-align: right; font-family: var(--font-data); font-weight: 700; font-size: 14px;" />
+              </div>
+              <div style="border-top: 2px solid var(--text); margin-top: 8px; padding-top: 8px; display: flex; justify-content: space-between; font-weight: 700; color: var(--green-700);">
+                <span>Total métodos:</span>
+                <span style="font-family: var(--font-data);">S/ 120.25 ✓</span>
+              </div>
+            </div>
+          </div>
+          <div style="background: white; border-top: 1px solid var(--cream-300); padding: 12px 16px; padding-bottom: 20px;">
+            <button onclick="irAdelante()" class="btn btn-primary">Confirmar método de pago →</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPantallaFirma() {
+    return `
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="status-bar"><span class="time">11:52</span><div class="right"><span>📶 3G</span><span style="font-size: 11px;">40%</span><div class="battery-icon"><div class="level"></div></div></div></div>
+          <div class="app-bar"><div class="back">←</div><div class="title">Firma digital</div></div>
+          <div class="content">
+            <div style="background: var(--blue-100); border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 16px;">
+              <div style="font-size: 32px; margin-bottom: 8px;">🔒</div>
+              <h3 style="margin-bottom: 8px;">Confirma con tu firma</h3>
+              <div style="font-size: 13px; color: var(--text-soft);">Tú (Carlos) y Juan deben firmar el cierre de la quincena.</div>
+            </div>
+            <div style="background: white; border: 1px solid var(--cream-300); border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+              <h3 style="margin-bottom: 12px;">Tu firma (Carlos)</h3>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <button class="firma-method selected" style="background: var(--green-100); border: 2px solid var(--green-500); color: var(--green-700); border-radius: 8px; padding: 14px; text-align: center;">
+                  <div style="font-size: 24px;">🔢</div>
+                  <div style="font-size: 12px; font-weight: 700;">PIN</div>
+                </button>
+                <button class="firma-method" style="background: white; border: 2px solid var(--cream-300); border-radius: 8px; padding: 14px; text-align: center;">
+                  <div style="font-size: 24px;">👆</div>
+                  <div style="font-size: 12px; font-weight: 700;">Huella</div>
+                </button>
+              </div>
+            </div>
+            <div style="background: white; border: 1px solid var(--cream-300); border-radius: 12px; padding: 16px;">
+              <h3 style="margin-bottom: 12px;">Firma de Juan</h3>
+              <div style="background: var(--cream-100); padding: 12px; border-radius: 8px; font-size: 13px; color: var(--text-soft); text-align: center;">
+                Juan está viendo esto en su app ahora mismo.<br>Le enviaremos una notificación push para que confirme.
+              </div>
+            </div>
+          </div>
+          <div style="background: white; border-top: 1px solid var(--cream-300); padding: 12px 16px; padding-bottom: 20px;">
+            <button onclick="irAdelante()" class="btn btn-primary">📱 Firmar con PIN y notificar a Juan →</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPantallaExito() {
+    return `
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="status-bar"><span class="time">12:01</span><div class="right"><span>📶 3G</span><span style="font-size: 11px;">38%</span><div class="battery-icon"><div class="level"></div></div></div></div>
+          <div class="app-bar"><div class="title">¡Cierre exitoso! 🎉</div></div>
+          <div class="content" style="background: white; padding: 24px;">
+            <div style="text-align: center; margin-bottom: 20px;">
+              <div style="font-size: 64px; margin-bottom: 12px;">✓</div>
+              <h2 style="font-family: var(--font-display); font-size: 26px; color: var(--green-700); margin-bottom: 8px;">¡Listo, Carlos!</h2>
+              <div style="font-size: 14px; color: var(--text-soft);">Quincena cerrada con Juan Pérez</div>
+            </div>
+            <div style="background: var(--cream-100); padding: 16px; border-radius: 12px;">
+              <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px;"><span>Litros vendidos:</span><strong style="font-family: var(--font-data);">253.5 L</strong></div>
+              <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px;"><span>Subtotal:</span><strong style="font-family: var(--font-data);">S/ 380.25</strong></div>
+              <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px;"><span>(−) Adelantos:</span><strong style="font-family: var(--font-data); color: var(--error);">−S/ 230.00</strong></div>
+              <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px;"><span>(−) Encargos:</span><strong style="font-family: var(--font-data); color: var(--error);">−S/ 30.00</strong></div>
+              <div style="display: flex; justify-content: space-between; padding: 8px 0; font-size: 18px; border-top: 2px solid var(--text); margin-top: 8px; padding-top: 12px; color: var(--green-700); font-weight: 700;">
+                <span>Pagaste a Juan:</span>
+                <span style="font-family: var(--font-data);">S/ 120.25</span>
+              </div>
+              <div style="font-size: 12px; color: var(--text-soft); text-align: center; margin-top: 8px;">
+                💵 S/ 100 efectivo · 📱 S/ 20.25 Yape
+              </div>
+            </div>
+            <div style="background: var(--green-100); padding: 12px; border-radius: 12px; margin-top: 16px; font-size: 13px;">
+              ✓ Boleta generada en PDF · enviada a Juan
+            </div>
+            <div style="background: white; border: 1px solid var(--cream-300); border-radius: 12px; padding: 16px; margin-top: 16px;">
+              <h3 style="margin-bottom: 8px;">Próximos pasos</h3>
+              <div style="font-size: 13px; line-height: 1.6;">
+                • Liquidación cerrada ✓<br>
+                • Contrato finalizado ✓<br>
+                • Siguiente: automáticamente se crea un nuevo contrato el 30 sept (auto-renovación)
+              </div>
+            </div>
+          </div>
+          <div style="background: white; border-top: 1px solid var(--cream-300); padding: 12px 16px; padding-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <button class="btn btn-secondary" style="margin: 0;">Ver boleta PDF</button>
+            <button onclick="irAtras()" class="btn btn-primary" style="margin: 0;">Volver al inicio</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function actualizarPantalla() {
+    const screen = screens[pasoActual];
+    document.getElementById('screen-container').innerHTML = screen.html;
+    document.getElementById('step-label').innerHTML = `Paso <strong>${pasoActual}</strong>: ${screen.label}`;
+    document.getElementById('paso-num').textContent = pasoActual;
+    document.getElementById('btn-atras').disabled = pasoActual === 1;
+    document.getElementById('btn-adelante').disabled = pasoActual === pasoTotal;
+    if (pasoActual === pasoTotal) {
+      document.getElementById('btn-adelante').textContent = '✓ Fin';
+    } else {
+      document.getElementById('btn-adelante').textContent = 'Siguiente →';
+    }
+  }
+
+  function irAdelante() {
+    if (pasoActual < pasoTotal) {
+      pasoActual++;
+      actualizarPantalla();
+      window.scrollTo(0, 0);
+    }
+  }
+
+  function irAtras() {
+    if (pasoActual > 1) {
+      pasoActual--;
+      actualizarPantalla();
+      window.scrollTo(0, 0);
+    }
+  }
+
+  function abrirModalDiscrepancia() {
+    document.getElementById('modal-discrepancia').classList.add('active');
+  }
+
+  function cerrarModal() {
+    document.getElementById('modal-discrepancia').classList.remove('active');
+  }
+
+  function selectDiscrepancia(btn, valor) {
+    document.querySelectorAll('.modal-content .quick-buttons button').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    document.querySelector('.modal-actions button:last-child').textContent = `Guardar ${valor} L`;
+  }
+
+  // Cerrar modal con click fuera
+  document.getElementById('modal-discrepancia').addEventListener('click', function(e) {
+    if (e.target === this) cerrarModal();
+  });
+
+  // Inicializar
+  actualizarPantalla();
+</script>
+
+</body>
+</html>

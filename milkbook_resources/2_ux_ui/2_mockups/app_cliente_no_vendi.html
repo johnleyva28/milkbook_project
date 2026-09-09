@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MilkBook — No vendí hoy (Juan)</title>
+<link rel="stylesheet" href="shared_styles.css">
+<style>
+  .icon-container {
+    text-align: center;
+    margin: 32px 0 24px;
+  }
+  .icon-container .big-icon {
+    font-size: 80px;
+    display: inline-block;
+    padding: 24px;
+    background: var(--warning-bg);
+    border-radius: 50%;
+  }
+  .reason-section {
+    background: white;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .reason-section .h3 { margin-bottom: 12px; }
+  .reason-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .reason-card {
+    background: var(--cream-100);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    padding: 14px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .reason-card.selected {
+    background: var(--warning-bg);
+    border-color: var(--warning);
+  }
+  .reason-card .icon { font-size: 28px; margin-bottom: 4px; }
+  .reason-card .name { font-size: 13px; font-weight: 600; }
+  .note-input {
+    width: 100%;
+    min-height: 80px;
+    border: 2px solid var(--cream-300);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    resize: none;
+  }
+  .note-input:focus { outline: none; border-color: var(--warning); }
+  .warning-banner {
+    background: var(--warning-bg);
+    border-left: 4px solid var(--warning);
+    padding: 12px;
+    border-radius: var(--radius-md);
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: var(--text);
+  }
+</style>
+</head>
+<body>
+<div class="phone-stage">
+  <div class="phone">
+    <div class="phone-notch"></div>
+    <div class="phone-screen">
+
+      <div class="status-bar">
+        <span class="time">6:40</span>
+        <div class="right">
+          <span>📶 3G</span>
+          <span style="font-size: 11px;">68%</span>
+          <div class="battery-icon"><div class="level"></div></div>
+        </div>
+      </div>
+
+      <div class="app-bar">
+        <div class="back">←</div>
+        <div class="title">No vendí hoy</div>
+      </div>
+
+      <div class="content">
+
+        <div class="icon-container">
+          <div class="big-icon">🚫</div>
+        </div>
+
+        <div class="warning-banner">
+          ⚠ Si no vendes leche hoy, el sistema no te va a cobrar ni pagar. Carlos verá que no hubo venta.
+        </div>
+
+        <h2 style="font-size: 20px; text-align: center; margin-bottom: 16px;">¿Por qué no vendiste?</h2>
+        <p style="text-align: center; color: var(--text-soft); font-size: 13px; margin-bottom: 16px;">
+          Esto le ayuda a Carlos a entender mejor la situación
+        </p>
+
+        <div class="reason-section">
+          <div class="h3">📋 Motivo (opcional)</div>
+          <div class="reason-grid">
+            <div class="reason-card">
+              <div class="icon">🐄</div>
+              <div class="name">Vacas secas</div>
+            </div>
+            <div class="reason-card">
+              <div class="icon">🚗</div>
+              <div class="name">Carlos no vino</div>
+            </div>
+            <div class="reason-card selected">
+              <div class="icon">🤝</div>
+              <div class="name">Vendí a otro</div>
+            </div>
+            <div class="reason-card">
+              <div class="icon">🤒</div>
+              <div class="name">Enfermedad</div>
+            </div>
+            <div class="reason-card">
+              <div class="icon">🎉</div>
+              <div class="name">Festividad</div>
+            </div>
+            <div class="reason-card">
+              <div class="icon">📝</div>
+              <div class="name">Otra razón</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reason-section">
+          <div class="h3">📝 Nota para Carlos (opcional)</div>
+          <textarea class="note-input" placeholder="Ej: 'Le di leche a mi vecino porque Carlos no vino'"></textarea>
+        </div>
+
+        <div class="card" style="background: var(--blue-100); border-color: var(--blue-500);">
+          <div style="display: flex; gap: 10px;">
+            <div style="font-size: 24px;">💡</div>
+            <div style="font-size: 13px;">
+              <strong>¿Sabías?</strong> Si Carlos pasó pero no te encontró, también puedes registrar
+              <strong>"Carlos no vino"</strong> para que ambos vean lo mismo.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="background: white; border-top: 1px solid var(--cream-300); padding: 12px 16px; padding-bottom: 20px; display: grid; grid-template-columns: 1fr 2fr; gap: 8px;">
+        <button class="btn btn-secondary" style="margin: 0;">Cancelar</button>
+        <button class="btn" style="margin: 0; background: var(--warning); color: white;">✕ Confirmar no vendí</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="nav-note">
+  <a href="app_cliente_home.html" style="color: white;">← Home cliente</a>
+</div>
+
+</body>
+</html>

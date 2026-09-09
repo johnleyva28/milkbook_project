@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MilkBook — Cerrar Contrato (Carlos) · PANTALLA CRÍTICA</title>
+<link rel="stylesheet" href="shared_styles.css">
+<style>
+  .meta-bar {
+    background: white;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius-md);
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-soft);
+    margin-bottom: 16px;
+  }
+  .meta-bar .right { font-weight: 700; color: var(--text); }
+
+  .section {
+    background: white;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius-lg);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .section-header {
+    padding: 12px 14px;
+    background: var(--cream-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--cream-300);
+  }
+  .section-header .title { font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .section-header .count { font-size: 12px; color: var(--text-soft); }
+
+  .registro-row {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--cream-200);
+    display: grid;
+    grid-template-columns: 50px 1fr 70px;
+    align-items: center;
+    font-size: 13px;
+    gap: 8px;
+  }
+  .registro-row:last-child { border-bottom: none; }
+  .registro-row.warning { background: var(--warning-bg); }
+  .registro-row.success { background: var(--green-100); }
+  .registro-row .day {
+    font-family: var(--font-data);
+    font-weight: 700;
+    color: var(--text-soft);
+    font-size: 12px;
+  }
+  .registro-row .detail { font-size: 11px; color: var(--text-soft); }
+  .registro-row .detail strong { color: var(--text); }
+  .registro-row .litros {
+    font-family: var(--font-data);
+    font-weight: 700;
+    text-align: right;
+  }
+  .registro-row.warning .litros { color: var(--warning); }
+  .registro-row.success .litros { color: var(--green-700); }
+  .registro-row .edit-link {
+    font-size: 11px;
+    color: var(--blue-500);
+    font-weight: 600;
+    margin-left: 4px;
+  }
+
+  .adelanto-item, .encargo-item {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--cream-200);
+    display: grid;
+    grid-template-columns: 1fr 80px;
+    gap: 8px;
+    font-size: 13px;
+  }
+  .adelanto-item:last-child, .encargo-item:last-child { border-bottom: none; }
+  .adelanto-item .name { font-weight: 600; }
+  .adelanto-item .meta { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
+  .adelanto-item .monto { font-family: var(--font-data); font-weight: 700; text-align: right; color: var(--error); }
+  .encargo-item .monto { font-family: var(--font-data); font-weight: 700; text-align: right; color: var(--text); }
+
+  .calculo {
+    background: white;
+    border: 2px solid var(--green-500);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .calc-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+  }
+  .calc-row .label { color: var(--text-soft); }
+  .calc-row .value { font-family: var(--font-data); font-weight: 700; }
+  .calc-row.total {
+    border-top: 2px solid var(--text);
+    margin-top: 8px;
+    padding-top: 12px;
+    font-size: 18px;
+    color: var(--green-700);
+  }
+  .calc-row.total .value { font-size: 24px; }
+
+  .pago-section {
+    background: white;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .pago-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 13px;
+  }
+  .pago-row .label { flex: 1; }
+  .pago-row .input-mini {
+    width: 90px;
+    height: 36px;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius-md);
+    padding: 0 10px;
+    text-align: right;
+    font-family: var(--font-data);
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .pago-row .input-mini:focus { outline: none; border-color: var(--green-500); }
+
+  .discrepancias-banner {
+    background: var(--warning-bg);
+    border-left: 4px solid var(--warning);
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="phone-stage">
+  <div class="phone">
+    <div class="phone-notch"></div>
+    <div class="phone-screen">
+
+      <div class="status-bar">
+        <span class="time">11:42</span>
+        <div class="right">
+          <span>📶 3G</span>
+          <span style="font-size: 11px;">45%</span>
+          <div class="battery-icon"><div class="level"></div></div>
+        </div>
+      </div>
+
+      <div class="app-bar">
+        <div class="back">←</div>
+        <div class="title">Cerrar contrato</div>
+        <div class="action">❓</div>
+      </div>
+
+      <div class="content">
+
+        <!-- Meta del contrato -->
+        <div class="meta-bar">
+          <div>Quincena: <strong>15 - 29 sept</strong></div>
+          <div class="right">Juan Pérez</div>
+        </div>
+
+        <!-- Alerta discrepancias -->
+        <div class="discrepancias-banner">
+          <span style="font-size: 22px;">⚠️</span>
+          <div style="flex: 1;">
+            <strong>2 discrepancias por resolver</strong><br>
+            <span style="font-size: 12px;">18 sept y 25 sept · toca cada fila</span>
+          </div>
+        </div>
+
+        <!-- ========== REGISTROS ========== -->
+        <div class="section">
+          <div class="section-header">
+            <div class="title">📋 Registros (15 días)</div>
+            <div class="count">12 con leche</div>
+          </div>
+
+          <div class="registro-row success">
+            <div class="day">15 L</div>
+            <div>
+              <div class="detail"><strong>18.5 L</strong> · ambos coinciden</div>
+              <div class="detail">✓ Carlos + Juan</div>
+            </div>
+            <div class="litros">18.5</div>
+          </div>
+          <div class="registro-row success">
+            <div class="day">16 M</div>
+            <div class="detail"><strong>20.0 L</strong> · ambos coinciden</div>
+            <div class="litros">20.0</div>
+          </div>
+          <div class="registro-row success">
+            <div class="day">17 M</div>
+            <div class="detail"><strong>19.0 L</strong> · ambos coinciden</div>
+            <div class="litros">19.0</div>
+          </div>
+          <div class="registro-row warning">
+            <div class="day">18 J</div>
+            <div>
+              <div class="detail"><strong>18.5 / 19.0</strong> · ⚠ discrepancia</div>
+              <span class="edit-link">[Resolver]</span>
+            </div>
+            <div class="litros">18.5</div>
+          </div>
+          <div class="registro-row success">
+            <div class="day">19 V</div>
+            <div class="detail"><strong>20.0 L</strong> · coinciden</div>
+            <div class="litros">20.0</div>
+          </div>
+          <div class="registro-row">
+            <div class="day" style="color: var(--text-disabled);">20 S</div>
+            <div class="detail" style="color: var(--text-disabled);">— · Carlos no vino</div>
+            <div class="litros" style="color: var(--text-disabled);">—</div>
+          </div>
+          <div class="registro-row">
+            <div class="day" style="color: var(--text-disabled);">21 D</div>
+            <div class="detail" style="color: var(--text-disabled);">— · no se registra</div>
+            <div class="litros" style="color: var(--text-disabled);">—</div>
+          </div>
+          <div class="registro-row" style="background: var(--cream-200);">
+            <div class="day">22 L</div>
+            <div>
+              <div class="detail"><strong>Juan: no vendí</strong></div>
+              <span class="edit-link">[Editar]</span>
+            </div>
+            <div class="litros" style="color: var(--text-disabled);">0</div>
+          </div>
+          <div class="registro-row success">
+            <div class="day">23 M</div>
+            <div class="detail"><strong>20.0 L</strong></div>
+            <div class="litros">20.0</div>
+          </div>
+          <div class="registro-row success">
+            <div class="day">24 M</div>
+            <div class="detail"><strong>19.0 L</strong></div>
+            <div class="litros">19.0</div>
+          </div>
+          <div class="registro-row warning">
+            <div class="day">25 J</div>
+            <div>
+              <div class="detail"><strong>20 / 19.5</strong> · ⚠ discrepancia</div>
+              <span class="edit-link">[Resolver]</span>
+            </div>
+            <div class="litros">20.0</div>
+          </div>
+          <div class="registro-row success">
+            <div class="day">26 V</div>
+            <div class="detail"><strong>20.0 L</strong></div>
+            <div class="litros">20.0</div>
+          </div>
+          <div class="registro-row success">
+            <div class="day">27 S</div>
+            <div class="detail"><strong>20.0 L</strong></div>
+            <div class="litros">20.0</div>
+          </div>
+          <div class="registro-row" style="color: var(--text-disabled);">
+            <div class="day">28 D</div>
+            <div class="detail">— · no se registra</div>
+            <div class="litros">—</div>
+          </div>
+        </div>
+
+        <!-- ========== ADELANTOS ========== -->
+        <div class="section">
+          <div class="section-header">
+            <div class="title">💰 Adelantos (3)</div>
+            <div class="count">1 pendiente</div>
+          </div>
+          <div class="adelanto-item">
+            <div>
+              <div class="name">Para medicinas</div>
+              <div class="meta">18 sept · ✓ confirmado Juan</div>
+            </div>
+            <div class="monto">−100</div>
+          </div>
+          <div class="adelanto-item">
+            <div>
+              <div class="name">Para mercado</div>
+              <div class="meta">20 sept · ✓ confirmado Juan</div>
+            </div>
+            <div class="monto">−50</div>
+          </div>
+          <div class="adelanto-item" style="background: var(--warning-bg);">
+            <div>
+              <div class="name">Para colegio</div>
+              <div class="meta">24 sept · ⏳ pendiente Juan</div>
+            </div>
+            <div class="monto">−80</div>
+          </div>
+        </div>
+
+        <!-- ========== ENCARGOS ========== -->
+        <div class="section">
+          <div class="section-header">
+            <div class="title">🛒 Encargos (2)</div>
+            <div class="count">2 entregados</div>
+          </div>
+          <div class="encargo-item">
+            <div>
+              <div class="name">2 kg azúcar</div>
+              <div class="meta">17 sept · ✓ entregado</div>
+            </div>
+            <div class="monto">−12</div>
+          </div>
+          <div class="encargo-item">
+            <div>
+              <div class="name">Aceite 1L</div>
+              <div class="meta">20 sept · ✓ entregado</div>
+            </div>
+            <div class="monto">−18</div>
+          </div>
+        </div>
+
+        <!-- ========== CÁLCULO ========== -->
+        <div class="calculo">
+          <div class="calc-row">
+            <span class="label">Total litros (post-discrep.)</span>
+            <span class="value">253.5 L</span>
+          </div>
+          <div class="calc-row">
+            <span class="label">Precio por litro</span>
+            <span class="value">S/ 1.50</span>
+          </div>
+          <div class="calc-row">
+            <span class="label">Subtotal bruto</span>
+            <span class="value">S/ 380.25</span>
+          </div>
+          <div class="calc-row">
+            <span class="label">− Adelantos (3)</span>
+            <span class="value" style="color: var(--error);">− S/ 230.00</span>
+          </div>
+          <div class="calc-row">
+            <span class="label">− Encargos (2)</span>
+            <span class="value" style="color: var(--error);">− S/ 30.00</span>
+          </div>
+          <div class="calc-row total">
+            <span class="label">TOTAL A PAGAR</span>
+            <span class="value">S/ 120.25</span>
+          </div>
+        </div>
+
+        <!-- ========== FORMA DE PAGO ========== -->
+        <div class="pago-section">
+          <div class="h3">💵 ¿Cómo se paga?</div>
+          <div class="pago-row">
+            <span class="label">💵 Efectivo</span>
+            <input class="input-mini" type="text" value="100.00">
+          </div>
+          <div class="pago-row">
+            <span class="label">📱 Yape</span>
+            <input class="input-mini" type="text" value="20.25">
+          </div>
+          <div class="pago-row">
+            <span class="label">🏦 Transferencia</span>
+            <input class="input-mini" type="text" value="0.00">
+          </div>
+          <div class="divider-bold"></div>
+          <div class="pago-row" style="font-weight: 700;">
+            <span class="label">Total métodos:</span>
+            <span class="input-mini" style="background: var(--green-100); border-color: var(--green-500); color: var(--green-700);">S/ 120.25 ✓</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- STICKY CTA -->
+      <div style="background: white; border-top: 1px solid var(--cream-300); padding: 12px 16px; padding-bottom: 20px; display: grid; grid-template-columns: 1fr 2fr; gap: 8px;">
+        <button class="btn btn-secondary" style="margin: 0;">Cancelar</button>
+        <button class="btn btn-primary" style="margin: 0;">📄 Generar boleta y cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="nav-note">
+  <a href="app_lechero_home.html" style="color: white;">← Home</a> ·
+  <span style="color: white;">★ Pantalla más importante ★</span>
+</div>
+
+</body>
+</html>
