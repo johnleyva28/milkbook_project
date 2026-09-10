@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MilkBook — Registrar visita (Carlos)</title>
+<link rel="stylesheet" href="shared_styles.css">
+<style>
+  .cliente-header {
+    background: white;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .cliente-header .info { flex: 1; }
+  .cliente-header .name { font-weight: 700; font-size: 16px; }
+  .cliente-header .meta { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
+  .quantity-display {
+    background: white;
+    border: 2px solid var(--green-500);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .quantity-display .label { font-size: 12px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; }
+  .quantity-display .value {
+    font-family: var(--font-data);
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--green-700);
+    margin: 4px 0;
+  }
+  .quantity-display .unit { font-size: 24px; color: var(--text-soft); }
+  .counter-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 80px;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .counter-btn {
+    background: white;
+    border: 2px solid var(--cream-300);
+    border-radius: var(--radius-md);
+    height: 64px;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .counter-btn:active { background: var(--green-100); }
+  .counter-display {
+    background: var(--cream-200);
+    border-radius: var(--radius-md);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-data);
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+  }
+  .not-vendi-toggle {
+    background: var(--cream-200);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    cursor: pointer;
+  }
+  .not-vendi-toggle.on { background: var(--warning-bg); border: 2px solid var(--warning); padding: 12px 14px; }
+  .not-vendi-toggle .icon { font-size: 28px; }
+  .not-vendi-toggle .info { flex: 1; }
+  .not-vendi-toggle .info .title { font-weight: 700; font-size: 14px; }
+  .not-vendi-toggle .info .desc { font-size: 12px; color: var(--text-soft); }
+  .firma-section {
+    background: var(--blue-100);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    margin-top: 12px;
+  }
+  .firma-section .h3 { color: var(--blue-700); margin-bottom: 8px; }
+  .firma-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .firma-option {
+    background: white;
+    border: 2px solid var(--cream-300);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .firma-option.selected { border-color: var(--green-500); background: var(--green-100); color: var(--green-700); }
+  .prev-registro {
+    background: white;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius-md);
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .prev-registro .litros-info { flex: 1; }
+  .prev-registro .name { font-weight: 600; font-size: 14px; }
+  .prev-registro .meta { font-size: 12px; color: var(--text-soft); }
+</style>
+</head>
+<body>
+<div class="phone-stage">
+  <div class="phone">
+    <div class="phone-notch"></div>
+    <div class="phone-screen">
+
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="right">
+          <span>📶 4G</span>
+          <span style="font-size: 11px;">72%</span>
+          <div class="battery-icon"><div class="level"></div></div>
+        </div>
+      </div>
+
+      <div class="app-bar">
+        <div class="back">←</div>
+        <div class="title">Juan Pérez</div>
+        <div class="action">📍</div>
+      </div>
+
+      <div class="content">
+
+        <!-- Cliente header -->
+        <div class="cliente-header">
+          <div class="avatar">JP</div>
+          <div class="info">
+            <div class="name">Juan Pérez</div>
+            <div class="meta">📍 Caserío El Tambo · 5 vacas</div>
+          </div>
+          <div class="badge badge-success">✓ Activo</div>
+        </div>
+
+        <!-- Registro de HOY previo de Juan -->
+        <div class="prev-registro">
+          <div style="font-size: 24px;">📋</div>
+          <div class="litros-info">
+            <div class="name">Juan registró a las 6:30 AM</div>
+            <div class="meta">Esperando tu confirmación</div>
+          </div>
+          <div style="font-family: var(--font-data); font-size: 22px; font-weight: 700; color: var(--blue-500);">
+            17.5 L
+          </div>
+        </div>
+
+        <!-- Quantity display -->
+        <div class="quantity-display">
+          <div class="label">LITROS RECOGIDOS</div>
+          <div class="value">17.5<span class="unit"> L</span></div>
+          <div style="font-size: 12px; color: var(--text-soft); margin-top: 4px;">
+            Coincide con lo que registró Juan ✓
+          </div>
+        </div>
+
+        <!-- Counter -->
+        <div class="section-title">Ajustar cantidad</div>
+        <div class="counter-row">
+          <button class="counter-btn">−</button>
+          <div class="counter-display">17.5</div>
+          <button class="counter-btn">+</button>
+        </div>
+
+        <!-- Quick buttons -->
+        <div class="section-title">Ajuste rápido (±0.5)</div>
+        <div class="quick-grid">
+          <button class="quick-btn">17</button>
+          <button class="quick-btn selected">17.5</button>
+          <button class="quick-btn">18</button>
+        </div>
+
+        <!-- No vendí toggle -->
+        <div class="not-vendi-toggle" onclick="this.classList.toggle('on')">
+          <div class="icon">🚫</div>
+          <div class="info">
+            <div class="title">No vino hoy / no recogí leche</div>
+            <div class="desc">Marca si no hubo recolección (vacas secas, enfermedad, festividad)</div>
+          </div>
+          <div class="toggle"></div>
+        </div>
+
+        <!-- Adelanto / Encargo rápido -->
+        <div class="section-title">Acciones rápidas (opcional)</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px;">
+          <button class="btn btn-secondary" style="margin: 0;">💰 Adelanto</button>
+          <button class="btn btn-secondary" style="margin: 0;">🛒 Encargo</button>
+        </div>
+
+        <!-- Firma digital -->
+        <div class="firma-section">
+          <div class="h3">🔒 Confirmar con firma digital</div>
+          <div class="firma-options">
+            <button class="firma-option selected">
+              <span style="font-size: 20px;">🔢</span>
+              PIN
+            </button>
+            <button class="firma-option">
+              <span style="font-size: 20px;">👆</span>
+              Huella
+            </button>
+          </div>
+          <div style="font-size: 11px; color: var(--text-soft); margin-top: 8px; text-align: center;">
+            El productor deberá confirmar también desde su app
+          </div>
+        </div>
+
+      </div>
+
+      <!-- STICKY CTA -->
+      <div style="background: white; border-top: 1px solid var(--cream-300); padding: 12px 16px; padding-bottom: 20px;">
+        <button class="btn btn-primary btn-large">✓ REGISTRAR 17.5 L</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="nav-note">
+  <a href="app_lechero_home.html" style="color: white;">← Volver</a> ·
+  <a href="app_lechero_cerrar_contrato.html" style="color: white;">Siguiente: Cerrar contrato →</a>
+</div>
+
+</body>
+</html>

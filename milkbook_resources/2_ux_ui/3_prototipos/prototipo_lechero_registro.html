@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MilkBook — Prototipo: Registro de Visita (Carlos)</title>
+<link rel="stylesheet" href="../2_mockups/shared_styles.css">
+<style>
+  .stage {
+    background: #E8E2D5;
+    min-height: 100vh;
+    padding: 24px;
+    font-family: var(--font-ui);
+  }
+  .stage-header {
+    max-width: 800px;
+    margin: 0 auto 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .stage-header h1 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    margin: 0;
+  }
+  .stage-header .sub { font-size: 12px; color: var(--text-soft); margin-top: 4px; }
+  .stage-nav { display: flex; gap: 8px; align-items: center; }
+  .stage-nav button {
+    background: var(--text);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .stage-nav button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .stage-nav button.primary { background: var(--green-500); }
+  .stage-nav .label { font-size: 13px; color: var(--text-soft); }
+  .step-label {
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--text-soft);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .step-label strong { color: var(--green-700); }
+  .stage-content { display: flex; justify-content: center; }
+  .helper-banner {
+    background: white;
+    border: 1px solid var(--cream-300);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin: 16px auto 0;
+    max-width: 600px;
+    font-size: 13px;
+    color: var(--text-soft);
+    text-align: center;
+  }
+  .toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--green-700);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 50;
+  }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="stage-header">
+    <div>
+      <h1>Prototipo: Registro de Visita (Carlos)</h1>
+      <div class="sub">Flujo del día a día · Caso A y Caso B · 4 pasos navegables</div>
+    </div>
+    <div class="stage-nav">
+      <button onclick="irAtras()" id="btn-atras">← Atrás</button>
+      <span class="label">Paso <span id="paso-num">1</span>/4</span>
+      <button onclick="irAdelante()" id="btn-adelante" class="primary">Siguiente →</button>
+    </div>
+  </div>
+
+  <div class="step-label" id="step-label">
+    Paso <strong>1</strong>: Cliente en cartera (Juan)
+  </div>
+
+  <div class="stage-content" id="screen-container">
+    <!-- contenido dinámico -->
+  </div>
+
+  <div class="helper-banner">
+    💡 <strong>Cómo usar:</strong> navega con los botones de arriba. En el paso 2 puedes ajustar la cantidad con quick buttons.
+    Al confirmar verás un toast verde de éxito.
+  </div>
+
+  <div class="toast" id="toast">✓ Registrado y sincronizado</div>
+</div>
+
+<script>
+  let pasoActual = 1;
+  const pasoTotal = 4;
+
+  function renderPantalla1() {
+    return `
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="status-bar"><span class="time">6:35</span><div class="right"><span>📶 4G</span><span style="font-size: 11px;">85%</span><div class="battery-icon"><div class="level"></div></div></div></div>
+          <div class="app-bar"><div class="title">Tu ruta de hoy</div><div class="action">🔔</div></div>
+          <div class="content">
+            <div class="greeting" style="margin-bottom: 12px;">
+              <div style="font-size: 13px; color: var(--text-soft);">📅 Martes 17 sept 2026</div>
+              <div style="font-family: var(--font-ui); font-size: 22px; font-weight: 700;">Buenos días, Carlos</div>
+            </div>
+            <div style="background: white; border: 1px solid var(--cream-300); border-radius: 12px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; cursor: pointer;" onclick="irAdelante()">
+              <div class="avatar">JP</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 600; font-size: 16px;">Juan Pérez</div>
+                <div style="font-size: 12px; color: var(--text-soft);">📍 Caserío El Tambo · ⏱ 8:30 AM</div>
+              </div>
+              <div style="font-family: var(--font-data); font-weight: 700; font-size: 16px; color: var(--green-700);">17.5 L</div>
+            </div>
+            <div style="background: white; border: 1px solid var(--cream-300); border-radius: 12px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+              <div class="avatar" style="background: var(--green-500);">MG</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 600; font-size: 16px;">María Gómez</div>
+                <div style="font-size: 12px; color: var(--text-soft);">📍 Caserío La Pampa · ⏱ 9:15 AM</div>
+              </div>
+              <div style="font-size: 11px; color: var(--text-disabled);">✓ hecho</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPantalla2() {
+    return `
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="status-bar"><span class="time">6:36</span><div class="right"><span>📶 4G</span><span style="font-size: 11px;">85%</span><div class="battery-icon"><div class="level"></div></div></div></div>
+          <div class="app-bar"><div class="back">←</div><div class="title">Juan Pérez</div><div class="action">📍</div></div>
+          <div class="content">
+            <div style="background: white; border: 1px solid var(--cream-300); border-radius: 12px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+              <div class="avatar">JP</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 15px;">Juan Pérez</div>
+                <div style="font-size: 11px; color: var(--text-soft);">📍 Caserío El Tambo · 5 vacas</div>
+              </div>
+              <div style="background: var(--green-100); color: var(--green-700); padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700;">✓ Activo</div>
+            </div>
+            <div style="background: white; border: 1px solid var(--cream-300); border-radius: 12px; padding: 12px; margin-bottom: 12px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="font-size: 18px;">📋</div>
+                <div style="flex: 1; font-size: 13px;">
+                  <div style="font-weight: 600;">Juan registró a las 6:30 AM</div>
+                  <div style="font-size: 12px; color: var(--text-soft);">Esperando tu confirmación</div>
+                </div>
+                <div style="font-family: var(--font-data); font-weight: 700; font-size: 18px; color: var(--blue-500);">17.5 L</div>
+              </div>
+            </div>
+            <div style="background: white; border: 2px solid var(--green-500); border-radius: 12px; padding: 16px; text-align: center; margin-bottom: 12px;">
+              <div style="font-size: 11px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px;">LITROS RECOGIDOS</div>
+              <div style="font-family: var(--font-data); font-weight: 700; font-size: 56px; line-height: 1; color: var(--green-700); margin: 8px 0;">17.5<span style="font-size: 20px; color: var(--text-soft);"> L</span></div>
+              <div style="font-size: 12px; color: var(--green-700);">✓ Coincide con Juan</div>
+            </div>
+            <div style="margin-bottom: 8px;">
+              <div style="font-size: 11px; color: var(--text-soft); font-weight: 600; margin-bottom: 6px;">AJUSTE RÁPIDO</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px;">
+                <button style="background: var(--cream-100); border: 1px solid var(--cream-300); border-radius: 6px; padding: 8px; font-family: var(--font-data); font-weight: 700; font-size: 14px;">+0.5</button>
+                <button style="background: var(--cream-100); border: 1px solid var(--cream-300); border-radius: 6px; padding: 8px; font-family: var(--font-data); font-weight: 700; font-size: 14px;">−0.5</button>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+                <button style="background: white; border: 1px solid var(--cream-300); border-radius: 6px; padding: 8px; font-family: var(--font-data); font-weight: 700;">15</button>
+                <button style="background: var(--green-100); border: 1px solid var(--green-500); color: var(--green-700); border-radius: 6px; padding: 8px; font-family: var(--font-data); font-weight: 700;">17.5</button>
+                <button style="background: white; border: 1px solid var(--cream-300); border-radius: 6px; padding: 8px; font-family: var(--font-data); font-weight: 700;">18</button>
+              </div>
+            </div>
+            <div style="background: var(--cream-200); border-radius: 12px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <div style="font-size: 24px;">🚫</div>
+              <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 13px;">No recogí leche</div>
+                <div style="font-size: 11px; color: var(--text-soft);">Marca si no hubo venta hoy</div>
+              </div>
+              <div class="toggle" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px;">
+              <button style="background: white; border: 1.5px solid var(--blue-500); color: var(--blue-500); border-radius: 6px; padding: 10px; font-weight: 700; font-size: 13px;">💰 Adelanto</button>
+              <button style="background: white; border: 1.5px solid var(--blue-500); color: var(--blue-500); border-radius: 6px; padding: 10px; font-weight: 700; font-size: 13px;">🛒 Encargo</button>
+            </div>
+          </div>
+          <div style="background: white; border-top: 1px solid var(--cream-300); padding: 12px 16px; padding-bottom: 20px;">
+            <button onclick="mostrarToast(); irAdelante();" class="btn btn-primary btn-large">✓ REGISTRAR 17.5 L</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPantalla3() {
+    return `
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="status-bar"><span class="time">6:37</span><div class="right"><span>📶 4G</span><span style="font-size: 11px;">85%</span><div class="battery-icon"><div class="level"></div></div></div></div>
+          <div class="app-bar"><div class="title">Confirmando...</div></div>
+          <div class="content" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 32px 24px; text-align: center;">
+            <div style="font-size: 64px; margin-bottom: 16px;">⏳</div>
+            <h2 style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px;">Sincronizando...</h2>
+            <p style="font-size: 14px; color: var(--text-soft); margin-bottom: 24px;">Guardando 17.5 L para Juan Pérez</p>
+            <div style="width: 100%; max-width: 240px; height: 6px; background: var(--cream-200); border-radius: 3px; overflow: hidden;">
+              <div id="progress-bar" style="height: 100%; background: var(--green-500); width: 0%; border-radius: 3px; transition: width 1.5s ease;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPantalla4() {
+    return `
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="status-bar"><span class="time">6:37</span><div class="right"><span>📶 4G</span><span style="font-size: 11px;">85%</span><div class="battery-icon"><div class="level"></div></div></div></div>
+          <div class="app-bar"><div class="back">←</div><div class="title">Cliente</div></div>
+          <div class="content" style="padding: 24px; text-align: center;">
+            <div style="font-size: 80px; margin-bottom: 16px; color: var(--green-500);">✓</div>
+            <h2 style="font-family: var(--font-display); font-size: 24px; color: var(--green-700); margin-bottom: 8px;">17.5 L registrados</h2>
+            <p style="font-size: 14px; color: var(--text-soft); margin-bottom: 24px;">Notificación enviada a Juan para confirmar</p>
+            <div style="background: var(--cream-100); padding: 16px; border-radius: 12px; text-align: left; margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px;"><span>Cliente:</span><strong>Juan Pérez</strong></div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px;"><span>Fecha:</span><strong>17 sept 2026</strong></div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px;"><span>Litros:</span><strong>17.5</strong></div>
+              <div style="display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px;"><span>Estado:</span><strong style="color: var(--green-700);">RECOGIDO_COINCIDE</strong></div>
+            </div>
+            <div style="background: var(--green-100); padding: 12px; border-radius: 8px; font-size: 13px;">
+              ✓ Juan recibirá push para confirmar con su PIN
+            </div>
+          </div>
+          <div style="background: white; border-top: 1px solid var(--cream-300); padding: 12px 16px; padding-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <button onclick="irAtras()" class="btn btn-secondary" style="margin: 0;">Siguiente cliente</button>
+            <button onclick="reset()" class="btn btn-primary" style="margin: 0;">← Volver al inicio</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function getLabel(p) {
+    return ['', 'Cliente en cartera (Juan)', 'Pantalla de registro con previous de Juan', 'Sincronizando...', 'Confirmado · Carlos'][p];
+  }
+
+  function actualizarPantalla() {
+    const map = { 1: renderPantalla1, 2: renderPantalla2, 3: renderPantalla3, 4: renderPantalla4 };
+    document.getElementById('screen-container').innerHTML = map[pasoActual]();
+    document.getElementById('step-label').innerHTML = `Paso <strong>${pasoActual}</strong>: ${getLabel(pasoActual)}`;
+    document.getElementById('paso-num').textContent = pasoActual;
+    document.getElementById('btn-atras').disabled = pasoActual === 1;
+    document.getElementById('btn-adelante').disabled = pasoActual === pasoTotal;
+    if (pasoActual === 3) {
+      // Anima barra de progreso
+      setTimeout(() => {
+        const bar = document.getElementById('progress-bar');
+        if (bar) bar.style.width = '100%';
+      }, 100);
+    }
+  }
+
+  function irAdelante() {
+    if (pasoActual < pasoTotal) { pasoActual++; actualizarPantalla(); window.scrollTo(0,0); }
+  }
+  function irAtras() {
+    if (pasoActual > 1) { pasoActual--; actualizarPantalla(); window.scrollTo(0,0); }
+  }
+  function reset() {
+    pasoActual = 1;
+    actualizarPantalla();
+    window.scrollTo(0,0);
+  }
+  function mostrarToast() {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1500);
+  }
+
+  actualizarPantalla();
+</script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MilkBook — Home Lechero (Carlos)</title>
+<link rel="stylesheet" href="shared_styles.css">
+<style>
+  .greeting { margin-bottom: 16px; }
+  .greeting h1 { font-family: var(--font-ui); font-size: 22px; font-weight: 700; }
+  .greeting .date { color: var(--text-soft); font-size: 13px; }
+  .route-progress {
+    background: white;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .route-progress .bar {
+    height: 8px;
+    background: var(--cream-200);
+    border-radius: 4px;
+    margin-top: 12px;
+    overflow: hidden;
+  }
+  .route-progress .fill {
+    height: 100%;
+    background: var(--green-500);
+    width: 47%;
+    border-radius: 4px;
+  }
+  .cliente-card {
+    background: white;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius-lg);
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+  }
+  .cliente-card:active { background: var(--cream-100); }
+  .cliente-card .info { flex: 1; }
+  .cliente-card .name { font-weight: 600; font-size: 15px; }
+  .cliente-card .meta { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
+  .cliente-card .litros {
+    font-family: var(--font-data);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--green-700);
+  }
+  .cliente-card .litros .label { font-size: 10px; color: var(--text-soft); display: block; }
+  .quick-action {
+    background: linear-gradient(135deg, var(--green-500), #3a8c3a);
+    color: white;
+    padding: 18px 16px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+  .quick-action:active { opacity: 0.9; }
+  .quick-action .icon {
+    width: 48px; height: 48px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+  }
+  .quick-action .label { flex: 1; }
+  .quick-action .label .big { font-size: 16px; font-weight: 700; }
+  .quick-action .label .small { font-size: 12px; opacity: 0.85; }
+  .alerts-card {
+    background: white;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    margin-bottom: 16px;
+  }
+  .alert-item {
+    display: flex;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--cream-200);
+    font-size: 13px;
+  }
+  .alert-item:last-child { border: none; padding-bottom: 0; }
+  .alert-item .dot {
+    width: 8px; height: 8px;
+    background: var(--warning);
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+<div class="phone-stage">
+  <div class="phone">
+    <div class="phone-notch"></div>
+    <div class="phone-screen">
+
+      <!-- STATUS BAR -->
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="right">
+          <span>📶 4G</span>
+          <span style="font-size: 11px;">72%</span>
+          <div class="battery-icon"><div class="level"></div></div>
+        </div>
+      </div>
+
+      <!-- APP BAR -->
+      <div class="app-bar">
+        <div class="title">Buenos días, Carlos</div>
+        <div class="action">🔔</div>
+        <div class="action">⚙️</div>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="content">
+
+        <div class="greeting">
+          <div class="date">📅 Martes 17 septiembre 2026</div>
+          <h1>Tu ruta de hoy</h1>
+        </div>
+
+        <!-- ALERTS -->
+        <div class="alerts-card">
+          <div class="h3">🔔 Alertas (3)</div>
+          <div class="alert-item">
+            <div class="dot"></div>
+            <div><strong>Juan Pérez</strong> marcó "no vendí" ayer. Verifica si es correcto.</div>
+          </div>
+          <div class="alert-item">
+            <div class="dot"></div>
+            <div><strong>2 discrepancias</strong> sin resolver del lunes. Cierre en 3 días.</div>
+          </div>
+          <div class="alert-item">
+            <div class="dot"></div>
+            <div><strong>Precio cambió</strong> a S/ 1.55/L para nuevos contratos desde 1 oct.</div>
+          </div>
+        </div>
+
+        <!-- ROUTE PROGRESS -->
+        <div class="route-progress">
+          <div class="flex justify-between items-center">
+            <div>
+              <div class="h3">RUTA DE HOY</div>
+              <div style="font-weight: 700; font-size: 16px;">7 / 15 clientes visitados</div>
+            </div>
+            <div style="font-family: var(--font-data); font-size: 20px; font-weight: 700; color: var(--green-700);">
+              47%
+            </div>
+          </div>
+          <div class="bar"><div class="fill"></div></div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="quick-action">
+          <div class="icon">🆕</div>
+          <div class="label">
+            <div class="big">Agregar cliente</div>
+            <div class="small">Por DNI, sin papeles</div>
+          </div>
+          <div style="font-size: 24px;">→</div>
+        </div>
+
+        <!-- CLIENT LIST -->
+        <div class="h3">CLIENTES PENDIENTES (8)</div>
+
+        <div class="cliente-card">
+          <div class="avatar">JP</div>
+          <div class="info">
+            <div class="name">Juan Pérez</div>
+            <div class="meta">📍 Caserío El Tambo · ⏱ 8:30 AM</div>
+          </div>
+          <div class="litros"><span class="label">Hoy</span>—</div>
+        </div>
+
+        <div class="cliente-card" style="border-color: var(--green-500); border-width: 2px;">
+          <div class="avatar" style="background: var(--green-500);">MG</div>
+          <div class="info">
+            <div class="name">María Gómez</div>
+            <div class="meta">📍 Caserío La Pampa · ⏱ 9:15 AM</div>
+          </div>
+          <div class="litros" style="color: var(--text-disabled);"><span class="label">Hoy</span>✓</div>
+        </div>
+
+        <div class="cliente-card" style="border-color: var(--warning); border-width: 2px;">
+          <div class="avatar" style="background: var(--warning); color: white;">PD</div>
+          <div class="info">
+            <div class="name">Pedro Díaz</div>
+            <div class="meta">📍 Caserío Alto Perú · ⚠ 1 discrepancia ayer</div>
+          </div>
+          <div class="litros"><span class="label">Hoy</span>—</div>
+        </div>
+
+        <div class="cliente-card">
+          <div class="avatar">RL</div>
+          <div class="info">
+            <div class="name">Rosa López</div>
+            <div class="meta">📍 Caserío Santa Rosa · ⏱ 10:00 AM</div>
+          </div>
+          <div class="litros"><span class="label">Hoy</span>—</div>
+        </div>
+
+        <div class="cliente-card">
+          <div class="avatar">JR</div>
+          <div class="info">
+            <div class="name">Julio Ramírez</div>
+            <div class="meta">📍 Caserío Bella Vista · ⏱ 10:45 AM</div>
+          </div>
+          <div class="litros"><span class="label">Hoy</span>—</div>
+        </div>
+
+        <div class="cliente-card">
+          <div class="avatar">CT</div>
+          <div class="info">
+            <div class="name">Carla Torres</div>
+            <div class="meta">📍 Caserío El Molino · ⏱ 11:30 AM</div>
+          </div>
+          <div class="litros"><span class="label">Hoy</span>—</div>
+        </div>
+
+        <div style="text-align: center; margin-top: 12px;">
+          <button class="btn btn-tertiary" style="font-size: 13px;">Ver 2 clientes más ↓</button>
+        </div>
+
+      </div>
+
+      <!-- BOTTOM NAV -->
+      <div class="bottom-nav">
+        <button class="tab active">
+          <div class="icon">🏠</div>
+          <span>Inicio</span>
+        </button>
+        <button class="tab">
+          <div class="icon">👥</div>
+          <span>Clientes</span>
+        </button>
+        <button class="tab">
+          <div class="icon">📋</div>
+          <span>Quincena</span>
+        </button>
+        <button class="tab">
+          <div class="icon">📊</div>
+          <span>Reportes</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="nav-note">
+  <a href="app_lechero_registrar_visita.html" style="color: white; text-decoration: none;">Siguiente: Registrar visita →</a>
+</div>
+
+</body>
+</html>

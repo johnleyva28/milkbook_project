@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MilkBook — Confirmar Litros (Juan) · PANTALLA CRÍTICA</title>
+<link rel="stylesheet" href="shared_styles.css">
+<style>
+  .context-banner {
+    background: var(--green-100);
+    border: 2px solid var(--green-500);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .context-banner .icon { font-size: 32px; margin-bottom: 6px; }
+  .context-banner .msg {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--green-700);
+  }
+  .context-banner .sub {
+    font-size: 12px;
+    color: var(--green-700);
+    margin-top: 4px;
+  }
+
+  .quantity-display {
+    background: white;
+    border: 2px solid var(--cream-400);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .quantity-display .label {
+    font-size: 13px;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .quantity-display .value {
+    font-family: var(--font-data);
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text);
+  }
+  .quantity-display .unit {
+    font-size: 32px;
+    color: var(--text-soft);
+  }
+  .quantity-display .helper {
+    font-size: 13px;
+    color: var(--text-soft);
+    margin-top: 8px;
+  }
+
+  .quick-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .quick-btn {
+    background: white;
+    border: 2px solid var(--cream-300);
+    border-radius: var(--radius-md);
+    padding: 14px 8px;
+    font-family: var(--font-data);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    cursor: pointer;
+    min-height: 64px;
+  }
+  .quick-btn.selected {
+    background: var(--green-100);
+    border-color: var(--green-500);
+    color: var(--green-700);
+  }
+  .quick-btn:active { background: var(--green-100); }
+
+  .decimal-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .decimal-btn {
+    background: var(--cream-100);
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    font-family: var(--font-data);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .decimal-btn.selected {
+    background: var(--green-100);
+    border-color: var(--green-500);
+    color: var(--green-700);
+  }
+
+  .not-vendi-section {
+    background: var(--cream-200);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    margin-bottom: 16px;
+  }
+  .not-vendi-section .title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .not-vendi-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+  .not-vendi-option {
+    background: white;
+    border: 1px solid var(--cream-300);
+    border-radius: var(--radius-sm);
+    padding: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .not-vendi-option.selected {
+    background: var(--warning-bg);
+    border-color: var(--warning);
+    color: var(--warning);
+    font-weight: 700;
+  }
+
+  .firma-section {
+    background: var(--blue-100);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .firma-section .h3 {
+    color: var(--blue-700);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .firma-methods {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .firma-method {
+    background: white;
+    border: 2px solid var(--cream-300);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .firma-method.selected {
+    background: var(--green-100);
+    border-color: var(--green-500);
+    color: var(--green-700);
+  }
+  .firma-method .icon {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  .firma-method .name {
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .help-text {
+    font-size: 12px;
+    color: var(--text-soft);
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  .no-vendi-link {
+    background: transparent;
+    border: 2px solid var(--warning);
+    color: var(--warning);
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+<div class="phone-stage">
+  <div class="phone">
+    <div class="phone-notch"></div>
+    <div class="phone-screen">
+
+      <div class="status-bar">
+        <span class="time">6:35</span>
+        <div class="right">
+          <span>📶 3G</span>
+          <span style="font-size: 11px;">68%</span>
+          <div class="battery-icon"><div class="level"></div></div>
+        </div>
+      </div>
+
+      <div class="app-bar">
+        <div class="back">←</div>
+        <div class="title">Confirmar litros de hoy</div>
+        <div class="action">❓</div>
+      </div>
+
+      <div class="content">
+
+        <!-- Caso A: Carlos ya recogió -->
+        <div class="context-banner">
+          <div class="icon">✓</div>
+          <div class="msg">Carlos recogió tu leche</div>
+          <div class="sub">A las 6:32 AM · te toca confirmar</div>
+        </div>
+
+        <!-- Quantity display -->
+        <div class="quantity-display">
+          <div class="label">LITROS QUE CARLOS RECOGIÓ</div>
+          <div class="value">17.5<span class="unit"> L</span></div>
+          <div class="helper">Si coincide, toca CONFIRMAR</div>
+        </div>
+
+        <!-- Decimal buttons (fine-tune) -->
+        <div class="h3" style="margin-bottom: 8px;">Si fue otra cantidad, ajústala:</div>
+        <div class="decimal-buttons">
+          <button class="decimal-btn">+0.5</button>
+          <button class="decimal-btn">−0.5</button>
+        </div>
+
+        <!-- Quick buttons -->
+        <div class="h3" style="margin-bottom: 8px;">Botones rápidos</div>
+        <div class="quick-grid">
+          <button class="quick-btn">15</button>
+          <button class="quick-btn">17</button>
+          <button class="quick-btn selected">17.5</button>
+          <button class="quick-btn">18</button>
+          <button class="quick-btn">20</button>
+          <button class="quick-btn">25</button>
+        </div>
+
+        <!-- No vendí -->
+        <div class="not-vendi-section">
+          <div class="title">🚫 Si NO vendiste hoy</div>
+          <div class="not-vendi-options">
+            <div class="not-vendi-option">Vacas secas</div>
+            <div class="not-vendi-option">Carlos no vino</div>
+            <div class="not-vendi-option">Vendí a otro</div>
+            <div class="not-vendi-option">Enfermedad</div>
+          </div>
+          <button class="btn no-vendi-link" style="margin: 12px 0 0;">✕ NO VENDÍ HOY</button>
+        </div>
+
+        <!-- Firma digital -->
+        <div class="firma-section">
+          <div class="h3">🔒 Confirma con tu firma</div>
+          <div class="firma-methods">
+            <div class="firma-method selected">
+              <div class="icon">🔢</div>
+              <div class="name">PIN (4 dígitos)</div>
+            </div>
+            <div class="firma-method">
+              <div class="icon">👆</div>
+              <div class="name">Huella</div>
+            </div>
+          </div>
+          <div class="help-text">El PIN es más fácil con manos mojadas</div>
+        </div>
+
+      </div>
+
+      <!-- STICKY CTA -->
+      <div style="background: white; border-top: 1px solid var(--cream-300); padding: 12px 16px; padding-bottom: 20px;">
+        <button class="btn btn-primary btn-large">✓ CONFIRMAR 17.5 L</button>
+        <div style="text-align: center; font-size: 11px; color: var(--text-soft); margin-top: 8px;">
+          Toca CONFIRMAR y pon tu PIN
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="nav-note">
+  <a href="app_cliente_home.html" style="color: white;">← Home</a> ·
+  <span style="color: white;">★ Pantalla más crítica de Juan ★</span>
+</div>
+
+</body>
+</html>
