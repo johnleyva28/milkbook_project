@@ -10,7 +10,7 @@
 - **Fecha objetivo**: YYYY-MM-DD
 - **Sprint**: sprint-NN
 - **Épica**: EP-X — Nombre de la épica
-- **Componente técnico**: app móvil Flutter / backend NestJS / web admin React
+- **Componente técnico**: app iOS Swift / backend NestJS / web admin React
 
 **Como** [rol del usuario — Cliente, Lechero, Admin, etc.]
 **quiero** [acción concreta que el usuario quiere hacer]
@@ -60,8 +60,8 @@
 - **Story points**: 3
 - **Fecha objetivo**: 2026-10-15
 - **Sprint**: sprint-02
-- **Épica**: EP-1 — App móvil Flutter
-- **Componente técnico**: app móvil Flutter
+- **Épica**: EP-1 — App iOS nativa (Swift)
+- **Componente técnico**: app iOS Swift
 
 **Como** cliente lechero (Juan)
 **quiero** confirmar los litros del día en menos de 30 segundos
@@ -74,7 +74,7 @@
 - [ ] Pantalla única muestra los litros propuestos por Carlos
 - [ ] Botón principal "Confirmar" con un tap guarda la confirmación
 - [ ] Si los litros no coinciden, hay un campo para corregir y notificar a Carlos
-- [ ] Funciona offline (Drift cachea la confirmación y la sube después)
+- [ ] Funciona offline (Core Data cachea la confirmación y la sube después)
 - [ ] Animación / feedback visual al confirmar (no solo cambio de estado silencioso)
 
 **Definition of Done**:

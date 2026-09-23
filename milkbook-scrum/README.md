@@ -33,7 +33,7 @@ Esta carpeta contiene todo el material Scrum del proyecto **Milkbook**: equipo, 
 
 ## Glosario rápido
 
-- **Épica**: bloque grande de funcionalidad (ej: "App móvil Flutter").
+- **Épica**: bloque grande de funcionalidad (ej: "App iOS Swift").
 - **Historia de usuario**: funcionalidad concreta desde la perspectiva del usuario (ej: "Como lechero quiero registrar visitas").
 - **Spike**: tarea de investigación con tiempo limitado (ej: "Investigar Drift vs Isar para offline").
 - **Story points**: estimación de esfuerzo relativa (1, 2, 3, 5, 8, 13 — escala de Fibonacci).

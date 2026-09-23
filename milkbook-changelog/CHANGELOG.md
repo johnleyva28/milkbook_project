@@ -13,6 +13,18 @@ El formato sigue [Keep a Changelog 1.1.0](https://keepachangelog.com/es/1.1.0/) 
 
 ---
 
+## [0.3.0] - 2026-09-23
+
+### Changed
+- **Stack móvil: Flutter → Swift nativo**. La app móvil deja de ser multiplataforma Flutter (Dart + Drift + Riverpod + FCM) y pasa a ser **app iOS nativa en Swift 5.9+ con SwiftUI + Core Data + APNs**. Decisión del equipo de apuntar a una experiencia más pulida en iOS primero (los productores objetivo tienen iPhone en su mayoría). Implica reescribir la carpeta `milkbook_app/` cuando arranquemos EP-1. @leyva
+- **Notificaciones push: FCM → APNs**. Al ser iOS nativo, usamos Apple Push Notification service (APNs) en vez de Firebase Cloud Messaging. @leyva
+- **Firma digital**: biometría ahora es Face ID / Touch ID (en vez de biometría genérica). @leyva
+
+### Docs
+- Actualizadas todas las menciones a "Flutter" / "Drift" / "Riverpod" / "FCM" en `milkbook-scrum/` → "Swift" / "Core Data" / "SwiftUI" / "APNs". Archivos tocados: `product-backlog.md`, `equipo.md`, `proceso.md`, `shortcut-setup.md`, `plantillas/{epica,historia-usuario,spike}.md`, `sprints/sprint-01/{planning,tablero,review-retro}.md`, `README.md`. @leyva
+
+---
+
 ## [0.2.0] - 2026-09-23
 
 ### Changed
