@@ -18,7 +18,7 @@
 | HU-22 | Migración + seeders | _link a PR_ | |
 | HU-23 | Auth DNI endpoint | _link a PR_ | |
 | HU-40 | Configurar React 19 | _link a PR_ | |
-| HU-12 | Login DNI + PIN Flutter | _link a PR_ | |
+| HU-12 | Login DNI + PIN iOS Swift | _link a PR_ | |
 
 ### Qué se entregó vs qué se comprometió
 

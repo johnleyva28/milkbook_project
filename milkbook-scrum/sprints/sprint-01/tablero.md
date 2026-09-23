@@ -25,7 +25,7 @@
 ### Backlog (📋)
 
 - HU-22 — Migración inicial + seeders — @perez — SP: 3 — objetivo: 2026-10-03
-- HU-12 — Login DNI + PIN Flutter — @braulio — SP: 5 — objetivo: 2026-10-07
+- HU-12 — Login DNI + PIN iOS Swift — @braulio — SP: 5 — objetivo: 2026-10-07
 
 ### En progreso (🔵)
 

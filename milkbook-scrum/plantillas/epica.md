@@ -7,7 +7,7 @@
 
 > Una frase que diga qué valor grande entrega esta épica.
 
-**Componente técnico**: app móvil Flutter / backend NestJS / web admin React / integraciones / piloto.
+**Componente técnico**: app iOS Swift / backend NestJS / web admin React / integraciones / piloto.
 
 **Por qué importa**:
 > Por qué esta épica está en el producto. Qué problema del usuario resuelve. Si hay dato validado de la investigación, citarlo.
@@ -46,14 +46,14 @@
 - **No más de 5-8 historias por épica**. Si pasa, partir la épica.
 - **Una épica puede tomar varios sprints** — eso es normal.
 
-## Ejemplo (ÉPICA 1 — App móvil Flutter)
+## Ejemplo (ÉPICA 1 — App iOS Swift)
 
 ```markdown
-## ÉPICA 1 — App móvil Flutter (offline-first)
+## ÉPICA 1 — App iOS Swift (offline-first)
 
 > Una app móvil que funciona sin internet y sincroniza cuando hay conexión, permitiendo a lecheros y clientes registrar su operación diaria en zonas rurales de Cajamarca.
 
-**Componente técnico**: app móvil Flutter.
+**Componente técnico**: app iOS Swift.
 
 **Por qué importa**:
 > Validado en investigación: el 90% de productores tiene smartphone, pero la cobertura es intermitente. Sin offline-first, la app no es usable. Fuente: `indagacion_y_planteamiento_de_proyecto/README.md` (tabla "Datos clave validados").

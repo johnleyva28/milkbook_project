@@ -142,7 +142,7 @@ Una historia está **Hecha** cuando **TODAS** estas condiciones se cumplen:
 
 - [ ] Código mergeado a `main` con PR aprobado por al menos 1 persona (idealmente 2).
 - [ ] Si es backend: tests unitarios pasando, endpoint documentado en `docs/api/`.
-- [ ] Si es Flutter: `flutter analyze` limpio, widget probado al menos manualmente.
+- [ ] Si es iOS Swift: compila sin warnings, al menos `xcodebuild` pasa, vista probada manualmente.
 - [ ] Si es React: build sin warnings, componente accesible básico.
 - [ ] Sin warnings de linter / typecheck.
 - [ ] Sin `TODO` o código comentado dejado en el cambio.

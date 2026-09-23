@@ -12,15 +12,15 @@ Backlog priorizado con todas las épicas e historias del producto. Cada historia
 
 ---
 
-## ÉPICA 1 — App móvil Flutter (offline-first)
+## ÉPICA 1 — App iOS nativa (Swift) — Cliente y Lechero
 
-> Componente: `milkbook_app/`. Stack: Flutter 3 + Dart 3 + Drift (SQLite) + Riverpod + FCM. Dos perfiles: **Cliente** (Juan) y **Lechero** (Carlos), misma base de código.
+> Componente: `milkbook_app/`. Stack: **Swift 5.9+ + SwiftUI + Core Data (offline) + URLSession + APNs (push)**. App **nativa iOS, NO multiplataforma**. Dos perfiles: **Cliente** (Juan) y **Lechero** (Carlos), misma base de código con compilación condicional por perfil.
 
 ### Historias
 
 - [ ] **HU-01** — Como lechero, quiero registrar una visita diaria con litros y valor final, para llevar el control diario de mi cartera. (5 SP)
 - [ ] **HU-02** — Como cliente, quiero confirmar los litros del día en < 30 segundos, para no perder tiempo. (3 SP)
-- [ ] **HU-03** — Como cliente, quiero marcar "no vendí" con una razón, para no generar液体 cuando no entrego leche. (2 SP)
+- [ ] **HU-03** — Como cliente, quiero marcar "no vendí" con una razón, para no generar registro cuando no entrego leche. (2 SP)
 - [ ] **HU-04** — Como lechero, quiero ver mi cartera de clientes con búsqueda rápida, para encontrar a un cliente en < 5 segundos. (3 SP)
 - [ ] **HU-05** — Como lechero, quiero registrar un adelanto con confirmación del cliente, para llevar control del dinero entregado. (5 SP)
 - [ ] **HU-06** — Como cliente, quiero ver mis adelantos pendientes, para saber cuánto llevo prestado. (2 SP)
@@ -29,10 +29,10 @@ Backlog priorizado con todas las épicas e historias del producto. Cada historia
 - [ ] **HU-09** — Como lechero, quiero cambiar el precio por litro y que se snapshot por contrato, para que el histórico no se rompa. (5 SP)
 - [ ] **HU-10** — Como cliente, quiero descargar mi boleta en PDF, para tener comprobante de pago. (3 SP)
 - [ ] **HU-11** — Como cliente, quiero recibir notificaciones push claras cuando hay algo nuevo, para enterarme sin abrir la app. (3 SP)
-- [ ] **HU-12** — Como usuario, quiero iniciar sesión con DNI + PIN, para acceder sin recordar contraseñas largas. (5 SP)
-- [ ] **HU-13** — Como usuario, quiero firmar digitalmente (PIN / contraseña / biometría), para confirmar contratos y liquidaciones. (8 SP)
+- [ ] **HU-12** — Como usuario, quiero iniciar sesión con DNI + PIN en la app iOS, para acceder sin recordar contraseñas largas. (5 SP)
+- [ ] **HU-13** — Como usuario, quiero firmar digitalmente (PIN / contraseña / Face ID / Touch ID), para confirmar contratos y liquidaciones. (8 SP)
 - [ ] **HU-14** — Como lechero, quiero ver estadísticas básicas (litros/mes, ingresos/mes), para entender mi negocio. (3 SP)
-- [ ] **HU-15** — Offline-first con Drift + outbox pattern: la app debe funcionar sin internet y sincronizar después. (13 SP — épica técnica)
+- [ ] **HU-15** — Offline-first con Core Data + outbox pattern: la app debe funcionar sin internet y sincronizar después. (13 SP — épica técnica)
 
 ---
 
@@ -88,7 +88,7 @@ Backlog priorizado con todas las épicas e historias del producto. Cada historia
 
 - [ ] **HU-60** — Integración con RENIEC / consultarRUC.pe para validar DNI y obtener RUC opcional. (5 SP)
 - [ ] **HU-61** — Integración con Nubefact para emisión de boletas electrónicas OSE. (8 SP)
-- [ ] **HU-62** — Firebase Cloud Messaging para push notifications (cliente + lechero). (5 SP)
+- [ ] **HU-62** — Apple Push Notification service (APNs) para push notifications a iOS (cliente + lechero). (5 SP)
 - [ ] **HU-63** — Storage de PDFs (boletas) — evaluar S3 vs Cloudinary vs Supabase Storage. (5 SP) **← Spike primero**
 - [ ] **HU-64** — Servicio de envío de email (SendGrid / Resend) para boletas por email. (3 SP)
 - [ ] **HU-65** — Backup automatizado de PostgreSQL a storage externo. (5 SP)
@@ -115,7 +115,8 @@ Backlog priorizado con todas las épicas e historias del producto. Cada historia
 - Integración real de pagos (Yape/Plin API).
 - Factura electrónica (no solo boleta).
 - App para empleados del lechero (caso raro hoy).
-- Versión web responsive de la app del cliente (hoy solo móvil).
+- Versión web responsive de la app del cliente (hoy solo móvil iOS).
+- App nativa Android (Kotlin/Swift) si el piloto se expande.
 - Dashboard público de métricas del distrito (transparencia).
 - Soporte multi-idioma (quechua / awajún si se expande a más zonas rurales).
 
