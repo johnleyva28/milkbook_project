@@ -6,7 +6,7 @@ Una carpeta por sprint con su planning, tablero y review.
 
 | # | Fechas | Objetivo | Estado | Carpeta |
 | --- | --- | --- | --- | --- |
-| **01** | 2026-09-28 → 2026-10-09 | Base técnica + primer desarrollo visible | Planificado | [`sprint-01/`](./sprint-01/) |
+| **01** | 2026-09-25 → 2026-10-09 | Base técnica + primer desarrollo visible | Planificado | [`sprint-01/`](./sprint-01/) |
 
 ## Cómo crear un sprint nuevo
 

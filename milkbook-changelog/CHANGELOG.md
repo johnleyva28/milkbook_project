@@ -13,6 +13,13 @@ El formato sigue [Keep a Changelog 1.1.0](https://keepachangelog.com/es/1.1.0/) 
 
 ---
 
+## [0.3.1] - 2026-09-23
+
+### Changed
+- **Sprint 01 arranca el 2026-09-25** (antes 2026-09-28). Adelanto de 3 días para empezar esta semana. Fin se mantiene en 2026-10-09. Fechas objetivo de cada historia reajustadas en consecuencia (las que caían lunes ahora se mueven a lunes de la misma semana; las de viernes a viernes). Aplica a toda la documentación y al workspace de Shortcut (iteration ID 26, descripciones de las 6 stories). @leyva
+
+---
+
 ## [0.3.0] - 2026-09-23
 
 ### Changed
