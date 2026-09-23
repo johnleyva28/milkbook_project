@@ -14,9 +14,26 @@ Ver [`herramientas.md`](./herramientas.md) para la comparativa completa. Resumen
 - **Sin instalar nada**: SaaS, abre en el navegador.
 - **Roadmap** incluido (visualización de épicas a lo largo del tiempo).
 
-## Bonus: MCP de Shortcut ya configurado en este proyecto
+## Bonus: MCP de Shortcut ya configurado
 
-Este proyecto tiene configurado el **MCP server oficial hosted de Shortcut** en [`.mcp.json`](../../.mcp.json):
+El **MCP server oficial hosted de Shortcut** está configurado en **dos lugares** (redundancia a propósito):
+
+### 1. Global (`~/.claude.json`)
+
+Disponible en **todos los proyectos** del usuario. Se ve así:
+
+```json
+"mcpServers": {
+  "shortcut": {
+    "type": "http",
+    "url": "https://mcp.shortcut.com/mcp"
+  }
+}
+```
+
+### 2. Del proyecto ([`.mcp.json`](../../.mcp.json))
+
+Disponible **solo en este proyecto** cuando se abre con Claude Code:
 
 ```json
 {
@@ -27,6 +44,8 @@ Este proyecto tiene configurado el **MCP server oficial hosted de Shortcut** en 
   }
 }
 ```
+
+### Qué permite
 
 - **~65 tools** disponibles (stories, epics, iterations, workflows, docs, members, etc.).
 - **OAuth** la primera vez que se conecta — Shortcut te pide autorizar tu cuenta. Sin tokens que guardar.
