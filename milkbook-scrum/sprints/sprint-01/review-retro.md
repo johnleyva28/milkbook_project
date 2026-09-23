@@ -6,7 +6,7 @@
 
 ## Parte 1 — Review (qué se entregó)
 
-**Fecha**: 2026-10-09
+**Fecha**: 2026-10-09 (cierre del sprint; sesión de review + retro)
 **Asistentes**: @leyva, @braulio, @lopez, @perez
 
 ### Demo de historias hechas

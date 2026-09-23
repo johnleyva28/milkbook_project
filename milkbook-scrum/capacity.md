@@ -18,7 +18,7 @@ Este archivo rastrea cuántos **story points** puede comprometerse cada persona 
 
 ---
 
-## Sprint 01 — 2026-09-28 → 2026-10-09
+## Sprint 01 — 2026-09-25 → 2026-10-09
 
 **Objetivo del sprint**: dejar la base técnica lista y arrancar el primer desarrollo visible.
 
