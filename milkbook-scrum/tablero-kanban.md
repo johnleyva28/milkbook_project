@@ -23,7 +23,7 @@ Vista textual del tablero kanban. **4 columnas**: Backlog → En progreso → En
 
 ---
 
-## Sprint actual: **Sprint 01** (2026-09-28 → 2026-10-09)
+## Sprint actual: **Sprint 01** (2026-09-25 → 2026-10-09)
 
 ### Backlog (📋)
 

@@ -2,7 +2,7 @@
 
 > Snapshot del tablero al cierre del sprint. Actualizar 2 veces por semana durante el sprint. Al cerrar, **congelar** este archivo para tener histórico.
 
-**Fechas del sprint**: 2026-09-28 → 2026-10-09
+**Fechas del sprint**: 2026-09-25 → 2026-10-09
 
 ---
 

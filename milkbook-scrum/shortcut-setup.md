@@ -2,7 +2,7 @@
 
 > **Herramienta elegida**: [Shortcut](https://www.shortcut.com) (plan Free hasta 10 usuarios). Scrum completo out-of-the-box: iterations, burndown, capacity, épicas, integraciones GitHub.
 >
-> Esta guía es paso a paso para dejar la cuenta lista y empezar a trabajar el lunes 2026-09-28 (inicio del Sprint 01).
+> Esta guía es paso a paso para dejar la cuenta lista y empezar a trabajar el viernes 2026-09-25 (inicio del Sprint 01).
 
 ## Por qué Shortcut
 
@@ -96,7 +96,7 @@ Shortcut trae un workflow por defecto ("One", "Two", "In Progress", "Done") pero
 3. En **Settings > Iterations**:
    - **Duración por defecto**: 2 semanas.
    - **Nombre**: usar el patrón `Sprint NN` (ej: `Sprint 01`, `Sprint 02`).
-   - **Fecha de inicio de la primera iteration**: lunes 2026-09-28.
+   - **Fecha de inicio de la primera iteration**: viernes 2026-09-25.
 4. Shortcut generará automáticamente las iterations futuras si activas la opción **Auto-create future Iterations** (recomendado).
 
 ## 5. Crear las 5 Épicas
@@ -145,7 +145,7 @@ Las 6 historias comprometidas en [`sprints/sprint-01/planning.md`](./sprints/spr
 
 Para cada una:
 - Crear el Story en Shortcut con el ID `HU-XX` en el título (ej: `[HU-20] Configurar proyecto NestJS 11`).
-- Asignar a la iteration `Sprint 01` (2026-09-28 → 2026-10-09).
+- Asignar a la iteration `Sprint 01` (2026-09-25 → 2026-10-09).
 - Asignar owner.
 - Poner due date alineado con la fecha objetivo del planning.
 
@@ -184,12 +184,12 @@ Nuestra convención:
 
 ## 11. Verificación post-setup
 
-Antes del planning del Sprint 01 (lunes 2026-09-28), confirmar:
+Antes del planning del Sprint 01 (viernes 2026-09-25), confirmar:
 
 - [ ] Workspace creado y accesible en `https://app.shortcut.com/milkbook`.
 - [ ] Los 4 miembros están invitados y aceptaron.
 - [ ] Workflow personalizado con 4 columnas.
-- [ ] Iterations activadas (Sprint 01 = 2026-09-28 → 2026-10-09).
+- [ ] Iterations activadas (Sprint 01 = 2026-09-25 → 2026-10-09).
 - [ ] 5 épicas creadas.
 - [ ] 40+ historias migradas al backlog.
 - [ ] 6 historias del Sprint 01 asignadas a la iteration `Sprint 01`.
