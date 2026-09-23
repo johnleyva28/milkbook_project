@@ -20,11 +20,13 @@ El formato sigue [Keep a Changelog 1.1.0](https://keepachangelog.com/es/1.1.0/) 
 
 ### Added
 - **Guía de setup de Shortcut**: `milkbook-scrum/shortcut-setup.md` con 12 pasos detallados para crear el workspace, configurar el workflow (4 columnas: Backlog / In Progress / In Review / Done), activar Iterations (sprints de 2 semanas), migrar las 40+ historias del backlog, crear las 5 épicas, asignar las 6 historias del Sprint 01, conectar la integración GitHub, e invitar al equipo. Incluye tips del Startup Program (12 meses gratis del plan Team) y Nonprofit Program. @leyva
+- **Shortcut MCP server configurado**: nuevo archivo `.mcp.json` en la raíz del proyecto que activa el MCP server oficial hosted de Shortcut (`https://mcp.shortcut.com/mcp`) con OAuth. Expone ~65 tools para gestionar stories, epics, iterations, workflows, docs y members desde Claude Code. Permite ejecutar todo el setup de Shortcut sin salir del agente. Se activa en el próximo reinicio de Claude Code. @leyva
 
 ### Docs
 - Actualizado `proceso.md` con la tabla de mapeo entre las 4 columnas del kanban conceptual y los workflow states de Shortcut. @leyva
 - Actualizado `tablero-kanban.md` indicando que ahora es snapshot histórico; la fuente de verdad del día a día pasa a Shortcut. @leyva
 - Actualizado `herramientas.md` con banner "Decisión del equipo" al inicio, señalando Shortcut como la elección. @leyva
+- Actualizado `shortcut-setup.md` con sección sobre el MCP configurado y tip de uso post-reinicio. @leyva
 
 ---
 

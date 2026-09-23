@@ -14,6 +14,27 @@ Ver [`herramientas.md`](./herramientas.md) para la comparativa completa. Resumen
 - **Sin instalar nada**: SaaS, abre en el navegador.
 - **Roadmap** incluido (visualización de épicas a lo largo del tiempo).
 
+## Bonus: MCP de Shortcut ya configurado en este proyecto
+
+Este proyecto tiene configurado el **MCP server oficial hosted de Shortcut** en [`.mcp.json`](../../.mcp.json):
+
+```json
+{
+  "mcpServers": {
+    "shortcut": {
+      "url": "https://mcp.shortcut.com/mcp"
+    }
+  }
+}
+```
+
+- **~65 tools** disponibles (stories, epics, iterations, workflows, docs, members, etc.).
+- **OAuth** la primera vez que se conecta — Shortcut te pide autorizar tu cuenta. Sin tokens que guardar.
+- Permite ejecutar **todo el setup de este archivo** sin salir de Claude Code: crear workspace, team, workflow, iterations, épicas, historias, asignar owners, mover a iterations, etc.
+- **Se activa en el próximo reinicio de Claude Code** (no en la sesión actual).
+
+**Tip**: cuando reinicies Claude Code y le pidas "configura Shortcut según shortcut-setup.md", el agente puede hacerlo solo con las tools del MCP.
+
 ## 0. Pre-requisitos
 
 - 4 cuentas de GitHub (una por dev). Cada quien debe tener su email principal de GitHub configurado en su perfil (lo usaremos para vincular commits/PRs).
