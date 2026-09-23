@@ -54,7 +54,7 @@
 - **Sprint**: sprint-01
 
 **Pregunta a responder**:
-> ¿Qué librería de SQLite para Flutter es la mejor para nuestra app offline-first: Drift o Isar?
+> ¿Qué almacenamiento local para iOS es el mejor para nuestra app offline-first: Core Data, GRDB o SQLite puro?
 
 **Opciones a evaluar**:
 1. Drift — SQL-first, código generado, comunidad grande.

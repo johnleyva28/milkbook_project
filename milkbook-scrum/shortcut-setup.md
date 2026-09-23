@@ -105,7 +105,7 @@ Ir a **Epics > New Epic** y crear:
 
 | # | Nombre | Descripción corta | Color sugerido |
 | - | --- | --- | --- |
-| EP-1 | App móvil Flutter | Componente `milkbook_app/`. Perfiles Cliente y Lechero, offline-first con Drift. | Verde |
+| EP-1 | App iOS Swift | Componente `milkbook_app/`. Perfiles Cliente y Lechero, offline-first con Core Data. | Verde |
 | EP-2 | Backend NestJS + Prisma | Componente `milkbook_backend/`. Auth DNI, sync, módulos. | Azul |
 | EP-3 | Web admin React | Componente `milkbook_frontend/`. CRM, reportes, disputas. | Morado |
 | EP-4 | Integraciones externas | RENIEC/consultarRUC.pe, Nubefact OSE, FCM push. | Naranja |
@@ -141,7 +141,7 @@ Las 6 historias comprometidas en [`sprints/sprint-01/planning.md`](./sprints/spr
 | HU-22 | Migración inicial + seeders | @perez | 3 |
 | HU-23 | Auth con DNI: endpoint `POST /auth/login-dni` | @leyva | 5 |
 | HU-40 | Configurar React 19 + Vite + TS | @lopez | 2 |
-| HU-12 | Login con DNI + PIN en Flutter | @braulio | 5 |
+| HU-12 | Login con DNI + PIN en iOS Swift | @braulio | 5 |
 
 Para cada una:
 - Crear el Story en Shortcut con el ID `HU-XX` en el título (ej: `[HU-20] Configurar proyecto NestJS 11`).

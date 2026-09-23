@@ -6,9 +6,9 @@ Equipo de desarrollo de la plataforma lechera rural Milkbook. Somos **4 personas
 
 | Nombre | Rol técnico | Rol Scrum | Responsabilidades principales |
 | --- | --- | --- | --- |
-| **Leyva** | Full-stack (Flutter + NestJS + React) | **Product Owner + Scrum Master + Dev** | Prioriza el backlog, facilita planning / review / retro, desbloquea al equipo, asume tareas críticas de arquitectura, mergea PRs. |
-| **Braulio** | Backend / Mobile | Dev | Implementa features de backend (NestJS) y/o mobile (Flutter) según el sprint. |
-| **López** | Frontend / Mobile | Dev | Implementa features de web admin (React) y/o mobile (Flutter) según el sprint. |
+| **Leyva** | Full-stack (Swift + NestJS + React) | **Product Owner + Scrum Master + Dev** | Prioriza el backlog, facilita planning / review / retro, desbloquea al equipo, asume tareas críticas de arquitectura, mergea PRs. |
+| **Braulio** | Backend / iOS | Dev | Implementa features de backend (NestJS) y/o mobile iOS (Swift/SwiftUI) según el sprint. |
+| **López** | Frontend / iOS | Dev | Implementa features de web admin (React) y/o mobile iOS (Swift/SwiftUI) según el sprint. |
 | **Pérez** | Backend / Database | Dev | Implementa features de backend, schema de Prisma, queries y migraciones. |
 
 > **Nota**: la asignación "rol técnico" es orientativa. Cualquier dev puede tomar cualquier historia según su capacidad y ganas. Leyva no tiene especialidad cerrada.
