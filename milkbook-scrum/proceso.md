@@ -62,7 +62,16 @@ Solo **3 ceremonias**. Todas ligeras, sin slides, sin formalidades.
 
 ## Kanban
 
-Tablero visual con **4 columnas**. Puede ser un Markdown (`tablero-kanban.md`) o una herramienta externa (ver `herramientas.md`).
+Tablero visual con **4 columnas**. La herramienta oficial del equipo es **[Shortcut](https://www.shortcut.com)** (ver [`herramientas.md`](./herramientas.md) y [`shortcut-setup.md`](./shortcut-setup.md)).
+
+**Mapeo de columnas**:
+
+| Kanban (concepto) | Workflow state en Shortcut |
+| --- | --- |
+| Backlog | `Backlog` |
+| En progreso | `In Progress` |
+| En revisión | `In Review` |
+| Hecho | `Done` |
 
 ```
 | Backlog | En progreso | En revisión | Hecho |

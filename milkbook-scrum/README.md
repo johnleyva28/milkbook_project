@@ -13,7 +13,8 @@ Esta carpeta contiene todo el material Scrum del proyecto **Milkbook**: equipo, 
 | [`product-backlog.md`](./product-backlog.md) | Backlog priorizado con épicas e historias. |
 | [`capacity.md`](./capacity.md) | Capacidad del equipo por sprint (story points por persona). |
 | [`tablero-kanban.md`](./tablero-kanban.md) | Vista textual del kanban (Backlog / En progreso / En revisión / Hecho). |
-| [`herramientas.md`](./herramientas.md) | Catálogo de herramientas de planificación para comparar antes de elegir. |
+| [`herramientas.md`](./herramientas.md) | Catálogo de herramientas + **decisión registrada: Shortcut**. |
+| [`shortcut-setup.md`](./shortcut-setup.md) | Guía paso a paso para configurar Shortcut (elegida 2026-09-23). |
 | [`sprints/`](./sprints/) | Una carpeta por sprint con planning, tablero y review. |
 | [`plantillas/`](./plantillas/) | Templates para escribir historias, épicas y spikes. |
 

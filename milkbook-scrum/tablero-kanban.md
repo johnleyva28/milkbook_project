@@ -1,10 +1,18 @@
 # Tablero Kanban — Milkbook
 
-Vista textual del tablero kanban del sprint actual. **4 columnas**: Backlog → En progreso → En revisión → Hecho.
+Vista textual del tablero kanban. **4 columnas**: Backlog → En progreso → En revisión → Hecho.
 
-> **Mientras no adoptemos una herramienta externa** (ver [`herramientas.md`](./herramientas.md)), este archivo es la fuente de verdad. Actualizar al menos **2 veces por semana**.
+> ## ⚠️ Fuente de verdad actual: **Shortcut**
+>
+> Desde el 2026-09-23 la herramienta oficial de planificación es **[Shortcut](https://www.shortcut.com)** (plan Free). Este archivo queda como **snapshot histórico** y backup.
+>
+> Ver:
+> - [`herramientas.md`](./herramientas.md) — decisión registrada.
+> - [`shortcut-setup.md`](./shortcut-setup.md) — guía de configuración paso a paso.
+>
+> **Regla nueva**: actualizar este Markdown solo cuando se cierra un sprint (snapshot final). El día a día se ve directamente en Shortcut.
 
-**Convención de IDs**: `HU-XX` (historia de usuario) del [`product-backlog.md`](./product-backlog.md). Los spikes usan `SP-XX`. Las épicas usan `EP-XX`.
+**Convención de IDs**: `HU-XX` (historia de usuario) del [`product-backlog.md`](./product-backlog.md). En Shortcut los IDs son `sc-XXX` (numéricos automáticos).
 
 **Símbolos**:
 - ✅ = hecho
