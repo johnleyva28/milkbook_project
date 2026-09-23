@@ -13,6 +13,21 @@ El formato sigue [Keep a Changelog 1.1.0](https://keepachangelog.com/es/1.1.0/) 
 
 ---
 
+## [0.2.0] - 2026-09-23
+
+### Changed
+- **Herramienta de planificación**: el equipo eligió **[Shortcut](https://www.shortcut.com)** (plan Free) como herramienta oficial para Scrum, reemplazando el tablero Markdown como fuente de verdad del día a día. Decisión documentada en [`../milkbook-scrum/herramientas.md`](../milkbook-scrum/herramientas.md). @leyva
+
+### Added
+- **Guía de setup de Shortcut**: `milkbook-scrum/shortcut-setup.md` con 12 pasos detallados para crear el workspace, configurar el workflow (4 columnas: Backlog / In Progress / In Review / Done), activar Iterations (sprints de 2 semanas), migrar las 40+ historias del backlog, crear las 5 épicas, asignar las 6 historias del Sprint 01, conectar la integración GitHub, e invitar al equipo. Incluye tips del Startup Program (12 meses gratis del plan Team) y Nonprofit Program. @leyva
+
+### Docs
+- Actualizado `proceso.md` con la tabla de mapeo entre las 4 columnas del kanban conceptual y los workflow states de Shortcut. @leyva
+- Actualizado `tablero-kanban.md` indicando que ahora es snapshot histórico; la fuente de verdad del día a día pasa a Shortcut. @leyva
+- Actualizado `herramientas.md` con banner "Decisión del equipo" al inicio, señalando Shortcut como la elección. @leyva
+
+---
+
 ## [0.1.0] - 2026-09-23
 
 ### Added

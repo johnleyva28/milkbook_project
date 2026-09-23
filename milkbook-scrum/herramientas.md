@@ -1,8 +1,16 @@
 # Catálogo de herramientas de planificación
 
-> **No hay recomendación activa en este archivo.** Es solo un catálogo comparativo para que el equipo decida en el futuro.
+> ## ✅ Decisión del equipo (2026-09-23): **Shortcut** (plan Free)
 >
-> La herramienta actual del equipo es **`tablero-kanban.md`** (Markdown plano). Cuando el equipo sienta que necesita más, se vuelve aquí y elige.
+> Elegimos **Shortcut** porque:
+> - Plan Free cubre los 4 devs (hasta 10 usuarios).
+> - Scrum completo out-of-the-box (iterations, burndown, velocity, capacity).
+> - Integración GitHub nativa (PRs vinculan Stories, mueve columnas automáticamente).
+> - Sin instalación, sin mantener infraestructura.
+>
+> Ver [`shortcut-setup.md`](./shortcut-setup.md) para la guía paso a paso de configuración. Esta página queda como catálogo histórico / referencia para cuando haya que cambiar.
+>
+> La fuente de verdad del estado de las historias pasa a ser Shortcut. El `tablero-kanban.md` queda como snapshot histórico y backup.
 
 ---
 
