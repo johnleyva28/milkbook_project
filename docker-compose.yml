@@ -26,7 +26,7 @@ services:
     restart: "no"
     working_dir: /db
     volumes:
-      - ./milkbook_db:/db:ro
+      - ./milkbook_db:/db
     command: ["sh", "-c", "npm ci && npx prisma migrate deploy"]
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
@@ -96,7 +96,7 @@ services:
       loki:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:9080/ready > /dev/null || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:9080/ > /dev/null || exit 1"]
       interval: 15s
       timeout: 3s
       retries: 5
