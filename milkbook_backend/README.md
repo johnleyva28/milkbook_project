@@ -1,114 +1,129 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# milkbook_backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST del proyecto milkbook. NestJS 12 + Express + Prisma 7 (cliente generado con driver adapter `@prisma/adapter-pg`).
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Stack
 
-## Description
+- **NestJS 12** sobre **Express**
+- **Prisma 7** con driver adapter `@prisma/adapter-pg` (Postgres nativo, sin Accelerate)
+- **Pino** + **nestjs-pino** para logging estructurado JSON
+- **Vitest** para tests unitarios y e2e
+- **TypeScript 6** strict
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Estructura interna
 
-## Project setup
-
-```bash
-$ npm install
+```
+src/
+├── main.ts                 # bootstrap NestJS, configura pino como logger global
+├── app.module.ts           # módulo raíz: LoggerModule (pino) + PrismaModule
+├── app.controller.ts       # endpoint raíz GET /
+├── app.service.ts          # servicio raíz
+└── prisma/
+    ├── prisma.module.ts    # @Global, exporta PrismaService
+    └── prisma.service.ts   # extiende PrismaClient con adapter-pg
 ```
 
-## Compile and run the project
+El schema de Prisma vive en `../milkbook_db/schema.prisma` (carpeta sibling, no acá).
 
-```bash
-# development
-$ npm run start
+## Endpoints actuales
 
-# watch mode
-$ npm run start:dev
+| Método | Path | Descripción |
+|---|---|---|
+| `GET` | `/` | Healthcheck ligero. Retorna string hardcoded (placeholder). |
 
-# production mode
-$ npm run start:prod
+Endpoints nuevos se agregan en módulos NestJS por dominio (`auth/`, `accounts/`, etc.).
+
+## Comandos
+
+```powershell
+# Desarrollo local sin Docker (requiere Postgres corriendo en localhost:5432)
+$env:DATABASE_URL = "postgres://milkbook:changeme@localhost:5432/milkbook"
+$env:NODE_ENV = "development"
+npm install
+npm run start:dev
+
+# Tests
+npm test              # unit (vitest run)
+npm run test:watch    # watch mode
+npm run test:e2e      # e2e (config: vitest.config.e2e.ts)
+npm run test:cov      # coverage
+
+# Build
+npm run build         # genera dist/
+
+# Lint
+npm run lint          # oxlint
+npm run format        # prettier
 ```
 
-## Run tests
+## Docker
 
-```bash
-# unit tests
-$ npm run test
+El backend se dockeriza con un multi-stage build (`Dockerfile` en esta carpeta). La imagen final:
+- Base: `node:20-alpine`
+- Stage `deps`: `npm ci`
+- Stage `build`: copia el schema desde `../milkbook_db/` vía BuildKit `additional_contexts`, corre `npx prisma generate` y `nest build`, prune dev deps
+- Stage `runtime`: imagen final sin dev deps, `CMD ["node", "dist/main.js"]`
 
-# e2e tests
-$ npm run test:e2e
+Para reconstruir manualmente: `docker compose up -d --build backend`.
 
-# test coverage
-$ npm run test:cov
+## Variables de entorno
+
+| Variable | Default | Descripción |
+|---|---|---|
+| `NODE_ENV` | `development` | `production` desactiva `pino-pretty` (JSON puro a stdout). |
+| `PORT` | `3000` | Puerto HTTP interno del contenedor. Mapeado a `${BACKEND_PORT}` en el host. |
+| `DATABASE_URL` | — | URL Postgres completa (formato `postgres://user:pass@host:port/db`). Inyectada por compose. |
+
+## Logging
+
+Logger global via `nestjs-pino`. Formato según `NODE_ENV`:
+- **`production`** (contenedor): JSON puro a stdout → Promtail lo lee, lo etiqueta y lo envía a Loki.
+- **`development`** (local): `pino-pretty` con `singleLine: true` para consola legible.
+
+Cada log incluye automáticamente: `level`, `time`, `pid`, `hostname`, `reqId`, `req.method`, `req.url`, `res.statusCode`, `responseTime`.
+
+Para agregar contexto custom: `this.logger.log({ userId }, 'mensaje')` en cualquier servicio (inyectar `Logger` de `nestjs-pino`).
+
+## Prisma
+
+- **Schema**: `../milkbook_db/schema.prisma`
+- **Migrations**: `../milkbook_db/migrations/`
+- **Cliente generado**: `node_modules/.prisma/client/` (ubicación controlada por `PRISMA_OUTPUT`, ver `../milkbook_db/README.md`)
+- **Driver adapter**: `@prisma/adapter-pg` para conexión nativa a Postgres sin Accelerate.
+
+El `PrismaService` está marcado `@Global()`, así que cualquier módulo del backend puede inyectarlo sin reimportar `PrismaModule`.
+
+## Tests
+
+```powershell
+# Test unit del controller raíz (existente)
+npm test
 ```
 
-## Deployment
+Para agregar tests de un módulo nuevo: `*.spec.ts` al lado del archivo a testear, importar `Test.createTestingModule` de `@nestjs/testing`. Cobertura actual: 1/1 (controller.spec.ts).
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## Estructura para crecer
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Cuando se agreguen features (auth, accounts, transactions, etc.):
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+```
+src/
+├── auth/
+│   ├── auth.module.ts
+│   ├── auth.controller.ts
+│   ├── auth.service.ts
+│   ├── dto/
+│   │   └── login.dto.ts
+│   └── auth.service.spec.ts
+├── accounts/
+│   └── ...
+└── ...
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Cada feature module ≤ 500 líneas (regla del proyecto). Si crece, partir en submódulos.
 
-## Observability
+## Recursos
 
-In production applications, observability is essential for understanding how your system behaves, detecting issues early, and maintaining reliable performance.
-
-[NestJS Observe](https://observe.nestjs.com) automatically instruments your NestJS application, giving you deep visibility into your system with minimal setup:
-
-- **Distributed tracing:** Follow requests across services and understand how they flow through your system.
-- **Waterfall analysis:** Visualize request execution and identify slow operations, bottlenecks, and unexpected delays.
-- **Performance analysis:** Analyze application performance in real time and quickly pinpoint areas that need optimization.
-- **Metrics:** Track key application and infrastructure metrics to understand system health and performance trends.
-- **Logging:** Centralize and correlate logs with traces and other telemetry to make debugging easier.
-- **Error tracking:** Detect errors quickly and investigate their root causes with the surrounding context.
-- **SLA monitoring:** Track service-level objectives and identify when your application is approaching or exceeding defined thresholds.
-- **Alarms and alerts:** Set up alerts for critical errors, performance degradation, SLA violations, and other anomalies so your team can react quickly.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Auto-instrument your application with [NestJS Observer](https://observer.nestjs.com). Distributed tracing, metrics, and logging made easy. Error tracking and performance monitoring for your NestJS applications.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- NestJS docs: https://docs.nestjs.com
+- Prisma 7 docs: https://www.prisma.io/docs
+- Pino: https://getpino.io
