@@ -15,8 +15,10 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return the initial backend setup message', () => {
+      expect(appController.getHello()).toBe(
+        'Hola desde leyva, este es el setup inicial del backend',
+      );
     });
   });
 });
